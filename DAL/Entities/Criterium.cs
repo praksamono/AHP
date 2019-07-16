@@ -10,5 +10,7 @@
         public string DateCreated { get; set; }
 
         public string DateUpdated { get; set; }
+
+        public Goal goal { get; set; }
     }
 }

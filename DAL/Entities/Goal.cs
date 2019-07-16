@@ -1,4 +1,6 @@
-﻿namespace DAL
+﻿using System.Collections.Generic;
+
+namespace DAL
 {
     public class Goal
     {
@@ -11,6 +13,9 @@
 
         public string DateUpdated { get; set; }
 
-        public Goal goal { get; set; }
+        public List<Alternative> Alternatives { get; set; }
+
+        public List<Criterium> Criteriums { get; set; }
+
     }
 }
