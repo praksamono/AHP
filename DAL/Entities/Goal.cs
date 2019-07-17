@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DAL
 {
@@ -9,9 +10,9 @@ namespace DAL
 
         public string GoalName { get; set; }
 
-        public string DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
 
-        public string DateUpdated { get; set; }
+        public DateTime DateUpdated { get; set; }
 
         public List<Alternative> Alternatives { get; set; }
 

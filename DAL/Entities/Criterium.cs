@@ -1,4 +1,7 @@
-﻿namespace DAL
+﻿using System;
+using System.Collections.Generic;
+
+namespace DAL
 {
     public class Criterium
     {
@@ -6,11 +9,13 @@
 
         public string CriteriumName { get; set; }
 
+        public float GlobalCriteriumPriority { get; set; }
 
-        public string DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
 
-        public string DateUpdated { get; set; }
+        public DateTime DateUpdated { get; set; }
 
-        public Goal goal { get; set; }
+        public List<Criterium_Alternative> criterium_alternatives { get; set; }
+
     }
 }
