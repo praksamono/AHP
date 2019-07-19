@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Model.Common;
 
 namespace Model
 {
-    public class Goal 
+    public class Goal : IGoal
     {
 
         public int GoalId { get; set; }
@@ -15,8 +16,8 @@ namespace Model
 
         public string DateUpdated { get; set; }
 
-        public List<Alternative> Alternatives { get; set; }
+        public List<IAlternative> Alternatives { get; set; }
 
-        public List<Criterium> Criteriums { get; set; }
+        public List<ICriterium> Criteriums { get; set; }
     }
 }

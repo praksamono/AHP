@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Model.Common;
 
-namespace Goal.Repository.Common
+namespace Repository.Common
 {
     public interface IGoalRepository
     {
-        Goal GetGoal(int id);
+        IGoal GetGoal(int goalId);
 
         List<IGoal> GetAllGoals();
 
-        Goal Add(Goal goal);
+        IGoal Add(IGoal goal);
 
-        Goal Update(Goal goalUpdates);
+        IGoal Update(IGoal goalUpdates);
 
-        Goal Delte(int id);
+        IGoal Delete(int goalId);
 
 
     }

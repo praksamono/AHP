@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DAL;
-
+using Repository.Common;
+using Repository;
 
 namespace WebApplication1
 {
@@ -23,6 +24,8 @@ namespace WebApplication1
         {
 
             services.AddDbContextPool<AHPContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("connectionString")));
+
+            services.AddScoped<IGoalRepository, GoalRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
