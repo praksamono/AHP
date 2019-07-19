@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/css/reset.css" type="text/css">
+		<link rel="stylesheet" href="/css/master.css" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
+		<title>AHP</title>
+	</head>
+	<body>
+		<!-- Landing page -->
+		<h1 class="main-title">Welcome to AHP simulator</h1>
+		<h3>Enter a goal you want to make a decision for</h3>
+		<div id="landing">
+			<input type="text" placeholder="goal" class="text-input" id="goal"></input>
+			<button type="button" class="short">></button>
+		</div>
+		<!-- End landing page -->
+
+
+		<div class="spacing"></div>
+
+
+		<!-- Enter criteria -->
+		<h1 class="main-title">Welcome to AHP simulator</h1>
+		<h3>Enter your criteria</h3>
+		<input type="text" placeholder="criterion" class="text-input"></input>
+		<!-- FIXME: button placement -->
+		<div class="unit">
+			<input type="text" placeholder="criterion" class="text-input"></input>
+			<button type="button" class="short" id="plus">+</button>
+		</div>
+		<div class="navigation">
+			<button type="button" class="short"><</button>
+			<button type="button" class="short">></button>
+		</div>
+		<!-- End enter criteria -->
+
+
+		<div class="spacing"></div>
+
+
+		<!-- Enter alternatives -->
+		<h1 class="main-title">Welcome to AHP simulator</h1>
+		<h3>Enter your alternatives</h3>
+		<input type="text" placeholder="alternative" class="text-input"></input>
+		<!-- FIXME: button placement -->
+		<div class="unit">
+			<input type="text" placeholder="alternative" class="text-input"></input>
+			<button type="button" class="short" id="plus">+</button>
+		</div>
+		<div class="navigation">
+			<button type="button" class="short"><</button>
+			<button type="button" class="short">></button>
+		</div>
+		<!-- End enter alternatives -->
+
+
+		<div class="spacing"></div>
+
+
+		<!-- Enter criteria priority -->
+		<h1 class="main-title">Welcome to AHP simulator</h1>
+		<h3>Set criteria priority</h3>
+		<!-- Floating legend -->
+		<legend>
+			<p>1 - equal importance</p>
+			<p>3 - moderate importance</p>
+			<p>5 - strong importance</p>
+			<p>7 - very strong importance</p>
+			<p>9 - extreme importance</p>
+		</legend>
+		<!-- End legend -->
+
+		<!-- Slider block -->
+		<!-- Repeat this part for every criteria pair -->
+		<div class="priority">
+			<!-- Criterion 1 is a placeholder, should display data from db -->
+			<label for="range" class="alternative left">Criterion 1</label>
+			<div class="slider">
+				<div class="nums">
+					<span class="num">9</span>
+					<span class="num">7</span>
+					<span class="num">5</span>
+					<span class="num">3</span>
+					<span class="num">1</span>
+					<span class="num">3</span>
+					<span class="num">5</span>
+					<span class="num">7</span>
+					<span class="num">9</span>
+				</div>
+				<input type="range" value="0" min="-4" max="4" step="1" class="range">
+			</div>
+			<!-- Another placeholder -->
+			<label for="range" class="alternative right">Criterion 2</label>
+		</div>
+		<!-- End repeat -->
+
+		<!-- Repeated for styling purposes -->
+		<div class="priority">
+			<label for="range" class="alternative left">Criterion 1</label>
+			<div class="slider">
+				<div class="nums">
+					<span class="num">9</span>
+					<span class="num">7</span>
+					<span class="num">5</span>
+					<span class="num">3</span>
+					<span class="num">1</span>
+					<span class="num">3</span>
+					<span class="num">5</span>
+					<span class="num">7</span>
+					<span class="num">9</span>
+				</div>
+				<input type="range" value="0" min="-4" max="4" step="1" class="range">
+			</div>
+			<label for="range" class="alternative right">Criterion 2</label>
+		</div>
+
+		<div class="navigation">
+			<button type="button" class="short"><</button>
+			<button type="button" class="short">></button>
+		</div>
+		<!-- End enter criteria priority -->
+
+
+		<div class="spacing"></div>
+
+
+		<!-- Repeat "page" for every criterion -->
+		<!-- Enter enter alternative priority per criterion -->
+		<h1 class="main-title">Welcome to AHP simulator</h1>
+
+		<!-- Placeholder, should display actual criterion -->
+		<h2>Current criterion</h2>
+
+		<!-- Floating legend -->
+		<legend>
+			<p>1 - equal importance</p>
+			<p>3 - moderate importance</p>
+			<p>5 - strong importance</p>
+			<p>7 - very strong importance</p>
+			<p>9 - extreme importance</p>
+		</legend>
+		<!-- End legend -->
+
+		<!-- Slider block -->
+		<!-- Repeat this part for every alternative pair -->
+		<div class="priority">
+			<!-- Placeholder for actual alternative -->
+			<label for="range" class="alternative left">Prva kuca</label>
+			<div class="slider">
+				<div class="nums">
+					<span class="num">9</span>
+					<span class="num">7</span>
+					<span class="num">5</span>
+					<span class="num">3</span>
+					<span class="num">1</span>
+					<span class="num">3</span>
+					<span class="num">5</span>
+					<span class="num">7</span>
+					<span class="num">9</span>
+				</div>
+				<input type="range" value="0" min="-4" max="4" step="1" class="range">
+			</div>
+			<!-- Another placeholder -->
+			<label for="range" class="alternative right">druga kuca</label>
+		</div>
+		<!-- End repeat -->
+
+		<!-- Repeated for styling purposes -->
+		<div class="priority">
+			<label for="range" class="alternative left">Alternative 1</label>
+			<div class="slider">
+				<div class="nums">
+					<span class="num">9</span>
+					<span class="num">7</span>
+					<span class="num">5</span>
+					<span class="num">3</span>
+					<span class="num">1</span>
+					<span class="num">3</span>
+					<span class="num">5</span>
+					<span class="num">7</span>
+					<span class="num">9</span>
+				</div>
+				<input type="range" value="0" min="-4" max="4" step="1" class="range">
+			</div>
+			<label for="range" class="alternative right">Alternative 2</label>
+		</div>
+
+		<div class="navigation">
+			<button type="button" class="short"><</button>
+			<button type="button" class="short">></button>
+		</div>
+		<!-- End enter alternative priority per criterion -->
+
+
+		<div class="spacing"></div>
+
+
+		<!-- Results page -->
+		<h1 class="main-title">Welcome to AHP simulator</h1>
+		<h3>Optimal decision: </h3>
+
+		<!-- Display alternative with highest priority -->
+		<h4>best alternative</h4>
+
+		<h3>Here are your results: </h3>
+
+		<!-- Table should display results from db -->
+		<table>
+			<thead>
+				<tr>
+					<td>Alts</td>
+					<td>Criterion 1</td>
+					<td>Criterion 2</td>
+					<td>Goal</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Alt 1</td>
+					<td>0.119</td>
+					<td>0.119</td>
+					<td>0.119</td>
+				</tr>
+				<tr>
+					<td>Alt 2</td>
+					<td>0.119</td>
+					<td>0.119</td>
+					<td>0.119</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td>Total</td>
+					<td>0.256</td>
+					<td>0.256</td>
+					<td>1.000</td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<!-- Links and restars -->
+		<footer>
+			<button type="button" class="long" id="restart">Start over?</button>
+			<div class="links">
+				<div class="imgs">
+					<a href="https://github.com/praksamono/AHP" target="_blank"><img src="../assets/gh.png" alt=""></a>
+					<a href="" target="_blank"><img src="../assets/fb.png" alt=""></a>
+					<a href="" target="_blank"><img src="../assets/tw.png" alt=""></a>
+					<a href="" target="_blank"><img src="../assets/ig.png" alt=""></a>
+				</div>
+				<span id="copyright">&copy Wilsonova, 2019.</span>
+			</div>
+		</footer>
+
+		<!-- End results page -->
+	</body>
+</html>
