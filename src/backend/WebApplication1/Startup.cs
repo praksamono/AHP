@@ -1,26 +1,45 @@
-﻿using Microsoft.AspNetCore.Builder;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Service;
+using Model;
+using Repository;
 using DAL;
+<<<<<<< HEAD
 using Repository.Common;
 using Repository;
+=======
+>>>>>>> 98dc2584d55eed25a8c12df09474fdee7b14976e
 
 namespace WebApplication1
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+             .SetBasePath(env.ContentRootPath)
+             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+             .AddEnvironmentVariables();
+            this.Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
             services.AddDbContextPool<AHPContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("connectionString")));
@@ -28,6 +47,16 @@ namespace WebApplication1
             services.AddScoped<IGoalRepository, GoalRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var builder = new Autofac.ContainerBuilder();
+            ServiceModule.ConfigureServiceModule(builder);
+            ModelModule.ConfigureModelModule(builder);
+            RepositoryModule.ConfigureRepositoryModule(builder);
+            builder.Populate(services);
+
+            var container = builder.Build();
+
+            return container.Resolve<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
