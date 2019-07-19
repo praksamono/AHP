@@ -1,3 +1,192 @@
+@media only screen and (max-width: 1200px){
+	legend {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-self: center;
+
+		top: 2vh;
+		width: 80vw;
+		margin: 0 5vw;
+	}
+}
+
 @media only screen and (max-width: 768px) {
-	
+	footer {
+		flex-direction: column;
+		align-content: center;
+
+		& .links, button {
+			align-self: center;
+		}
+	}
+
+	#landing {
+		flex-direction: column;
+	}
+
+	.priority {
+		align-content: center;
+		align-items: center;
+		position: relative;
+		height: 10vh;
+
+		.slider {
+			position: absolute;
+			align-self: flex-start;
+			width: 80vw;
+			order: 1;
+
+			.range, .nums {
+				width: 100%;
+			}
+		}
+
+		.alternative {
+			align-self: flex-end;
+			position: relative;
+			width: 80vw;
+			flex-direction: row;
+			justify-content: space-around;
+
+			#left {
+				order: 2;
+			}
+
+			#right {
+				order: 3;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.main-title {
+		font-size: 7vh;
+	}
+
+	thead {
+		font-size: 3vh;
+	}
+
+	td {
+		padding: 3vh 1vw;
+	}
+
+	button.short {
+		height: 10vh;
+		width: 10vh;
+		font-size: 7vh;
+
+		&#plus {
+			height: 8vh;
+			width: 8vh;
+			font-size: 6vh;
+		}
+	}
+
+	legend {
+		flex-direction: column;
+		width: 40vw;
+
+		p {
+			padding: 5px;
+		}
+	}
+
+	#restart {
+		width: 30vh;
+		height: 15vh;
+		font-size: 4vh;
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	h1, h2, h3, h4 {
+		text-align: center;
+	}
+
+	.main-title {
+		font-size: 5.5vh;
+		width: 70vw;
+	}
+
+	h2 {
+		font-size: 4vh;
+		width: 70vw;
+	}
+
+	h3 {
+		font-size: 3.5vh;
+		width: 70vw;
+	}
+
+	h4 {
+		font-size: 3vh;
+		width: 70vw;
+	}
+
+	.text-input {
+		width: 40vh;
+		height: 8vh;
+		font-size: 4vh;
+	}
+
+	.alternative {
+		font-size: 3vh;
+	}
+
+	#goal {
+		font-size: 4vh;
+		height: 8vh;
+		width: 40vh;
+	}
+
+	table {
+		font-size: 1.5vh;
+		padding: 1vh 0.5vw;
+		margin: 2vh 5vw 2vh 2vw;
+	}
+
+	thead {
+		font-size: 2vh;
+		td:last-child {
+			font-size: 2.5vh;
+		}
+	}
+
+	tfoot td:first-child {
+		font-size: 2vh;
+		padding: 1.5vh 0.75vw;
+	}
+}
+
+@media only screen and (max-width: 350px) {
+	img {
+		height: 5vh;
+		width: 5vh;
+	}
+
+	#restart {
+		width: 25vh;
+		height: 10vh;
+		font-size: 3vh;
+	}
+
+	.text-input {
+		width: 30vh;
+		height: 5vh;
+		font-size: 3vh;
+	}
+
+	.alternative {
+		font-size: 1.75vh;
+	}
+
+	#goal {
+		font-size: 3vh;
+		height: 5vh;
+		width: 30vh;
+	}
 }

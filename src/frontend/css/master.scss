@@ -16,7 +16,6 @@
 @import "./headings";
 @import "./slider";
 @import "./table";
-@import "./media";
 
 // ----------------------------------------
 // 1. General HTML element styles
@@ -70,6 +69,12 @@ footer {
 
 // ----------------------------------------
 // 2. Classes' styles
+.main-title {
+	width: 35vw;
+	text-align: center;
+}
+
+
 .text-input {
 	position: relative;
 	align-self: center;
@@ -96,9 +101,8 @@ footer {
 // Join multiple elements into a collection (row)
 .unit {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
-	align-self: center;
 }
 
 // Contains "previous" and "next" buttons
@@ -118,11 +122,17 @@ footer {
 
 // For separating page parts
 .spacing {
-	height: 500vh;
+	height: 100vh;
 }
 
 // ----------------------------------------
 // 3. Id's styles
+
+#landing {
+	@include flexCenter();
+	display: flex;
+	flex-direction: row;
+}
 
 #goal {
 	font-size: 7vh;
@@ -137,6 +147,8 @@ footer {
 
 #restart {
 	position: relative;
-	align-self: flex-end;
-	margin-right: 7vw;
+	margin-right: 4vw;
 }
+
+
+@import "./media";

@@ -3,7 +3,6 @@
 1. General HTML element styles
 2. Classes' styles
 3. Id's styles
-4. Media
 */
 button {
   border: none;
@@ -29,7 +28,7 @@ button.short#plus {
   width: 13vh;
   height: 13vh;
   position: relative;
-  left: 5vw;
+  margin-bottom: 10vh;
 }
 
 h1, h2, h3, h4 {
@@ -152,7 +151,7 @@ table {
   overflow: hidden;
   border-radius: 1vh;
   font-size: 3vh;
-  margin: 5vh 10vw;
+  margin: 5vh 5vw;
 }
 
 td {
@@ -261,6 +260,11 @@ footer {
   margin-bottom: 5vh;
 }
 
+.main-title {
+  width: 35vw;
+  text-align: center;
+}
+
 .text-input {
   position: relative;
   -ms-flex-item-align: center;
@@ -298,15 +302,13 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-item-align: center;
-      align-self: center;
 }
 
 .navigation button {
@@ -322,7 +324,23 @@ footer {
 }
 
 .spacing {
-  height: 500vh;
+  height: 100vh;
+}
+
+#landing {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 #goal {
@@ -338,8 +356,203 @@ footer {
 
 #restart {
   position: relative;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  margin-right: 7vw;
+  margin-right: 4vw;
+}
+
+@media only screen and (max-width: 1200px) {
+  legend {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -ms-flex-item-align: center;
+        align-self: center;
+    top: 2vh;
+    width: 80vw;
+    margin: 0 5vw;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  footer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-line-pack: center;
+        align-content: center;
+  }
+  footer .links, footer button {
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+  #landing {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .priority {
+    -ms-flex-line-pack: center;
+        align-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: relative;
+    height: 10vh;
+  }
+  .priority .slider {
+    position: absolute;
+    -ms-flex-item-align: start;
+        align-self: flex-start;
+    width: 80vw;
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+  .priority .slider .range, .priority .slider .nums {
+    width: 100%;
+  }
+  .priority .alternative {
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+    position: relative;
+    width: 80vw;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .priority .alternative #left {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+  }
+  .priority .alternative #right {
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .main-title {
+    font-size: 7vh;
+  }
+  thead {
+    font-size: 3vh;
+  }
+  td {
+    padding: 3vh 1vw;
+  }
+  button.short {
+    height: 10vh;
+    width: 10vh;
+    font-size: 7vh;
+  }
+  button.short#plus {
+    height: 8vh;
+    width: 8vh;
+    font-size: 6vh;
+  }
+  legend {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 40vw;
+  }
+  legend p {
+    padding: 5px;
+  }
+  #restart {
+    width: 30vh;
+    height: 15vh;
+    font-size: 4vh;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  h1, h2, h3, h4 {
+    text-align: center;
+  }
+  .main-title {
+    font-size: 5.5vh;
+    width: 70vw;
+  }
+  h2 {
+    font-size: 4vh;
+    width: 70vw;
+  }
+  h3 {
+    font-size: 3.5vh;
+    width: 70vw;
+  }
+  h4 {
+    font-size: 3vh;
+    width: 70vw;
+  }
+  .text-input {
+    width: 40vh;
+    height: 8vh;
+    font-size: 4vh;
+  }
+  .alternative {
+    font-size: 3vh;
+  }
+  #goal {
+    font-size: 4vh;
+    height: 8vh;
+    width: 40vh;
+  }
+  table {
+    font-size: 1.5vh;
+    padding: 1vh 0.5vw;
+    margin: 2vh 5vw 2vh 2vw;
+  }
+  thead {
+    font-size: 2vh;
+  }
+  thead td:last-child {
+    font-size: 2.5vh;
+  }
+  tfoot td:first-child {
+    font-size: 2vh;
+    padding: 1.5vh 0.75vw;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  img {
+    height: 5vh;
+    width: 5vh;
+  }
+  #restart {
+    width: 25vh;
+    height: 10vh;
+    font-size: 3vh;
+  }
+  .text-input {
+    width: 30vh;
+    height: 5vh;
+    font-size: 3vh;
+  }
+  .alternative {
+    font-size: 1.75vh;
+  }
+  #goal {
+    font-size: 3vh;
+    height: 5vh;
+    width: 30vh;
+  }
 }
 /*# sourceMappingURL=master.css.map */
