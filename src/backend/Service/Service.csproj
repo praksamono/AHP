@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <None Include="Service_Matrices.cs" />
+=======
+    <PackageReference Include="Autofac" Version="4.9.2" />
+>>>>>>> 57de37094c80dd1fd2f538c4e55414a20c978849
   </ItemGroup>
 
 </Project>
