@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Repository.Common;
 
 namespace Repository
 {
@@ -10,6 +11,7 @@ namespace Repository
        public static void ConfigureRepositoryModule(ContainerBuilder builder)
         {
             // builder.RegisterType<ClassName>().As<InterfaceName>(); for new Classes
+            builder.RegisterType<GoalRepository>().As<IGoalRepository>();
         }
     }
 }

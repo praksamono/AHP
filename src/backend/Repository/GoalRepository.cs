@@ -7,19 +7,20 @@ using Model.Common;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Repository 
 {
     public class GoalRepository : IGoalRepository
     {
 
-        protected AHPContext Context { get; private set; }
         public GoalRepository(AHPContext context)
         {
             this.Context = context;
         }
 
-  
+        protected AHPContext Context { get; private set; }
+
         public async Task<IGoal> GetGoalAsync(int goalId)
         {
             throw new NotImplementedException();
@@ -27,6 +28,8 @@ namespace Repository
 
         public async Task<List<IGoal>> GetAllGoalsAsync()
         {
+
+            Mapper.CreateMap<WcfEmployee, WebAppEmployee>();
 
             return await Context.Goals.ToListAsync();
 

@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <ProjectReference Include="..\Model.Common\Model.Common.csproj" />
-=======
     <PackageReference Include="Autofac" Version="4.9.2" />
->>>>>>> 98dc2584d55eed25a8c12df09474fdee7b14976e
   </ItemGroup>
 
 </Project>
