@@ -10,6 +10,10 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { AboutComponent } from './components/pages/about/about.component';
+import { AddAlternativeComponent } from './components/add-alternative/add-alternative.component';
+import { AlternativeItemComponent } from './components/alternative-item/alternative-item.component';
+import { AlternativesComponent } from './components/alternatives/alternatives.component';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +23,9 @@ import { AboutComponent } from './components/pages/about/about.component';
     HeaderComponent,
     AddTodoComponent,
     AboutComponent,
+    AddAlternativeComponent,
+    AlternativeItemComponent,
+    AlternativesComponent,
   ],
   imports: [
     BrowserModule,

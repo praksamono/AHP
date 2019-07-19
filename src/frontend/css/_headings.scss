@@ -1,0 +1,31 @@
+h1, h2, h3, h4 {
+	margin: 7vh;
+	width: 50vw;
+	align-self: center;
+}
+
+h1, h3 {
+	color: $monoRed;
+}
+
+h2, h4 {
+	color: $darkGray;
+}
+
+h1 {
+	font-size: 9vh;
+}
+
+h2 {
+	font-size: 6vh;
+}
+
+h3 {
+	font-size: 5vh;
+}
+
+h4 {
+	font-size: 4.5vh;
+	margin-top: 2vh;
+	margin-bottom: 15vh;
+}
