@@ -5,7 +5,9 @@ namespace DAL
 {
     public class Goal
     {
-
+       /// <summary>
+       /// 
+       /// </summary>
         public int GoalId { get; set; }
 
         public string GoalName { get; set; }

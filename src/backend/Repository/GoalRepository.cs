@@ -29,9 +29,9 @@ namespace Repository
         public async Task<List<IGoal>> GetAllGoalsAsync()
         {
 
-            Mapper.CreateMap<WcfEmployee, WebAppEmployee>();
+            throw new NotImplementedException();
 
-            return await Context.Goals.ToListAsync();
+            //return await Context.Goals.ToListAsync();
 
             //var goals = Context.Goals;
             //return await goals.ToListAsync();

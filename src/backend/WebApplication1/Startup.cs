@@ -46,16 +46,9 @@ namespace WebApplication1
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.ConfigureAutomapper();
+            //services.ConfigureAutomapper();
 
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<DAL.Goal, Model.Goal>();
-            });
-            // only during development, validate your mappings; remove it before release
-            configuration.AssertConfigurationIsValid();
-            // use DI (http://docs.automapper.org/en/latest/Dependency-injection.html) or create the mapper yourself
-            var mapper = configuration.CreateMapper();
+         
 
             var builder = new Autofac.ContainerBuilder();
             ServiceModule.ConfigureServiceModule(builder);
