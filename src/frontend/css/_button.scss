@@ -8,14 +8,16 @@ button {
 
 	background-color: $monoRed;
 	color: $pureWhite;
-	font-size: 10vh;
+
 
 
 	&.long {
 		width: 40vh;
+		font-size: 6.5vh;
 	}
 
 	&.short {
+		font-size: 10vh;
 		width: 16vh;
 
 		&#plus {

@@ -6,7 +6,6 @@
 1. General HTML element styles
 2. Classes' styles
 3. Id's styles
-4. Media
 */
 
 // ----------------------------------------
@@ -17,6 +16,7 @@
 @import "./headings";
 @import "./slider";
 @import "./table";
+@import "./media";
 
 // ----------------------------------------
 // 1. General HTML element styles
@@ -38,7 +38,7 @@ legend {
 	position: fixed;
 	z-index: 9;
 	left: 1.5vw;
-	top: 3vh;
+	top: 15vh;
 
 	border: 2px solid $monoRed;
 	border-radius: 10px;
@@ -57,6 +57,15 @@ img {
 	width: 7vh;
 	height: 7vh;
 	margin: 1.75vh;
+}
+
+footer {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-top: 10vh;
+	margin-bottom: 5vh;
 }
 
 // ----------------------------------------
@@ -90,14 +99,21 @@ img {
 	flex-direction: row;
 	align-items: center;
 	align-self: center;
-	// DEBUG:
-	// background-color: green;
 }
 
+// Contains "previous" and "next" buttons
 .navigation {
 	button {
 		margin: 10vh 7.5vw;
 	}
+}
+
+// Contains links and copyright
+.links {
+	position: relative;
+	align-self: flex-start;
+	margin-left: 3vw;
+	margin-top: 5vh;
 }
 
 // For separating page parts
@@ -115,9 +131,12 @@ img {
 }
 
 #copyright {
-	font-size: 0.75rem;
+	font-size: 2vh;
 	color: $darkGray;
 }
 
-// ----------------------------------------
-// 4. Media
+#restart {
+	position: relative;
+	align-self: flex-end;
+	margin-right: 7vw;
+}

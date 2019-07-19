@@ -3,10 +3,11 @@ table {
 	overflow: hidden;
 	border-radius: 1vh;
 	font-size: 3vh;
+	margin: 5vh 10vw;
 }
 
 td {
-	padding: 5vh 5vw;
+	padding: 5vh 2vw;
 	border: 0.3vh solid $darkGray;
 
 	&:first-child {
@@ -30,6 +31,7 @@ thead {
 
 		&:last-child {
 			border-top-right-radius: 1vh;
+			font-size: 6vh;
 		}
 	}
 }
@@ -44,5 +46,9 @@ tfoot {
 	color: $darkGray;
 	td {
 		border: 0.5vh solid $darkGray;
+
+		&:first-child {
+			font-size: 4vh;
+		}
 	}
 }

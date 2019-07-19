@@ -13,14 +13,15 @@ button {
   height: 16vh;
   background-color: #CC324E;
   color: #FFFFFF;
-  font-size: 10vh;
 }
 
 button.long {
   width: 40vh;
+  font-size: 6.5vh;
 }
 
 button.short {
+  font-size: 10vh;
   width: 16vh;
 }
 
@@ -61,6 +62,8 @@ h3 {
 
 h4 {
   font-size: 4.5vh;
+  margin-top: 2vh;
+  margin-bottom: 15vh;
 }
 
 .priority {
@@ -77,6 +80,7 @@ h4 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 10vh 0;
 }
 
 .slider {
@@ -148,10 +152,11 @@ table {
   overflow: hidden;
   border-radius: 1vh;
   font-size: 3vh;
+  margin: 5vh 10vw;
 }
 
 td {
-  padding: 5vh 5vw;
+  padding: 5vh 2vw;
   border: 0.3vh solid #4F4F4F;
 }
 
@@ -177,6 +182,7 @@ thead td:first-child {
 
 thead td:last-child {
   border-top-right-radius: 1vh;
+  font-size: 6vh;
 }
 
 tbody {
@@ -191,6 +197,10 @@ tfoot {
 
 tfoot td {
   border: 0.5vh solid #4F4F4F;
+}
+
+tfoot td:first-child {
+  font-size: 4vh;
 }
 
 body {
@@ -213,7 +223,7 @@ legend {
   position: fixed;
   z-index: 9;
   left: 1.5vw;
-  top: 3vh;
+  top: 15vh;
   border: 2px solid #CC324E;
   border-radius: 10px;
   background-color: #FFFFFF;
@@ -231,6 +241,24 @@ img {
   width: 7vh;
   height: 7vh;
   margin: 1.75vh;
+}
+
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  margin-top: 10vh;
+  margin-bottom: 5vh;
 }
 
 .text-input {
@@ -285,6 +313,14 @@ img {
   margin: 10vh 7.5vw;
 }
 
+.links {
+  position: relative;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-left: 3vw;
+  margin-top: 5vh;
+}
+
 .spacing {
   height: 500vh;
 }
@@ -296,7 +332,14 @@ img {
 }
 
 #copyright {
-  font-size: 0.75rem;
+  font-size: 2vh;
   color: #4F4F4F;
+}
+
+#restart {
+  position: relative;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-right: 7vw;
 }
 /*# sourceMappingURL=master.css.map */
