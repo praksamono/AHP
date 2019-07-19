@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/css/reset.css" type="text/css">
+		<link rel="stylesheet" href="/css/master.css" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
+		<title>AHP</title>
+	</head>
+	<body>
+		<!-- Landing page -->
+		<h1>Welcome to <br>AHP simulator</h1>
+		<h3>Enter a goal you want to make a decision for</h3>
+		<div class="unit">
+			<input type="text" placeholder="goal" class="text-input" id="goal"></input>
+			<button type="button" name="button" class="short">></button>
+		</div>
+		<!-- End landing page -->
+
+		<div class="spacing"></div>
+
+		<!-- Enter criteria -->
+		<h1>Welcome to <br>AHP simulator</h1>
+		<h3>Enter your criteria</h3>
+		<input type="text" placeholder="criterion" class="text-input"></input>
+		<!-- FIXME: button placement -->
+		<div class="unit">
+			<input type="text" placeholder="criterion" class="text-input"></input>
+			<button type="button" name="button" class="short" id="plus">+</button>
+		</div>
+		<div class="navigation">
+			<button type="button" name="button" class="short"><</button>
+			<button type="button" name="button" class="short">></button>
+		</div>
+		<!-- End enter criteria -->
+
+		<div class="spacing"></div>
+
+		<!-- Enter alternatives -->
+		<h1>Welcome to <br>AHP simulator</h1>
+		<h3>Enter your alternatives</h3>
+		<input type="text" placeholder="alternative" class="text-input"></input>
+		<!-- FIXME: button placement -->
+		<div class="unit">
+			<input type="text" placeholder="alternative" class="text-input"></input>
+			<button type="button" name="button" class="short" id="plus">+</button>
+		</div>
+		<div class="navigation">
+			<button type="button" name="button" class="short"><</button>
+			<button type="button" name="button" class="short">></button>
+		</div>
+		<!-- End enter alternatives -->
+
+		<div class="spacing"></div>
+
+		<h1>H1 title</h1>
+		<h2>H2 title</h2>
+		<h3>H3 title</h3>
+		<h4>H4 title</h4>
+		<button type="button" name="button" class="long">Decide!</button>
+			<button type="button" name="button" class="short">></button>
+			<input type="text" name="" value="" class="text-input">
+		<footer>
+			<img src="./assets/fb.png" alt="">
+			<img src="./assets/twitter-2.png" alt="">
+		</footer>
+		<!-- <legend>
+			<p>1 - equal importance</p>
+			<p>3 - moderate importance</p>
+			<p>5 - strong importance</p>
+			<p>7 - very strong importance</p>
+			<p>9 - extreme importance</p>
+		</legend> -->
+		<!-- <div class="spacing"></div> -->
+		<div class="priority">
+			<label for="range" class="alternative left">Alternative 1</label>
+			<div class="slider">
+				<div class="nums">
+					<span class="num">9</span>
+					<span class="num">7</span>
+					<span class="num">5</span>
+					<span class="num">3</span>
+					<span class="num">1</span>
+					<span class="num">3</span>
+					<span class="num">5</span>
+					<span class="num">7</span>
+					<span class="num">9</span>
+				</div>
+				<input type="range" name="slider" value="0" min="-4" max="4" step="1" class="range">
+			</div>
+			<label for="range" class="alternative right">Alternative 2</label>
+		</div>
+		<!-- <div class="spacing"></div> -->
+		<table>
+			<thead>
+				<tr>
+					<td>Criterion 1</td>
+					<td>Criterion 2</td>
+					<td>Criterion 3</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>0.119</td>
+					<td>0.119</td>
+					<td>0.119</td>
+				</tr>
+				<tr>
+					<td>0.119</td>
+					<td>0.119</td>
+					<td>0.119</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td>0.256</td>
+					<td>0.256</td>
+					<td>0.256</td>
+				</tr>
+			</tfoot>
+		</table>
+		<!-- <div class="spacing"></div> -->
+	</body>
+</html>

@@ -1,0 +1,61 @@
+.priority {
+	display: flex;
+	flex-direction: row;
+	@include flexCenter();
+}
+
+.slider {
+	display: flex;
+	flex-direction: column;
+	@include flexCenter();
+
+	position: relative;
+	width: $sliderWidth;
+	margin: 0 2vw;
+}
+
+.alternative {
+	position: relative;
+	margin-top: 2vh;
+	padding: 0 0.5vw;
+
+	color: $monoRed;
+	font-size: 4vh;
+}
+
+.range {
+	position: relative;
+	margin: 10px;
+
+	height: 5px;
+	width: $sliderWidth;
+
+	border-radius: 5px;
+	outline: none;
+	-webkit-appearance: none;
+}
+
+.range::-webkit-slider-thumb {
+	-webkit-appearance: none;
+  appearance: none;
+	cursor: pointer;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+  background: $monoRed;
+}
+
+.nums {
+	position: relative;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	width: $sliderWidth;
+
+	color: $monoRed;
+	font-size: 2vh;
+}
