@@ -13,10 +13,11 @@ namespace Repository
 {
     public class GoalRepository : IGoalRepository
     {
-
-        public GoalRepository(AHPContext context)
+        private readonly IMapper _mapper;
+        public GoalRepository(AHPContext context, IMapper mapper)
         {
             this.Context = context;
+            _mapper = mapper;
         }
 
         protected AHPContext Context { get; private set; }
@@ -26,17 +27,23 @@ namespace Repository
             throw new NotImplementedException();
         }
 
+ 
+
         public async Task<List<IGoal>> GetAllGoalsAsync()
         {
 
-            throw new NotImplementedException();
+            var goals = await Context.Goals.ToListAsync();
+            //var list = _mapper.Map<Goal>(goals);
 
-            //return await Context.Goals.ToListAsync();
+            var listGoals = Mapper.Map<List<DAL.Goal>, List<Model.Common.IGoal>>(goals);
+            System.Diagnostics.Debug.WriteLine("OVDJE JE BATA");
+            System.Diagnostics.Debug.WriteLine("OVDJE JE BATA" + goals);
+            System.Diagnostics.Debug.WriteLine("Debug message");
 
-            //var goals = Context.Goals;
-            //return await goals.ToListAsync();
 
-            //return await new List<IGoal>(AutoMapper.Mapper.Map<List<Goal>>(Context.Goals));
+
+            return listGoals;
+          
 
         }
 

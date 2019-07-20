@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Repository;
 
 namespace WebApplication1.Controllers
 {
@@ -41,5 +42,27 @@ namespace WebApplication1.Controllers
         public void Delete(int id)
         {
         }
+
+        [HttpGet]
+        [Route("GetCategories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            try
+            {
+                var categories =  Repository.GoalRepository;
+                if (categories == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(categories);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+        
+    }
     }
 }

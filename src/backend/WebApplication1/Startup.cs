@@ -19,6 +19,7 @@ using DAL;
 using Repository.Common;
 using Repository;
 using AutoMapper;
+using WebApplication1.Automapper;
 
 namespace WebApplication1
 {
@@ -46,9 +47,12 @@ namespace WebApplication1
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //services.ConfigureAutomapper();
-
-         
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutomapperProfile());
+            });
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             var builder = new Autofac.ContainerBuilder();
             ServiceModule.ConfigureServiceModule(builder);
@@ -57,6 +61,7 @@ namespace WebApplication1
             builder.Populate(services);
 
             var container = builder.Build();
+
 
             return container.Resolve<IServiceProvider>();
         }

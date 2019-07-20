@@ -10,9 +10,9 @@ namespace Model.Common
 
         string GoalName { get; set; }
 
-        string DateCreated { get; set; }
+        DateTime DateCreated { get; set; }
 
-        string DateUpdated { get; set; }
+        DateTime DateUpdated { get; set; }
 
         List<IAlternative> Alternatives { get; set; }
 

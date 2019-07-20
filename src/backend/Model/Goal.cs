@@ -12,9 +12,9 @@ namespace Model
 
         public string GoalName { get; set; }
 
-        public string DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
 
-        public string DateUpdated { get; set; }
+        public DateTime DateUpdated { get; set; }
 
         public List<IAlternative> Alternatives { get; set; }
 
