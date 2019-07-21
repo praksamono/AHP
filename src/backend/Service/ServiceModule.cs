@@ -7,9 +7,12 @@ namespace Service
 {
     public static class ServiceModule
     {
-      public static void ConfigureServiceModule(ContainerBuilder builder)
+
+        public static void ConfigureServiceModule(ContainerBuilder builder)
         {
             // builder.RegisterType<ClassName>().As<InterfaceName>(); for new Classes
+     
+
         }
     }
 }

@@ -12,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Service;
 using Model;
 using Repository;
 using DAL;
@@ -20,6 +19,7 @@ using Repository.Common;
 using Repository;
 using AutoMapper;
 using WebApplication1.Automapper;
+using Service;
 
 namespace WebApplication1
 {
@@ -47,12 +47,15 @@ namespace WebApplication1
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var config = new AutoMapper.MapperConfiguration(cfg =>
+            var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutomapperProfile());
             });
+
             var mapper = config.CreateMapper();
+            //builder.RegisterInstance(mapper).As<IMapper>();
             services.AddSingleton(mapper);
+
 
             var builder = new Autofac.ContainerBuilder();
             ServiceModule.ConfigureServiceModule(builder);
@@ -62,8 +65,9 @@ namespace WebApplication1
 
             var container = builder.Build();
 
-
             return container.Resolve<IServiceProvider>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

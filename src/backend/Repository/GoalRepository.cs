@@ -17,7 +17,7 @@ namespace Repository
         public GoalRepository(AHPContext context, IMapper mapper)
         {
             this.Context = context;
-            _mapper = mapper;
+            this._mapper = mapper;
         }
 
         protected AHPContext Context { get; private set; }
@@ -32,18 +32,13 @@ namespace Repository
         public async Task<List<IGoal>> GetAllGoalsAsync()
         {
 
-            var goals = await Context.Goals.ToListAsync();
-            //var list = _mapper.Map<Goal>(goals);
+            //var goals = await Context.Goals.ToListAsync();
 
-            var listGoals = Mapper.Map<List<DAL.Goal>, List<Model.Common.IGoal>>(goals);
-            System.Diagnostics.Debug.WriteLine("OVDJE JE BATA");
-            System.Diagnostics.Debug.WriteLine("OVDJE JE BATA" + goals);
-            System.Diagnostics.Debug.WriteLine("Debug message");
+            //var listGoals = _mapper.Map<List<DAL.Goal>, List<Model.Common.IGoal>>(goals);
+            //return listGoals;
 
+            return new List<IGoal>(_mapper.Map<List<Model.Goal>>(Context.Goals));
 
-
-            return listGoals;
-          
 
         }
 
