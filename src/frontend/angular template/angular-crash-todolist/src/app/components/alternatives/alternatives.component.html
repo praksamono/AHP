@@ -1,7 +1,7 @@
 <app-add-alternative (addAlternative)="addAlternative($event)">
     </app-add-alternative>
     <app-alternative-item 
-    *ngFor="let todo of todos" 
+    *ngFor="let alternative of alternatives" 
     [alternative]="alternative"
     (deleteAlternative)="deleteAlternative($event)">
 </app-alternative-item>

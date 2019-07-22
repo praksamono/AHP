@@ -15,7 +15,7 @@ const httpOptions={
 export class AlternativeService {
 
   Url:string='https://jsonplaceholder.typicode.com/todos';
-  Limit='?_limit=0';
+  Limit='?_limit=6';
 
   
   constructor(private http:HttpClient) { }
