@@ -14,9 +14,12 @@ namespace Repository
     public class GoalRepository : IGoalRepository
     {
         private readonly IMapper _mapper;
-        public GoalRepository(AHPContext context, IMapper mapper)
+
+        IUnitOfWorkFactory uowFactory;
+
+        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper)
         {
-            this._context = context;
+            this.uowFactory = uowFactory;
             this._mapper = mapper;
         }
 
@@ -38,7 +41,7 @@ namespace Repository
         {
             newGoal.DateCreated = DateTime.UtcNow;
 
-            _context.Goals.Add(_mapper.Map<IGoal, Goal>(newGoal));
+            _context.Goals.Add(_mapper.Map<IGoal, GoalEntity>(newGoal));
             await _context.SaveChangesAsync();
             return newGoal;
 
@@ -46,9 +49,11 @@ namespace Repository
     
         public async Task<bool> UpdateGoalAsnyc(IGoal goalUpdate)
         {
+            goalUpdate.DateCreated = DateTime.UtcNow;
+
             if (_context != null)
             {
-                _context.Goals.Update(_mapper.Map<IGoal, Goal>(goalUpdate));
+                _context.Goals.Update(_mapper.Map<IGoal, GoalEntity>(goalUpdate));
                 await _context.SaveChangesAsync();
             }
             return true;

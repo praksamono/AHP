@@ -27,14 +27,14 @@ namespace Repository
         {
             newAlternative.DateCreated = DateTime.UtcNow;
 
-            _context.Alternatives.Add(_mapper.Map<IAlternative, Alternative>(newAlternative));
+            _context.Alternatives.Add(_mapper.Map<IAlternative, AlternativeEntity>(newAlternative));
             await _context.SaveChangesAsync();
             return newAlternative;
         }
 
-        public async Task<bool> DeleteAlternativeAsync(int alternativeUpdate)
+        public async Task<bool> DeleteAlternativeAsync(int alternativeId)
         {
-            var deleteAlternative = await _context.Alternatives.SingleOrDefaultAsync(x => x.AlternativeId == alternativeUpdate);
+            var deleteAlternative = await _context.Alternatives.SingleOrDefaultAsync(x => x.AlternativeId == alternativeId);
             if (deleteAlternative != null)
             {
                 _context.Alternatives.Remove(deleteAlternative);
@@ -57,7 +57,14 @@ namespace Repository
 
         public async Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate)
         {
-            throw new NotImplementedException();
+            alternativeUpdate.DateCreated = DateTime.UtcNow;
+
+            if (_context != null)
+            {
+                _context.Alternatives.Update(_mapper.Map<IAlternative, AlternativeEntity>(alternativeUpdate));
+                await _context.SaveChangesAsync();
+            }
+            return true;
         }
     }
 }

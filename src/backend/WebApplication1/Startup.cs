@@ -49,19 +49,19 @@ namespace WebApplication1
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutomapperProfile());
+                cfg.AddProfile(new RepositoryProfile());
             });
 
             var mapper = config.CreateMapper();
-            //builder.RegisterInstance(mapper).As<IMapper>();
-            services.AddSingleton(mapper);
-
-
+          
+            //services.AddSingleton(mapper);
 
             var builder = new Autofac.ContainerBuilder();
             ServiceModule.ConfigureServiceModule(builder);
             ModelModule.ConfigureModelModule(builder);
             RepositoryModule.ConfigureRepositoryModule(builder);
+            builder.RegisterInstance(mapper).As<IMapper>();
+
             builder.Populate(services);
 
             var container = builder.Build();

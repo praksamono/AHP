@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
-using DAL;
-using Model.Common;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace WebApplication1.Automapper
+namespace Repository
 {
-    public class AutomapperProfile : Profile
+    public class RepositoryProfile : Profile
     {
-        public AutomapperProfile()
+       public RepositoryProfile()
         {
             CreateMap<DAL.GoalEntity, Model.Common.IGoal>().ReverseMap();
             CreateMap<DAL.CriteriumEntity, Model.Common.ICriterium>().ReverseMap();

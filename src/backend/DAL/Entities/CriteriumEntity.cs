@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL
 {
-    public class Criterium
+    public class CriteriumEntity
     {
+        [Key]
         public int CriteriumId { get; set; }
 
         public string CriteriumName { get; set; }
@@ -15,7 +17,7 @@ namespace DAL
 
         public DateTime DateUpdated { get; set; }
 
-        public List<Criterium_Alternative> criterium_alternatives { get; set; }
+        public List<CriteriumAlternativeEntity> CriteriumAlternatives { get; set; }
 
     }
 }

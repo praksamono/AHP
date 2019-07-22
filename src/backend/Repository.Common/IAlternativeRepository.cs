@@ -16,6 +16,6 @@ namespace Repository.Common
 
         Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate);
 
-        Task<bool> DeleteAlternativeAsync(int alternativeUpdate);
+        Task<bool> DeleteAlternativeAsync(int alternativeId);
     }
 }
