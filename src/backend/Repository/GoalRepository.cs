@@ -16,46 +16,53 @@ namespace Repository
         private readonly IMapper _mapper;
         public GoalRepository(AHPContext context, IMapper mapper)
         {
-            this.Context = context;
+            this._context = context;
             this._mapper = mapper;
         }
 
-        protected AHPContext Context { get; private set; }
+        protected AHPContext _context { get; private set; }
 
         public async Task<IGoal> GetGoalAsync(int goalId)
         {
-            throw new NotImplementedException();
+            var getGoal = await _context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            return _mapper.Map<IGoal>(getGoal);
         }
-
- 
 
         public async Task<List<IGoal>> GetAllGoalsAsync()
         {
-
-            //var goals = await Context.Goals.ToListAsync();
-
-            //var listGoals = _mapper.Map<List<DAL.Goal>, List<Model.Common.IGoal>>(goals);
-            //return listGoals;
-
-            return new List<IGoal>(_mapper.Map<List<Model.Goal>>(Context.Goals));
-
-
+            var allGoals = await _context.Goals.ToListAsync();
+            return _mapper.Map<List<IGoal>>(allGoals);
         }
 
-        public async Task<IGoal> AddGoalAsync(IGoal goal)
+        public async Task<IGoal> AddGoalAsync(IGoal newGoal)
         {
-            throw new NotImplementedException();
+            newGoal.DateCreated = DateTime.UtcNow;
+
+            _context.Goals.Add(_mapper.Map<IGoal, Goal>(newGoal));
+            await _context.SaveChangesAsync();
+            return newGoal;
 
         }
     
-        public async Task<IGoal> UpdateGoalAsnyc(IGoal goalUpdates)
+        public async Task<bool> UpdateGoalAsnyc(IGoal goalUpdate)
         {
-            throw new NotImplementedException();
+            if (_context != null)
+            {
+                _context.Goals.Update(_mapper.Map<IGoal, Goal>(goalUpdate));
+                await _context.SaveChangesAsync();
+            }
+            return true;
         }
 
-        public async Task<IGoal> DeleteGoalAsync(int goalId)
+        public async Task<bool> DeleteGoalAsync(int goalId)
         {
-            throw new NotImplementedException();
+            var deleteGoal = await _context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            if (deleteGoal != null)
+            {
+                _context.Goals.Remove(deleteGoal);
+                await _context.SaveChangesAsync();
+            }
+            return true;
         }
     }
 }

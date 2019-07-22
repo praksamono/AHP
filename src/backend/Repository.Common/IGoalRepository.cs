@@ -14,9 +14,8 @@ namespace Repository.Common
 
         Task<IGoal> AddGoalAsync(IGoal goal);
 
-        Task<IGoal> UpdateGoalAsnyc(IGoal goalUpdates);
+        Task<bool> UpdateGoalAsnyc(IGoal goalUpdate);
 
-        Task<IGoal> DeleteGoalAsync(int goalId);
-
+        Task<bool> DeleteGoalAsync(int goalId);
     }
 }

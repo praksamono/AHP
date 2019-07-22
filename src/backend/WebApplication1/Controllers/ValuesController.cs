@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Repository.Common;
+using Model;
 
 namespace WebApplication1.Controllers
 {

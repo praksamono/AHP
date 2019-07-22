@@ -12,7 +12,10 @@ namespace WebApplication1.Automapper
     {
         public AutomapperProfile()
         {
-            CreateMap<DAL.Goal, Model.Goal>().ReverseMap();
+            CreateMap<DAL.Goal, Model.Common.IGoal>().ReverseMap();
+            CreateMap<DAL.Criterium, Model.Common.ICriterium>().ReverseMap();
+            CreateMap<DAL.Alternative, Model.Common.IAlternative>().ReverseMap();
+            CreateMap<DAL.Criterium_Alternative, Model.Common.ICriteriumAlternative>().ReverseMap();
         }
     }
 }

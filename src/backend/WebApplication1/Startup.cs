@@ -57,6 +57,7 @@ namespace WebApplication1
             services.AddSingleton(mapper);
 
 
+
             var builder = new Autofac.ContainerBuilder();
             ServiceModule.ConfigureServiceModule(builder);
             ModelModule.ConfigureModelModule(builder);

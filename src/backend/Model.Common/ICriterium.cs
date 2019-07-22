@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Model.Common
 {
@@ -10,9 +11,9 @@ namespace Model.Common
 
         float GlobalCriteriumPriority { get; set; }
 
-        string DateCreated { get; set; }
+        DateTime DateCreated { get; set; }
 
-        string DateUpdated { get; set; }
+        DateTime DateUpdated { get; set; }
 
         List<ICriteriumAlternative> criteriumAlternative { get; set; }
     }
