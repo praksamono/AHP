@@ -7,12 +7,8 @@ using AHP.Service.Common;
 
 namespace AHP.Service
 {
-    class ServiceAlternative : IServiceAlternative
+    class GoalService : IGoalService
     {
-        //Constructors
-
-        //Properties
-
-        //Methods
+        //
     }
 }
