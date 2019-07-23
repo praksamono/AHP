@@ -1,5 +1,6 @@
 ﻿using Model.Common;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
@@ -9,6 +10,7 @@ namespace Model
 
         public string CriteriumName { get; set; }
 
+        [Range(minimum: -9.0, maximum: 9.0)]
         public float GlobalCriteriumPriority { get; set; }
 
         public string DateCreated { get; set; }

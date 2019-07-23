@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
@@ -14,6 +15,7 @@ namespace Model
 
         public Alternative alternative { get; set; }
 
+        [Range(minimum: -9.0, maximum: 9.0)]
         public float LocalPriority { get; set; }
     }
 }
