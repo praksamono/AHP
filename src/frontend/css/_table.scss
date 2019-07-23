@@ -1,0 +1,54 @@
+table {
+	border-spacing: 0;
+	overflow: hidden;
+	border-radius: 1vh;
+	font-size: 3vh;
+	margin: 5vh 5vw;
+}
+
+td {
+	padding: 5vh 2vw;
+	border: 0.3vh solid $darkGray;
+
+	&:first-child {
+			color: $monoRed;
+	}
+}
+
+thead {
+	border: 0.75vh solid $darkGray;
+	background-color: $monoRed;
+	color: $pureWhite;
+	font-size: 4.5vh;
+
+	td {
+		border: 0.5vh solid $darkGray;
+
+		&:first-child {
+			color: $pureWhite;
+			border-top-left-radius: 1vh;
+		}
+
+		&:last-child {
+			border-top-right-radius: 1vh;
+			font-size: 6vh;
+		}
+	}
+}
+
+tbody {
+	background-color: $pureWhite;
+	color: $darkGray;
+}
+
+tfoot {
+	background-color: $lightGray;
+	color: $darkGray;
+	td {
+		border: 0.5vh solid $darkGray;
+
+		&:first-child {
+			font-size: 4vh;
+		}
+	}
+}

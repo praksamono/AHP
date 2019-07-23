@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Model.Common;
 
-namespace Goal.Repository.Common
+namespace Repository.Common
 {
     public interface IGoalRepository
     {
-        Goal GetGoal(int id);
+        Task<IGoal> GetGoalAsync(int goalId);
 
-        List<IGoal> GetAllGoals();
+        Task<List<IGoal>> GetAllGoalsAsync();
 
-        Goal Add(Goal goal);
+        Task<IGoal> AddGoalAsync(IGoal goal);
 
-        Goal Update(Goal goalUpdates);
+        Task<IGoal> UpdateGoalAsnyc(IGoal goalUpdates);
 
-        Goal Delte(int id);
-
+        Task<IGoal> DeleteGoalAsync(int goalId);
 
     }
 }

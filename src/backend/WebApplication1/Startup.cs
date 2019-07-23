@@ -1,29 +1,24 @@
-<<<<<<< HEAD
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-=======
-﻿using Microsoft.AspNetCore.Builder;
->>>>>>> c995f74205efcb07c9d0600c6c3d47be554d8cd9
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-<<<<<<< HEAD
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Service;
 using Model;
 using Repository;
-=======
 using DAL;
-
->>>>>>> c995f74205efcb07c9d0600c6c3d47be554d8cd9
+using Repository.Common;
+using Repository;
+using AutoMapper;
 
 namespace WebApplication1
 {
@@ -47,7 +42,13 @@ namespace WebApplication1
 
             services.AddDbContextPool<AHPContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("connectionString")));
 
+            services.AddScoped<IGoalRepository, GoalRepository>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //services.ConfigureAutomapper();
+
+         
 
             var builder = new Autofac.ContainerBuilder();
             ServiceModule.ConfigureServiceModule(builder);

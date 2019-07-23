@@ -1,0 +1,30 @@
+button {
+	border: none;
+	border-radius: 3em;
+	outline: none;
+	margin: 2vh;
+
+	height: 16vh;
+
+	background-color: $monoRed;
+	color: $pureWhite;
+
+
+
+	&.long {
+		width: 40vh;
+		font-size: 6.5vh;
+	}
+
+	&.short {
+		font-size: 10vh;
+		width: 16vh;
+
+		&#plus {
+			width: 13vh;
+			height: 13vh;
+			position: relative;
+			margin-bottom: 10vh;
+		}
+	}
+}

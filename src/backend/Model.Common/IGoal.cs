@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Model.Common
 {
-    interface IGoal
+    public interface IGoal
     {
-        int id { get; set; }
+        int GoalId { get; set; }
 
         string GoalName { get; set; }
 
