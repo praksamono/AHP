@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AHP_Service
 {
-    class Service_Alternative
+    class ServiceGoal
     {
         //
     }
