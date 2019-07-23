@@ -6,7 +6,7 @@ namespace Model
 {
     public class Criterium
     {
-        public int CriteriumId { get; set; }
+        public Guid CriteriumId { get; set; }
 
         public string CriteriumName { get; set; }
 

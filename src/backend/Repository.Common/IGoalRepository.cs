@@ -8,7 +8,7 @@ namespace Repository.Common
 {
     public interface IGoalRepository
     {
-        Task<IGoal> GetGoalAsync(int goalId);
+        Task<IGoal> GetGoalAsync(Guid goalId);
 
         Task<List<IGoal>> GetAllGoalsAsync();
 
@@ -16,6 +16,6 @@ namespace Repository.Common
 
         Task<bool> UpdateGoalAsnyc(IGoal goalUpdate);
 
-        Task<bool> DeleteGoalAsync(int goalId);
+        Task<bool> DeleteGoalAsync(Guid goalId);
     }
 }

@@ -8,7 +8,7 @@ namespace Model
     public class Goal : IGoal
     {
     
-        public int GoalId { get; set; }
+        public Guid GoalId { get; set; }
 
         public string GoalName { get; set; }
 

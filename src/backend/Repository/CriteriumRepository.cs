@@ -14,7 +14,7 @@ namespace Repository
             throw new NotImplementedException();
         }
 
-        public async Task<bool> DeleteCriteriumAsync(int criteriumId)
+        public async Task<bool> DeleteCriteriumAsync(Guid criteriumId)
         {
             throw new NotImplementedException();
         }
@@ -24,7 +24,7 @@ namespace Repository
             throw new NotImplementedException();
         }
 
-        public async Task<ICriterium> GetCriteriumAsync(int criteriumId)
+        public async Task<ICriterium> GetCriteriumAsync(Guid criteriumId)
         {
             throw new NotImplementedException();
         }

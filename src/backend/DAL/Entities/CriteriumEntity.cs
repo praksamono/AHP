@@ -7,7 +7,7 @@ namespace DAL
     public class CriteriumEntity
     {
         [Key]
-        public int CriteriumId { get; set; }
+        public Guid CriteriumId { get; set; }
 
         public string CriteriumName { get; set; }
 

@@ -5,7 +5,7 @@ namespace Model.Common
 {
     public interface IAlternative
     {
-        int AlternativeId { get; set; }
+        Guid AlternativeId { get; set; }
 
         string AlternativeName { get; set; }
 

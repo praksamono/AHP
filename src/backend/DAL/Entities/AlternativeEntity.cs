@@ -7,7 +7,7 @@ namespace DAL
     public class AlternativeEntity
     {
         [Key]
-        public int AlternativeId { get; set; }
+        public Guid AlternativeId { get; set; }
 
         public string AlternativeName { get; set; }
 

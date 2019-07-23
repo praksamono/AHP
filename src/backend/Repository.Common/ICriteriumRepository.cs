@@ -8,7 +8,7 @@ namespace Repository.Common
 {
     public interface ICriteriumRepository
     {
-        Task<ICriterium> GetCriteriumAsync(int criteriumId);
+        Task<ICriterium> GetCriteriumAsync(Guid criteriumId);
 
         Task<List<ICriterium>> GetAllCriteriumsAsync();
 
@@ -16,6 +16,6 @@ namespace Repository.Common
 
         Task<bool> UpdateCriteriumAsnyc(ICriterium criteriumUpdate);
 
-        Task<bool> DeleteCriteriumAsync(int criteriumId);
+        Task<bool> DeleteCriteriumAsync(Guid criteriumId);
     }
 }

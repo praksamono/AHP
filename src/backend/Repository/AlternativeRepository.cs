@@ -32,7 +32,7 @@ namespace Repository
             return newAlternative;
         }
 
-        public async Task<bool> DeleteAlternativeAsync(int alternativeId)
+        public async Task<bool> DeleteAlternativeAsync(Guid alternativeId)
         {
             var deleteAlternative = await _context.Alternatives.SingleOrDefaultAsync(x => x.AlternativeId == alternativeId);
             if (deleteAlternative != null)
@@ -49,7 +49,7 @@ namespace Repository
             return _mapper.Map<List<IAlternative>>(allGoals);
         }
         
-        public async Task<IAlternative> GetAlternativeAsync(int alternativeId)
+        public async Task<IAlternative> GetAlternativeAsync(Guid alternativeId)
         {
             var getAlternative = await _context.Alternatives.SingleOrDefaultAsync(x => x.AlternativeId == alternativeId);
             return _mapper.Map<IAlternative>(getAlternative);

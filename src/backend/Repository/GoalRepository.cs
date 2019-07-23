@@ -15,17 +15,18 @@ namespace Repository
     {
         private readonly IMapper _mapper;
 
-        IUnitOfWorkFactory uowFactory;
+        IUnitOfWorkFactory _uowFactory;
 
-        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper)
+        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
         {
-            this.uowFactory = uowFactory;
+            this._uowFactory = uowFactory;
             this._mapper = mapper;
+            this._context = context;
         }
 
         protected AHPContext _context { get; private set; }
 
-        public async Task<IGoal> GetGoalAsync(int goalId)
+        public async Task<IGoal> GetGoalAsync(Guid goalId)
         {
             var getGoal = await _context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
             return _mapper.Map<IGoal>(getGoal);
@@ -41,12 +42,19 @@ namespace Repository
         {
             newGoal.DateCreated = DateTime.UtcNow;
 
-            _context.Goals.Add(_mapper.Map<IGoal, GoalEntity>(newGoal));
-            await _context.SaveChangesAsync();
-            return newGoal;
+            //_context.Goals.Add(_mapper.Map<IGoal, GoalEntity>(newGoal));
+            //await _context.SaveChangesAsync();
+            //return newGoal;
 
+            var unitOfWork = _uowFactory.CreateUnitOfWork();
+
+            var goal = await unitOfWork.AddAsync(newGoal);
+
+            await unitOfWork.CommitAsync();
+
+            return _mapper.Map<IGoal>(goal);
         }
-    
+
         public async Task<bool> UpdateGoalAsnyc(IGoal goalUpdate)
         {
             goalUpdate.DateCreated = DateTime.UtcNow;
@@ -59,7 +67,7 @@ namespace Repository
             return true;
         }
 
-        public async Task<bool> DeleteGoalAsync(int goalId)
+        public async Task<bool> DeleteGoalAsync(Guid goalId)
         {
             var deleteGoal = await _context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
             if (deleteGoal != null)

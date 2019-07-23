@@ -11,7 +11,7 @@ namespace DAL
         /// </summary>
         /// 
         [Key]
-        public int GoalId { get; set; }
+        public Guid GoalId { get; set; }
 
         public string GoalName { get; set; }
 

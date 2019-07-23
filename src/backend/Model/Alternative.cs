@@ -6,7 +6,7 @@ namespace Model
 {
     public class Alternative
     {
-        int AlternativeId { get; set; }
+        Guid AlternativeId { get; set; }
 
         string AlternativeName { get; set; }
 

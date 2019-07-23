@@ -8,12 +8,12 @@ namespace DAL
         [Key]
         CriteriumAlternativeEntity CriteriumAlternativeId { get; set;}
     
-        public int CriteriumId { get; set; }
+        public Guid CriteriumId { get; set; }
 
         public CriteriumEntity Criterium { get; set; }
 
         [Key]
-        public int AlternativeId { get; set; }
+        public Guid AlternativeId { get; set; }
 
         public AlternativeEntity Alternative { get; set; }
 

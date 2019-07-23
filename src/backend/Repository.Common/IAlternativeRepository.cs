@@ -8,7 +8,7 @@ namespace Repository.Common
 {
     public interface IAlternativeRepository
     {
-        Task<IAlternative> GetAlternativeAsync(int alternativeId);
+        Task<IAlternative> GetAlternativeAsync(Guid alternativeId);
 
         Task<List<IAlternative>> GetAllAlternativesAsync();
 
@@ -16,6 +16,6 @@ namespace Repository.Common
 
         Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate);
 
-        Task<bool> DeleteAlternativeAsync(int alternativeId);
+        Task<bool> DeleteAlternativeAsync(Guid alternativeId);
     }
 }
