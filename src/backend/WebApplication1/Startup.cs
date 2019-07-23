@@ -51,7 +51,7 @@ namespace WebApplication1
          
 
             var builder = new Autofac.ContainerBuilder();
-            ServiceModule.ConfigureServiceModule(builder);
+            ModuleService.ConfigureServiceModule(builder);
             ModelModule.ConfigureModelModule(builder);
             RepositoryModule.ConfigureRepositoryModule(builder);
             builder.Populate(services);

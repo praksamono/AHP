@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AHP.Service
 {
-    class ServiceMain
+    class MainService
     {
         public float[] CalculatePriorities(float[,] Matrix)
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
