@@ -7,12 +7,13 @@ using AHP.Service.Common;
 
 namespace AHP.Service
 {
-    class AlternativeService : IAlternativeService
+    public class AlternativeService : IAlternativeService
     {
-        //Constructors
+        /*public readonly IAlternativeRepository alternativeRepository;
 
-        //Properties
-
-        //Methods
+        public AlternativeService(IAlternativeRepository alternativeRepository)
+        {
+            this.alternativeRepository = alternativeRepository;
+        }*/
     }
 }

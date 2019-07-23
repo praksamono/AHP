@@ -8,6 +8,7 @@ namespace AHP.Service
 {
     class MainService
     {
+        #region  Calculation
         public float[] CalculatePriorities(float[,] Matrix)
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
         ///<returns>Float array of priorities</returns>
@@ -22,14 +23,16 @@ namespace AHP.Service
             //Normalised vector
             float[] NormalisedVector = new float[MatrixSize];
 
-            for(int i = 0; i < MatrixSize; i++)
+            for (int i = 0; i < MatrixSize; i++)
             {
                 NormalisedVector[i] = MatrixRowSum(Matrix, MatrixSize, i) / matrixSum;
             }
 
             return NormalisedVector;
         }
+        #endregion
 
+        #region MatrixOperations
         static public float[,] MatrixInit(int[] ComparisonValues)
         ///<summary>Initialises a calculation matrix from comparison values(of alternatives or criteria) passed from the controller. </summary>
         ///<param name="ComparisonValues">Array of integers containing comparison values. The values are in the range [-4, 4], where negative numbers represent
@@ -73,7 +76,7 @@ namespace AHP.Service
         ///<summary>Sums up the elements in the RowNumber row of a Matrix</summary>
         {
             float sum = 0;
-            for(int i = 0; i < MatrixSize; i++)
+            for (int i = 0; i < MatrixSize; i++)
             {
                 sum += Matrix[RowNumber, i];
             }
@@ -87,10 +90,10 @@ namespace AHP.Service
         {
             float sum = 0f;
 
-            for(int i = 0; i < MatrixSize; i++)
+            for (int i = 0; i < MatrixSize; i++)
             {
                 sum += 1f; //For each new row add the 1.0 that is located on the main diagonal
-                for(int j = i + 1; j < MatrixSize; j++)
+                for (int j = i + 1; j < MatrixSize; j++)
                 {
                     sum += Matrix[i, j]; //Add the element on position i,j and also it's reciprocal element on j,i 
                     sum += Matrix[j, i];
@@ -105,9 +108,9 @@ namespace AHP.Service
         {
             float[,] MatrixCopy = new float[MatrixSize, MatrixSize];
 
-            for(int i = 0; i < MatrixSize; i++) //Copy the original matrix 
+            for (int i = 0; i < MatrixSize; i++) //Copy the original matrix 
             {
-                for(int j = 0; j < MatrixSize; j++)
+                for (int j = 0; j < MatrixSize; j++)
                 {
                     float CopyValue = Matrix[i, j];
                     MatrixCopy[i, j] = CopyValue;
@@ -131,6 +134,7 @@ namespace AHP.Service
                 }
             }
         }
+        #endregion
 
     }
 }
