@@ -4,9 +4,9 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AHP_Service
+namespace AHP.Service
 {
-    class Service_Criterion
+    class ServiceCriterium
     {
         //
     }

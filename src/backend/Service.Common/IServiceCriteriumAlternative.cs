@@ -4,10 +4,9 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AHP.Service
+namespace AHP.Service.Common
 {
-    class ServiceAlternative
+    public interface IServiceCriteriumAlternative
     {
-        //
     }
 }
