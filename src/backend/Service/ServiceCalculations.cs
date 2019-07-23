@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AHP_Service
 {
-    class Service_Calculations
+    class ServiceCalculations
     {
         public List<float> CalculatePriorities(float[,] Matrix, int MatrixSize)
         {
