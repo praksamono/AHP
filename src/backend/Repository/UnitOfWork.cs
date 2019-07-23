@@ -91,5 +91,9 @@ namespace Repository
             DbContext.Dispose();
         }
 
+        public Task<int> GetAsync<T>(T entity) where T : class
+        {
+
+        }        
     }
 }

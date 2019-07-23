@@ -1,6 +1,7 @@
 ﻿using Model.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
@@ -10,6 +11,7 @@ namespace Model
 
         string AlternativeName { get; set; }
 
+        [Range(minimum: -9.0, maximum: 9.0)]
         float GlobalPriority { get; set; }
 
         DateTime DateCreated { get; set; }

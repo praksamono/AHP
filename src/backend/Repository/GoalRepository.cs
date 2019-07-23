@@ -38,9 +38,9 @@ namespace Repository
             return _mapper.Map<List<IGoal>>(allGoals);
         }
 
-        public async Task<IGoal> AddGoalAsync(IGoal newGoal)
+        public async Task<IGoal> AddGoalAsync(IGoal goal)
         {
-            newGoal.DateCreated = DateTime.UtcNow;
+            goal.DateCreated = DateTime.UtcNow;
 
             //_context.Goals.Add(_mapper.Map<IGoal, GoalEntity>(newGoal));
             //await _context.SaveChangesAsync();
@@ -48,11 +48,11 @@ namespace Repository
 
             var unitOfWork = _uowFactory.CreateUnitOfWork();
 
-            var goal = await unitOfWork.AddAsync(newGoal);
+            var newGoal = await unitOfWork.AddAsync(goal);
 
             await unitOfWork.CommitAsync();
 
-            return _mapper.Map<IGoal>(goal);
+            return _mapper.Map<IGoal>(newGoal);
         }
 
         public async Task<bool> UpdateGoalAsnyc(IGoal goalUpdate)

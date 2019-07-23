@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{1FFCC17F-31DB-4164-8723-F3A4B65E6DF1}"
 EndProject
+<<<<<<< HEAD
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Common", "Service.Common\Service.Common.csproj", "{856750D3-124D-4663-8DBA-520717C6203A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Common", "Repository.Common\Repository.Common.csproj", "{B27E1A98-DE01-4C87-97F0-147F523FBA6D}"
@@ -18,6 +19,19 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{E2FF1DA1-99C0-44CB-9C25-3BAE3DA6A1A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Common", "Model.Common\Model.Common.csproj", "{D3668FFB-98C1-406B-B057-E3DA0B111236}"
+=======
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{32947A6E-5C47-4664-BEAB-7901923FFBDA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Common", "Service.Common\Service.Common.csproj", "{856750D3-124D-4663-8DBA-520717C6203A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Common", "Repository.Common\Repository.Common.csproj", "{B27E1A98-DE01-4C87-97F0-147F523FBA6D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{E2FF1DA1-99C0-44CB-9C25-3BAE3DA6A1A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Common", "Model.Common\Model.Common.csproj", "{D3668FFB-98C1-406B-B057-E3DA0B111236}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AHPConsoleApp", "AHPConsoleApp\AHPConsoleApp.csproj", "{8181A43E-C2B3-4C66-91DC-394F617CB8AA}"
+>>>>>>> 4498dbe370ab6137cf267dba62a77d38d14f316e
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +71,10 @@ Global
 		{D3668FFB-98C1-406B-B057-E3DA0B111236}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3668FFB-98C1-406B-B057-E3DA0B111236}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3668FFB-98C1-406B-B057-E3DA0B111236}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8181A43E-C2B3-4C66-91DC-394F617CB8AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8181A43E-C2B3-4C66-91DC-394F617CB8AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8181A43E-C2B3-4C66-91DC-394F617CB8AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8181A43E-C2B3-4C66-91DC-394F617CB8AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
