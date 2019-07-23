@@ -4,9 +4,9 @@ using System.Text;
 
 //The controller sends an array of comparison values.
 
-namespace AHP_Service
+namespace AHP.Service
 {
-    class ServiceCalculations
+    class ServiceMain
     {
         public float[] CalculatePriorities(float[,] Matrix)
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>

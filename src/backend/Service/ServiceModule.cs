@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Service
+namespace AHP.Service
 {
     public static class ServiceModule
     {
