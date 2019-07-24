@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
-using AHP.Service.Common;
 
-namespace AHP.Service
+namespace AHP.Service.Common
 {
-    class ServiceGoal : IServiceGoal
+    public interface IGoalService
     {
-        //
+        
     }
 }

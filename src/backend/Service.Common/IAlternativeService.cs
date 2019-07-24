@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AHP.Service.Common
 {
-    public interface IServiceCriterium
+    public interface IAlternativeService
     {
     }
 }

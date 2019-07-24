@@ -9,6 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <ProjectReference Include="..\Model.Common\Model.Common.csproj" />
+    <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\Repository.Common\Repository.Common.csproj" />
+>>>>>>> 2f5d4a84c7a7408c55257bf070bd309511126ac7
     <ProjectReference Include="..\Service.Common\Service.Common.csproj" />
   </ItemGroup>
 
