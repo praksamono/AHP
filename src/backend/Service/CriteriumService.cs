@@ -7,8 +7,14 @@ using AHP.Service.Common;
 
 namespace AHP.Service
 {
-    class CriteriumService : ICriteriumService
+    public class CriteriumService : ICriteriumService
     {
-        //
+        /*public readonly ICriteriumRepository criteriumRepository;
+
+        public CriteriumService(ICriteriumRepository criteriumRepository)
+        {
+            this.criteriumRepository = criteriumRepository;
+        }*/
+
     }
 }
