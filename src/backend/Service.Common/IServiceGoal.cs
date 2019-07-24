@@ -8,5 +8,6 @@ namespace AHP.Service.Common
 {
     public interface IServiceGoal
     {
+        
     }
 }

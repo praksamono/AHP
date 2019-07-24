@@ -1,12 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL
 {
     public class CriteriumAlternativeEntity {
 
         [Key]
-        CriteriumAlternativeEntity CriteriumAlternativeId { get; set;}
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid CriteriumAlternativeId { get; set;}
     
         public Guid CriteriumId { get; set; }
 
@@ -17,6 +19,7 @@ namespace DAL
 
         public AlternativeEntity Alternative { get; set; }
 
+        [Range(minimum: -9.0, maximum: 9.0)]
         public float LocalPriority { get; set; }
 
         public DateTime DateCreated { get; set; }

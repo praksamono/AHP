@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AHPContext))]
-    [Migration("20190722104454_DalUpdate")]
-    partial class DalUpdate
+    [Migration("20190724104326_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,11 +23,11 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.AlternativeEntity", b =>
                 {
-                    b.Property<int>("AlternativeId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("AlternativeId")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AlternativeName");
+                    b.Property<string>("AlternativeName")
+                        .IsRequired();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -35,7 +35,7 @@ namespace DAL.Migrations
 
                     b.Property<float>("GlobalPriority");
 
-                    b.Property<int?>("GoalEntityGoalId");
+                    b.Property<Guid?>("GoalEntityGoalId");
 
                     b.HasKey("AlternativeId");
 
@@ -46,9 +46,12 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.CriteriumAlternativeEntity", b =>
                 {
-                    b.Property<int>("CriteriumId");
+                    b.Property<Guid>("CriteriumId");
 
-                    b.Property<int>("AlternativeId");
+                    b.Property<Guid>("AlternativeId");
+
+                    b.Property<Guid>("CriteriumAlternativeId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -58,18 +61,18 @@ namespace DAL.Migrations
 
                     b.HasKey("CriteriumId", "AlternativeId");
 
-                    b.HasAlternateKey("AlternativeId");
+                    b.HasAlternateKey("AlternativeId", "CriteriumAlternativeId");
 
                     b.ToTable("CriteriumAlternatives");
                 });
 
             modelBuilder.Entity("DAL.CriteriumEntity", b =>
                 {
-                    b.Property<int>("CriteriumId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("CriteriumId")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CriteriumName");
+                    b.Property<string>("CriteriumName")
+                        .IsRequired();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -77,7 +80,7 @@ namespace DAL.Migrations
 
                     b.Property<float>("GlobalCriteriumPriority");
 
-                    b.Property<int?>("GoalEntityGoalId");
+                    b.Property<Guid?>("GoalEntityGoalId");
 
                     b.HasKey("CriteriumId");
 
@@ -88,15 +91,15 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.GoalEntity", b =>
                 {
-                    b.Property<int>("GoalId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("GoalId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateUpdated");
 
-                    b.Property<string>("GoalName");
+                    b.Property<string>("GoalName")
+                        .IsRequired();
 
                     b.HasKey("GoalId");
 

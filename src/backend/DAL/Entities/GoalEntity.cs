@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL
 {
@@ -11,8 +12,10 @@ namespace DAL
         /// </summary>
         /// 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid GoalId { get; set; }
 
+        [Required]
         public string GoalName { get; set; }
 
         public DateTime DateCreated { get; set; }

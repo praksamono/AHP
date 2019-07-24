@@ -30,9 +30,9 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> GetAsync()
         {
 
-            //var test = await this.repository.AddGoalAsync(new Goal("test"));
+            //var test = await this.repository.AddGoalAsync(new Goal("Test"));
             //return Ok(test);
-            //return Ok();
+            return Ok();
         }
 
         // GET api/values/5

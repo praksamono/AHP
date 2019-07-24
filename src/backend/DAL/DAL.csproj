@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +17,16 @@
     <Compile Remove="Migrations\20190717101823_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20190717114740_InitialCreate.cs" />
     <Compile Remove="Migrations\20190717114740_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190717120144_Initial.cs" />
+    <Compile Remove="Migrations\20190717120144_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20190722104454_DalUpdate.cs" />
+    <Compile Remove="Migrations\20190722104454_DalUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20190724074329_IntToGuidUpdate.cs" />
+    <Compile Remove="Migrations\20190724074329_IntToGuidUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20190724075412_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190724075412_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190724081505_UpdateDataBase.cs" />
+    <Compile Remove="Migrations\20190724081505_UpdateDataBase.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

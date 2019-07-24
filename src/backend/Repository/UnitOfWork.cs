@@ -91,9 +91,34 @@ namespace Repository
             DbContext.Dispose();
         }
 
-        public Task<int> GetAsync<T>(T entity) where T : class
+        public Task<int> GetAsync<T>(T id) where T : class
         {
+            var entity = DbContext.Set<T>().Find(id);
+            if (entity == null)
+            {
+                return Task.FromResult(0);
+            }
+            return GetAsync<T>(entity);
+        }
+        public Task<int> GetAsync<T>(string id) where T : class
+        {
+            var entity = DbContext.Set<T>().Find(id);
+            if (entity == null)
+            {
+                return Task.FromResult(0);
+            }
+            return GetAsync<T>(entity);
+        }
 
-        }        
+        //public Task<int> GetAllAsync<T>(T id) where T : class
+        //{
+        //    //var entity = DbContext.Set<T>().GetType
+        //    //if (entity == null)
+        //    //{
+        //    //    return Task.FromResult(0);
+        //    //}
+        //    //return GetAsync<T>(entity);
+
+        //}
     }
 }

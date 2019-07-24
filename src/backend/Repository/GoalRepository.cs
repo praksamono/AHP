@@ -13,67 +13,67 @@ namespace Repository
 {
     public class GoalRepository : IGoalRepository
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper Mapper;
 
-        IUnitOfWorkFactory _uowFactory;
+        IUnitOfWorkFactory UowFactory;
 
         public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
         {
-            this._uowFactory = uowFactory;
-            this._mapper = mapper;
-            this._context = context;
+            this.UowFactory = uowFactory;
+            this.Mapper = mapper;
+            this.Context = context;
         }
 
-        protected AHPContext _context { get; private set; }
+        protected AHPContext Context { get; private set; }
 
         public async Task<IGoal> GetGoalAsync(Guid goalId)
         {
-            var getGoal = await _context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
-            return _mapper.Map<IGoal>(getGoal);
+            var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            return Mapper.Map<IGoal>(getGoal);
         }
 
         public async Task<List<IGoal>> GetAllGoalsAsync()
         {
-            var allGoals = await _context.Goals.ToListAsync();
-            return _mapper.Map<List<IGoal>>(allGoals);
+            var allGoals = await Context.Goals.ToListAsync();
+            return Mapper.Map<List<IGoal>>(allGoals);
         }
 
         public async Task<IGoal> AddGoalAsync(IGoal goal)
         {
             goal.DateCreated = DateTime.UtcNow;
 
-            //_context.Goals.Add(_mapper.Map<IGoal, GoalEntity>(newGoal));
-            //await _context.SaveChangesAsync();
-            //return newGoal;
+            Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
+            await Context.SaveChangesAsync();
+            return goal;
 
-            var unitOfWork = _uowFactory.CreateUnitOfWork();
+            //var unitOfWork = _uowFactory.CreateUnitOfWork();
 
-            var newGoal = await unitOfWork.AddAsync(goal);
+            //var newGoal = await unitOfWork.AddAsync(goal);
 
-            await unitOfWork.CommitAsync();
+            //await unitOfWork.CommitAsync();
 
-            return _mapper.Map<IGoal>(newGoal);
+            //return _mapper.Map<IGoal>(newGoal);
         }
 
         public async Task<bool> UpdateGoalAsnyc(IGoal goalUpdate)
         {
-            goalUpdate.DateCreated = DateTime.UtcNow;
+            goalUpdate.DateUpdated = DateTime.UtcNow;
 
-            if (_context != null)
+            if (Context != null)
             {
-                _context.Goals.Update(_mapper.Map<IGoal, GoalEntity>(goalUpdate));
-                await _context.SaveChangesAsync();
+                Context.Goals.Update(Mapper.Map<IGoal, GoalEntity>(goalUpdate));
+                await Context.SaveChangesAsync();
             }
             return true;
         }
 
         public async Task<bool> DeleteGoalAsync(Guid goalId)
         {
-            var deleteGoal = await _context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
             if (deleteGoal != null)
             {
-                _context.Goals.Remove(deleteGoal);
-                await _context.SaveChangesAsync();
+                Context.Goals.Remove(deleteGoal);
+                await Context.SaveChangesAsync();
             }
             return true;
         }

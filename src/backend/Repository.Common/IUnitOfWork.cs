@@ -17,8 +17,9 @@ namespace Repository.Common
 
         Task<int> UpdateAsync<T>(T entity) where T : class;
 
-        Task<int> GetAsync<T>(T entity) where T : class;
+        Task<int> GetAsync<T>(string id) where T : class;
 
+        //Task<int> GetAllAsync<T>() where T : class;
 
     }
 }

@@ -19,5 +19,6 @@ namespace Model
         public List<IAlternative> Alternatives { get; set; }
 
         public List<ICriterium> Criteriums { get; set; }
+
     }
 }
