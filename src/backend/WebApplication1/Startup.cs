@@ -51,13 +51,9 @@ namespace WebApplication1
                 cfg.AddProfile(new RepositoryProfile());
             });
 
-<<<<<<< HEAD
-
-=======
             var mapper = config.CreateMapper();
 
             //services.AddSingleton(mapper);
->>>>>>> 9670f4521520bbdc7987a3a0f57a5a90ad019cf5
 
             var builder = new Autofac.ContainerBuilder();
             ModuleService.ConfigureServiceModule(builder);

@@ -25,7 +25,6 @@ namespace WebAPI
 
         [HttpGet("id")]
         public async Task<ActionResult<GoalDTO>> GetByIdAsync(Guid id)
-        // change int to guid
         {
             // var goal = await _service.GetGoalAsync(id);
 
@@ -35,6 +34,7 @@ namespace WebAPI
             }
             return Ok(_mapper.Map<GoalDTO>(goal));
         }
+
 
         [HttpPost]
         public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDTO goal)
@@ -56,3 +56,4 @@ namespace WebAPI
     {
         public string GoalName { get; set; }
     }
+}
