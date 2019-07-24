@@ -34,11 +34,11 @@ namespace WebAPI
       //var status = await _criteriumAlternativeService.AddCriteriumAlternative(criterium);
       return Ok(/*status*/);
     }
+  }
 
-    public class CriteriumAlternativeDTO
-    {
-      public int[] values;
-      public string name;
-    }
+  public class CriteriumAlternativeDTO
+  {
+    public int[] values;
+    public string name;
   }
 }

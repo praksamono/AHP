@@ -48,11 +48,11 @@ namespace WebAPI
             //var status = await _criteriumService.AddCriteriumAsync(mappedCriterium);
             return Ok(/*status*/);
         }
+      }
 
-        public class CriteriumDTO
-        {
-            public string CriteriumName { get; set; }
-            public float GlobalCriteriumPriority { get; set; }
-        }
+    public class CriteriumDTO
+    {
+        public string CriteriumName { get; set; }
+        public float GlobalCriteriumPriority { get; set; }
     }
 }
