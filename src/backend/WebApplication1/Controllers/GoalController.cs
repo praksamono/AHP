@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Service.Common;
+using AHP.Service.Common;
 using Model.Common;
 
 namespace WebAPI
@@ -16,40 +17,38 @@ namespace WebAPI
         private readonly IGoalService _service;
         private readonly IMapper _mapper;
 
-        public GoalController(IGoalService service, IMapper mapper) 
+        public GoalController(IGoalService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
         }
 
         [HttpGet("id")]
-        public async Task<ActionResult<Goal>> GetByIdAsync(int id)
+        public async Task<ActionResult<GoalDTO>> GetByIdAsync(Guid id)
         // change int to guid
         {
-            var goal = _service.GetGoalAsync(id); //pozovi funkciju iz servicea
+            var goal = await _service.GetGoalAsync(id); //pozovi funkciju iz servicea
 
             if (goal == null)
             {
                 return NotFound();
             }
-            return Ok(goal);
+            return Ok(_mapper.Map<GoalDTO>(goal));
         }
 
         [HttpPost]
-        public async Task<ActionResult<Goal>> CreateAsync(GoalDTO goal)
+        public async Task<ActionResult<IGoal>> CreateAsync(GoalDTO goal)
         {
-            if (IsNullOrEmpty(goal.GoalName))
+            if (string.IsNullOrEmpty(goal.GoalName))
             {
                 return BadRequest(new {message = "Goal name is not set."});
                 // throw new HttpResponseException("Goal name is not set.", HttpStatusCode.BadRequest);
             }
-            else 
-            {
-                var mappedGoal = _mapper.Map<IGoal>(goal);
-                await _service.AddGoalAsync(mappedGoal);
-            }
 
-            return CreatedAtAction(nameof(GetById), new { id = goal.GoalId }, goal);
+            var mappedGoal = _mapper.Map<IGoal>(goal);
+            await _service.AddGoalAsync(mappedGoal);
+
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = mappedGoal.GoalId }, mappedGoal);
         }
     }
 

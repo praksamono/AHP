@@ -13,11 +13,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AHP.Service;
+using AHP.Service.Common;
 using Model;
 using Repository;
-using DAL;
 using Repository.Common;
-using Repository;
+using DAL;
 using AutoMapper;
 
 namespace WebApplication1
@@ -48,7 +48,7 @@ namespace WebApplication1
 
             //services.ConfigureAutomapper();
 
-         
+
 
             var builder = new Autofac.ContainerBuilder();
             ModuleService.ConfigureServiceModule(builder);
