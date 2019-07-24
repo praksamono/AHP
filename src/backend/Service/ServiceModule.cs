@@ -12,10 +12,10 @@ namespace AHP.Service
         public static void ConfigureServiceModule(ContainerBuilder builder)
         {
             // builder.RegisterType<ClassName>().As<InterfaceName>(); for new Classes
-            builder.RegisterType<ServiceAlternative>().As<IServiceAlternative>();
-            builder.RegisterType<ServiceCriterium>().As<IServiceCriterium>();
-            builder.RegisterType<ServiceCriteriumAlternative>().As<IServiceCriteriumAlternative>();
-            builder.RegisterType<ServiceGoal>().As<IServiceGoal>();
+            builder.RegisterType<AlternativeService>().As<IAlternativeService>();
+            builder.RegisterType<CriteriumService>().As<ICriteriumService>();
+            builder.RegisterType<CriteriumAlternativeService>().As<ICriteriumAlternativeService>();
+            builder.RegisterType<GoalService>().As<IGoalService>();
 
         }
     }
