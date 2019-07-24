@@ -4,10 +4,9 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AHP_Service
+namespace AHP.Service.Common
 {
-    class Service_Criterion
+    public interface IGoalService
     {
-        //
     }
 }
