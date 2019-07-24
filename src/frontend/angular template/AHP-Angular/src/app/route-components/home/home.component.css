@@ -1,0 +1,26 @@
+h1, h3 {
+  color: #CC324E;
+}
+
+h2, h4 {
+  color: #4F4F4F;
+}
+
+h1 {
+  font-size: 6vh;
+}
+
+h2 {
+  font-size: 3vh;
+}
+
+h3 {
+  font-size: 5vh;
+  text-align: center;
+}
+
+h4 {
+  font-size: 1.5vh;
+  margin-top: 2vh;
+  margin-bottom: 15vh;
+}

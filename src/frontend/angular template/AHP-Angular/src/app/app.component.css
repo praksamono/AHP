@@ -1,0 +1,76 @@
+/*form input styling*/
+.form {
+    display: flex;
+}
+  
+.form input[type='text'] {
+    flex: 10;
+    padding: 5px;
+}
+  
+.form input[type='submit'] {
+    flex: 2;
+}
+/*header styling*/
+  h1, h3 {
+    color: #CC324E;
+  }
+h2{
+    padding-bottom: 5px;
+}
+/*Slider and priority styling*/
+.priority {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin: 10vh 0;
+  }
+  
+  .slider {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: relative;
+    width: 30vw;
+    margin: 0 2vw;
+  }
+
+
+/*Legend styling*/
+legend {
+  position: fixed;
+  z-index: 9;
+  left: 1.5vw;
+  top: 60vh;
+  border: 2px solid #CC324E;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 4px 2.5px #BBB;
+          box-shadow: 4px 2.5px #BBB;
+}
+
+legend p {
+  color: #4F4F4F;
+  padding: 10px 5px;
+  font-size: 1.75vh;
+}
