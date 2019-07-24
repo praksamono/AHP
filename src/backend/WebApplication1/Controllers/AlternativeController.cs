@@ -58,8 +58,6 @@ namespace WebAPI
 	public class AlternativeDTO
 	{
 		public string AlternativeName { get; set; }
-		public float AlternativeGlobalPriority { get; set; }
-		public List<ICriteriumAlternative> criteriumAlternatives { get; set; }
 	}
 
 }
