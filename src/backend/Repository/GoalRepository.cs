@@ -55,7 +55,7 @@ namespace Repository
             //return _mapper.Map<IGoal>(newGoal);
         }
 
-        public async Task<bool> UpdateGoalAsnyc(IGoal goalUpdate)
+        public async Task<bool> UpdateGoalAsync(IGoal goalUpdate)
         {
             goalUpdate.DateUpdated = DateTime.UtcNow;
 
