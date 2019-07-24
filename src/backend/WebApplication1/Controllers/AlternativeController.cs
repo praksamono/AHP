@@ -24,7 +24,7 @@ namespace WebAPI
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<List<AlternativeDTO>>> GetAlternativesAsync(Guid id)
+		public async Task<ActionResult<List<AlternativeDTO>>> GetAlternativesAsync()
 		{
 			var alternatives = await _service.GetAlternativesAsync();
 
