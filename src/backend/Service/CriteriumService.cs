@@ -4,17 +4,18 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using AHP.Service.Common;
+using Repository.Common;
 
 namespace AHP.Service
 {
     public class CriteriumService : ICriteriumService
     {
-        /*public readonly ICriteriumRepository criteriumRepository;
+        public readonly ICriteriumRepository criteriumRepository;
 
         public CriteriumService(ICriteriumRepository criteriumRepository)
         {
             this.criteriumRepository = criteriumRepository;
-        }*/
+        }
 
     }
 }
