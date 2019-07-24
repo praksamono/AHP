@@ -56,5 +56,3 @@ namespace WebAPI
     {
         public string GoalName { get; set; }
     }
-
-}

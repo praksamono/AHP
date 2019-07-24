@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using AHP.Service;
 using AHP.Service.Common;
 using Model;
@@ -19,6 +20,7 @@ using Repository;
 using Repository.Common;
 using DAL;
 using AutoMapper;
+
 
 namespace WebApplication1
 {
@@ -42,23 +44,34 @@ namespace WebApplication1
 
             services.AddDbContextPool<AHPContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("connectionString")));
 
-            services.AddScoped<IGoalRepository, GoalRepository>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //services.ConfigureAutomapper();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new RepositoryProfile());
+            });
 
+<<<<<<< HEAD
 
+=======
+            var mapper = config.CreateMapper();
+
+            //services.AddSingleton(mapper);
+>>>>>>> 9670f4521520bbdc7987a3a0f57a5a90ad019cf5
 
             var builder = new Autofac.ContainerBuilder();
             ModuleService.ConfigureServiceModule(builder);
             ModelModule.ConfigureModelModule(builder);
             RepositoryModule.ConfigureRepositoryModule(builder);
+            builder.RegisterInstance(mapper).As<IMapper>();
+
             builder.Populate(services);
 
             var container = builder.Build();
 
             return container.Resolve<IServiceProvider>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

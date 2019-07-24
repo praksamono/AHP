@@ -1,21 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+
+using Model.Common;
+
 using System.ComponentModel.DataAnnotations;
+
 
 namespace Model
 {
-    class CriteriumAlternative
+    public class CriteriumAlternative : ICriteriumAlternative
     {
-        public int CriteriumId { get; set; }
+        public Guid CriteriumAlternativeId { get; set; }
 
-        public Criterium criterium { get; set; }
+        public Guid CriteriumId { get; set; }
 
-        public int AlternativeId { get; set; }
+        public ICriterium criterium { get; set; }
 
-        public Alternative alternative { get; set; }
+        public Guid AlternativeId { get; set; }
+
+        public IAlternative alternative { get; set; }
 
         [Range(minimum: -9.0, maximum: 9.0)]
         public float LocalPriority { get; set; }
+    
     }
 }

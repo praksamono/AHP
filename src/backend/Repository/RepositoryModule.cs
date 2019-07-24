@@ -12,6 +12,8 @@ namespace Repository
         {
             // builder.RegisterType<ClassName>().As<InterfaceName>(); for new Classes
             builder.RegisterType<GoalRepository>().As<IGoalRepository>();
+            builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>();
+
         }
     }
 }

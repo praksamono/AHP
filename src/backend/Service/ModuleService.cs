@@ -15,7 +15,6 @@ namespace AHP.Service
             builder.RegisterType<CriteriumService>().As<ICriteriumService>();
             builder.RegisterType<CriteriumAlternativeService>().As<ICriteriumAlternativeService>();
             builder.RegisterType<GoalService>().As<IGoalService>();
-            builder.RegisterType<MainService>().As<IMainService>();
         }
     }
 }
