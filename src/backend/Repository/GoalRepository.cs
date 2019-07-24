@@ -13,47 +13,69 @@ namespace Repository
 {
     public class GoalRepository : IGoalRepository
     {
+        private readonly IMapper Mapper;
 
-        public GoalRepository(AHPContext context)
+        IUnitOfWorkFactory UowFactory;
+
+        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
         {
+            this.UowFactory = uowFactory;
+            this.Mapper = mapper;
             this.Context = context;
         }
 
         protected AHPContext Context { get; private set; }
 
-        public async Task<IGoal> GetGoalAsync(int goalId)
+        public async Task<IGoal> GetGoalAsync(Guid goalId)
         {
-            throw new NotImplementedException();
+            var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            return Mapper.Map<IGoal>(getGoal);
         }
 
         public async Task<List<IGoal>> GetAllGoalsAsync()
         {
-
-            throw new NotImplementedException();
-
-            //return await Context.Goals.ToListAsync();
-
-            //var goals = Context.Goals;
-            //return await goals.ToListAsync();
-
-            //return await new List<IGoal>(AutoMapper.Mapper.Map<List<Goal>>(Context.Goals));
-
+            var allGoals = await Context.Goals.ToListAsync();
+            return Mapper.Map<List<IGoal>>(allGoals);
         }
 
         public async Task<IGoal> AddGoalAsync(IGoal goal)
         {
-            throw new NotImplementedException();
+            goal.DateCreated = DateTime.UtcNow;
 
-        }
-    
-        public async Task<IGoal> UpdateGoalAsnyc(IGoal goalUpdates)
-        {
-            throw new NotImplementedException();
+            Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
+            await Context.SaveChangesAsync();
+            return goal;
+
+            //var unitOfWork = _uowFactory.CreateUnitOfWork();
+
+            //var newGoal = await unitOfWork.AddAsync(goal);
+
+            //await unitOfWork.CommitAsync();
+
+            //return _mapper.Map<IGoal>(newGoal);
         }
 
-        public async Task<IGoal> DeleteGoalAsync(int goalId)
+        public async Task<bool> UpdateGoalAsnyc(IGoal goalUpdate)
         {
-            throw new NotImplementedException();
+            goalUpdate.DateUpdated = DateTime.UtcNow;
+
+            if (Context != null)
+            {
+                Context.Goals.Update(Mapper.Map<IGoal, GoalEntity>(goalUpdate));
+                await Context.SaveChangesAsync();
+            }
+            return true;
+        }
+
+        public async Task<bool> DeleteGoalAsync(Guid goalId)
+        {
+            var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            if (deleteGoal != null)
+            {
+                Context.Goals.Remove(deleteGoal);
+                await Context.SaveChangesAsync();
+            }
+            return true;
         }
     }
 }

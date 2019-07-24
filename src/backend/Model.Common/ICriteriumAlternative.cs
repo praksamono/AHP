@@ -6,11 +6,11 @@ namespace Model.Common
 {
     public interface ICriteriumAlternative
     {
-        int CriteriumId { get; set; }
+        Guid CriteriumId { get; set; }
 
         ICriterium criterium { get; set; }
 
-        int AlternativeId { get; set; }
+        Guid AlternativeId { get; set; }
 
         IAlternative alternative { get; set; }
 

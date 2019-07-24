@@ -6,13 +6,13 @@ namespace Model.Common
 {
     public interface IGoal
     {
-        int GoalId { get; set; }
+        Guid GoalId { get; set; }
 
         string GoalName { get; set; }
 
-        string DateCreated { get; set; }
+        DateTime DateCreated { get; set; }
 
-        string DateUpdated { get; set; }
+        DateTime DateUpdated { get; set; }
 
         List<IAlternative> Alternatives { get; set; }
 

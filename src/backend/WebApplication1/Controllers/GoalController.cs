@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AHP.Service.Common
+namespace WebApplication1.Controllers
 {
-    public interface IGoalService
+    public class GoalController
     {
-        
     }
 }
