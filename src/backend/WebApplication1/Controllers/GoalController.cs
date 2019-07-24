@@ -37,7 +37,7 @@ namespace WebAPI
         }
 
         [HttpPost]
-        public async Task<ActionResult<IGoal>> CreateAsync(GoalDTO goal)
+        public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDTO goal)
         {
             if (string.IsNullOrEmpty(goal.GoalName))
             {
@@ -46,7 +46,7 @@ namespace WebAPI
             }
 
             var mappedGoal = _mapper.Map<IGoal>(goal);
-            await _service.AddGoalAsync(mappedGoal);
+            await _service.CreateGoalAsync(mappedGoal);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = mappedGoal.GoalId }, mappedGoal);
         }
