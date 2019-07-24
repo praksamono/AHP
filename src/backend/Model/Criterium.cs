@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
-    public class Criterium
+    public class Criterium : ICriterium
     {
         public Guid CriteriumId { get; set; }
 
@@ -18,6 +18,14 @@ namespace Model
 
         public DateTime DateUpdated { get; set; }
 
+        public Goal goal { get; set; }
+
         public List<ICriteriumAlternative> criteriumAlternative { get; set; }
+
+        public Criterium(string name, float x) {
+            this.CriteriumId = new Guid();
+            this.CriteriumName = name;
+            this.GlobalCriteriumPriority = x;
+        }
     }
 }

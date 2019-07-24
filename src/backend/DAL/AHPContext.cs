@@ -25,12 +25,12 @@ namespace DAL
                 .HasKey(ca => new { ca.CriteriumId, ca.AlternativeId });
 
             modelBuilder.Entity<CriteriumAlternativeEntity>()
-                .HasOne(ca => ca.Criterium)
+                .HasOne(ca => ca.CriteriumEntity)
                 .WithMany(c => c.CriteriumAlternatives)
                 .HasForeignKey(ca => ca.CriteriumId);
 
             modelBuilder.Entity<CriteriumAlternativeEntity>()
-                .HasOne(ca => ca.Alternative)
+                .HasOne(ca => ca.AlternativeEntity)
                 .WithMany(a => a.CriteriumAlternatives)
                 .HasForeignKey(ca => ca.AlternativeId);
         }

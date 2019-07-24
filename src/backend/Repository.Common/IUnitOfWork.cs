@@ -13,11 +13,11 @@ namespace Repository.Common
 
         Task<int> DeleteAsync<T>(T entity) where T : class;
 
-        Task<int> DeleteAsync<T>(string ID) where T : class;
+        Task<int> DeleteAsync<T>(Guid id) where T : class;
 
         Task<int> UpdateAsync<T>(T entity) where T : class;
 
-        Task<int> GetAsync<T>(string id) where T : class;
+        Task<int> GetAsync<T>(Guid id) where T : class;
 
         //Task<int> GetAllAsync<T>() where T : class;
 

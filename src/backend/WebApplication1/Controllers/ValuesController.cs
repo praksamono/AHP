@@ -19,10 +19,11 @@ namespace WebApplication1.Controllers
         private readonly IMapper _mapper;
 
 
-        public ValuesController(IGoalRepository repository, IMapper mapper)
+
+        public ValuesController(IMapper mapper, IGoalRepository repository)
         {
-            this.repository = repository;
             this._mapper = mapper;
+            this.repository = repository;   
         }
 
         // GET api/values
@@ -30,9 +31,17 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> GetAsync()
         {
 
-            //var test = await this.repository.AddGoalAsync(new Goal("Test"));
-            //return Ok(test);
-            return Ok();
+
+            //var test = await this.repository.AddGoalAsync(new Goal("Stan"));
+
+            //var tempGuid = Guid.Parse("79407330-7cb3-41a7-ac44-08d71028aa6c");
+            //var test = await this.repository.DeleteGoalAsync(tempGuid);
+
+            //var test = await this.repository.AddCriteriumAsync(new Criterium("Stan",5));
+            var test = await this.repository.GetAllGoalsAsync();
+
+            return Ok(test);
+            //return Ok();
         }
 
         // GET api/values/5

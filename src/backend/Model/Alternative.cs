@@ -5,20 +5,30 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
-    public class Alternative
+    public class Alternative : IAlternative
     {
-        Guid AlternativeId { get; set; }
+        public Guid AlternativeId { get; set; }
 
-        string AlternativeName { get; set; }
+        public string AlternativeName { get; set; }
 
         [Range(minimum: -9.0, maximum: 9.0)]
-        float GlobalPriority { get; set; }
+        public float GlobalPriority { get; set; }
 
-        DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
 
-        DateTime DateUpdated { get; set; }
+        public DateTime DateUpdated { get; set; }
 
-        List<ICriteriumAlternative> criteriumAlternatives { get; set; }
+        public Goal goal { get; set; }
+
+        public List<ICriteriumAlternative> criteriumAlternatives { get; set; }
+
+
+        public Alternative(string name, float x)
+        {
+            this.AlternativeId = new Guid();
+            this.AlternativeName = name;
+            this.GlobalPriority = x;
+        }
 
     }
 }

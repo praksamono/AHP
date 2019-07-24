@@ -65,9 +65,9 @@ namespace Repository
             return Task.FromResult(1);
         }
 
-        public Task<int> DeleteAsync<T>(string ID) where T : class
+        public Task<int> DeleteAsync<T>(Guid id) where T : class
         {
-            var entity = DbContext.Set<T>().Find(ID);
+            var entity = DbContext.Set<T>().Find(id);
             if (entity == null)
             {
                 return Task.FromResult(0);
@@ -91,16 +91,15 @@ namespace Repository
             DbContext.Dispose();
         }
 
-        public Task<int> GetAsync<T>(T id) where T : class
+        public Task<int> GetAsync<T>(T entity) where T : class
         {
-            var entity = DbContext.Set<T>().Find(id);
             if (entity == null)
             {
                 return Task.FromResult(0);
             }
             return GetAsync<T>(entity);
         }
-        public Task<int> GetAsync<T>(string id) where T : class
+        public Task<int> GetAsync<T>(Guid id) where T : class
         {
             var entity = DbContext.Set<T>().Find(id);
             if (entity == null)

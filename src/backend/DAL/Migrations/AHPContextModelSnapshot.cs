@@ -33,11 +33,11 @@ namespace DAL.Migrations
 
                     b.Property<float>("GlobalPriority");
 
-                    b.Property<Guid?>("GoalEntityGoalId");
+                    b.Property<Guid?>("goalEntityGoalId");
 
                     b.HasKey("AlternativeId");
 
-                    b.HasIndex("GoalEntityGoalId");
+                    b.HasIndex("goalEntityGoalId");
 
                     b.ToTable("Alternatives");
                 });
@@ -78,11 +78,11 @@ namespace DAL.Migrations
 
                     b.Property<float>("GlobalCriteriumPriority");
 
-                    b.Property<Guid?>("GoalEntityGoalId");
+                    b.Property<Guid?>("goalEntityGoalId");
 
                     b.HasKey("CriteriumId");
 
-                    b.HasIndex("GoalEntityGoalId");
+                    b.HasIndex("goalEntityGoalId");
 
                     b.ToTable("Criteriums");
                 });
@@ -106,19 +106,19 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.AlternativeEntity", b =>
                 {
-                    b.HasOne("DAL.GoalEntity")
+                    b.HasOne("DAL.GoalEntity", "goalEntity")
                         .WithMany("Alternatives")
-                        .HasForeignKey("GoalEntityGoalId");
+                        .HasForeignKey("goalEntityGoalId");
                 });
 
             modelBuilder.Entity("DAL.CriteriumAlternativeEntity", b =>
                 {
-                    b.HasOne("DAL.AlternativeEntity", "Alternative")
+                    b.HasOne("DAL.AlternativeEntity", "AlternativeEntity")
                         .WithMany("CriteriumAlternatives")
                         .HasForeignKey("AlternativeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("DAL.CriteriumEntity", "Criterium")
+                    b.HasOne("DAL.CriteriumEntity", "CriteriumEntity")
                         .WithMany("CriteriumAlternatives")
                         .HasForeignKey("CriteriumId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -126,9 +126,9 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.CriteriumEntity", b =>
                 {
-                    b.HasOne("DAL.GoalEntity")
+                    b.HasOne("DAL.GoalEntity", "goalEntity")
                         .WithMany("Criteriums")
-                        .HasForeignKey("GoalEntityGoalId");
+                        .HasForeignKey("goalEntityGoalId");
                 });
 #pragma warning restore 612, 618
         }

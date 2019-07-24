@@ -23,5 +23,7 @@ namespace DAL
 
         public List<CriteriumAlternativeEntity> CriteriumAlternatives { get; set; }
 
+        public GoalEntity goalEntity { get; set; }
+
     }
 }

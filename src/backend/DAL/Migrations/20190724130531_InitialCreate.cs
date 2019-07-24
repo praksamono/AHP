@@ -30,14 +30,14 @@ namespace DAL.Migrations
                     GlobalPriority = table.Column<float>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false),
-                    GoalEntityGoalId = table.Column<Guid>(nullable: true)
+                    goalEntityGoalId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Alternatives", x => x.AlternativeId);
                     table.ForeignKey(
-                        name: "FK_Alternatives_Goals_GoalEntityGoalId",
-                        column: x => x.GoalEntityGoalId,
+                        name: "FK_Alternatives_Goals_goalEntityGoalId",
+                        column: x => x.goalEntityGoalId,
                         principalTable: "Goals",
                         principalColumn: "GoalId",
                         onDelete: ReferentialAction.Restrict);
@@ -52,14 +52,14 @@ namespace DAL.Migrations
                     GlobalCriteriumPriority = table.Column<float>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false),
-                    GoalEntityGoalId = table.Column<Guid>(nullable: true)
+                    goalEntityGoalId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Criteriums", x => x.CriteriumId);
                     table.ForeignKey(
-                        name: "FK_Criteriums_Goals_GoalEntityGoalId",
-                        column: x => x.GoalEntityGoalId,
+                        name: "FK_Criteriums_Goals_goalEntityGoalId",
+                        column: x => x.goalEntityGoalId,
                         principalTable: "Goals",
                         principalColumn: "GoalId",
                         onDelete: ReferentialAction.Restrict);
@@ -95,14 +95,14 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alternatives_GoalEntityGoalId",
+                name: "IX_Alternatives_goalEntityGoalId",
                 table: "Alternatives",
-                column: "GoalEntityGoalId");
+                column: "goalEntityGoalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Criteriums_GoalEntityGoalId",
+                name: "IX_Criteriums_goalEntityGoalId",
                 table: "Criteriums",
-                column: "GoalEntityGoalId");
+                column: "goalEntityGoalId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
