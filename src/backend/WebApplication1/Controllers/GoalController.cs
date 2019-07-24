@@ -27,7 +27,7 @@ namespace WebAPI
         public async Task<ActionResult<GoalDTO>> GetByIdAsync(Guid id)
         // change int to guid
         {
-            var goal = await _service.GetGoalAsync(id); //pozovi funkciju iz servicea
+            // var goal = await _service.GetGoalAsync(id);
 
             if (goal == null)
             {
@@ -46,7 +46,7 @@ namespace WebAPI
             }
 
             var mappedGoal = _mapper.Map<IGoal>(goal);
-            await _service.CreateGoalAsync(mappedGoal);
+            // await _service.CreateGoalAsync(mappedGoal);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = mappedGoal.GoalId }, mappedGoal);
         }
