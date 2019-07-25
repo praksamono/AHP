@@ -11,7 +11,7 @@ namespace AHP.Service.Common
     {
         Task<ICriterium> AddCriteriumAsync(ICriterium criterium);
 
-        Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList)
+        Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList);
 
         Task<bool> DeleteCriteriumAsync(Guid criteriumID);
 
