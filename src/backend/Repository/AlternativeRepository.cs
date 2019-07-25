@@ -25,8 +25,9 @@ namespace Repository
 
         public async Task<IAlternative> AddAlternativeAsync(IAlternative newAlternative)
         {
-            newAlternative.DateCreated = DateTime.UtcNow;
 
+            newAlternative.DateCreated = DateTime.UtcNow;
+            
             Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(newAlternative));
             await Context.SaveChangesAsync();
             return newAlternative;
