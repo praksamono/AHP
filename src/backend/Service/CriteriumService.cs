@@ -23,6 +23,11 @@ namespace AHP.Service
             return await criteriumRepository.AddCriteriumAsync(criterium);
         }
 
+        public async Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList)
+        {
+            return await criteriumRepository.AddCriteriumListAsync(criteriumList);
+        }
+
         public async Task<bool> DeleteCriteriumAsync(Guid criteriumID)
         {
             await criteriumRepository.DeleteCriteriumAsync(criteriumID);
