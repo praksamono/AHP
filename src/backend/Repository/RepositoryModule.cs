@@ -17,7 +17,7 @@ namespace Repository
             builder.RegisterType<CriteriumAlternativeRepository>().As<ICriteriumAlternativeRepository>();
 
             builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>();
-            
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
         }
     }

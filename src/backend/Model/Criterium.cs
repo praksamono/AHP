@@ -18,14 +18,10 @@ namespace Model
 
         public DateTime DateUpdated { get; set; }
 
-        public Goal goal { get; set; }
-
         public List<ICriteriumAlternative> criteriumAlternative { get; set; }
 
-        public Criterium(string name, float x) {
-            this.CriteriumId = new Guid();
-            this.CriteriumName = name;
-            this.GlobalCriteriumPriority = x;
-        }
+        public Guid GoalId { get; set; }
+
+        public IGoal Goal { get; set; }
     }
 }

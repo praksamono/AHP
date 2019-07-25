@@ -27,6 +27,8 @@
     <Compile Remove="Migrations\20190724075412_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20190724081505_UpdateDataBase.cs" />
     <Compile Remove="Migrations\20190724081505_UpdateDataBase.Designer.cs" />
+    <Compile Remove="Migrations\20190724130531_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190724130531_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

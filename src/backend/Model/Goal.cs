@@ -24,5 +24,6 @@ namespace Model
             this.GoalId = new Guid();
             this.GoalName = name;
         }
+
     }
 }

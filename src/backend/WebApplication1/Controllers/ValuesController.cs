@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
             //var test = await this.repository.DeleteGoalAsync(tempGuid);
 
             //var test = await this.repository.AddCriteriumAsync(new Criterium("Stan",5));
-            var test = await this.repository.GetAllGoalsAsync();
+            var test = await this.repository.AddGoalAsync(new Goal("Stan"));
 
             return Ok(test);
             //return Ok();
