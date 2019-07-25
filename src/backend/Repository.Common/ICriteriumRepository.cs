@@ -14,7 +14,7 @@ namespace Repository.Common
 
         Task<ICriterium> AddCriteriumAsync(ICriterium criterium );
 
-        Task<bool> UpdateCriteriumAsnyc(ICriterium criteriumUpdate);
+        Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate);
 
         Task<bool> DeleteCriteriumAsync(Guid criteriumId);
     }
