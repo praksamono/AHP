@@ -27,7 +27,7 @@ namespace Repository
         protected AHPContext Context { get; private set; }
         public async Task<bool> DeleteCriteriumAlternativeAsync(Guid criteriumAlternativeId)
         {
-            var deleteCriteriumAlternative = await Context.CriteriumAlternatives.SingleOrDefaultAsync(x => x.CriteriumAlternativeId == criteriumAlternativeId);
+            var deleteCriteriumAlternative = await Context.CriteriumAlternatives.SingleOrDefaultAsync(x => x.Id == criteriumAlternativeId);
             if (deleteCriteriumAlternative != null)
             {
                 Context.CriteriumAlternatives.Remove(deleteCriteriumAlternative);
@@ -44,7 +44,7 @@ namespace Repository
 
         public async Task<ICriteriumAlternative> GetCriteriumAlternativeAsync(Guid criteriumAlternativeId)
         {
-            var getCriteriumAlternative = await Context.CriteriumAlternatives.SingleOrDefaultAsync(x => x.CriteriumAlternativeId == criteriumAlternativeId);
+            var getCriteriumAlternative = await Context.CriteriumAlternatives.SingleOrDefaultAsync(x => x.Id == criteriumAlternativeId);
             return Mapper.Map<ICriteriumAlternative>(getCriteriumAlternative);
         }
     }

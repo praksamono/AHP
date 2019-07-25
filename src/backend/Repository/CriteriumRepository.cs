@@ -35,7 +35,7 @@ namespace Repository
 
         public async Task<bool> DeleteCriteriumAsync(Guid criteriumId)
         {
-            var deleteCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.CriteriumId == criteriumId);
+            var deleteCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);
             if (deleteCriterium != null)
             {
                 Context.Criteriums.Remove(deleteCriterium);
@@ -52,7 +52,7 @@ namespace Repository
 
         public async Task<ICriterium> GetCriteriumAsync(Guid criteriumId)
         {
-            var getCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.CriteriumId == criteriumId);
+            var getCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);
             return Mapper.Map<ICriterium>(getCriterium);
         }
 
@@ -67,5 +67,13 @@ namespace Repository
             }
             return true;
         }
+
+
+        //public async Task<List<ICriterium>> AddListOfCriterium(List<ICriterium> criterium)
+        //{
+        //    var criteriums = Mapper.Map<List<ICriterium>, List<CriteriumEntity>>(criterium);
+        //    Context.Criteriums.AddRange(criteriums);
+        //    return criteriums;
+        //}
     }
 }

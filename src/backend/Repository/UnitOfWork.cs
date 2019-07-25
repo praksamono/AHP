@@ -1,4 +1,5 @@
 ﻿using DAL;
+using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Repository.Common;
@@ -24,7 +25,7 @@ namespace Repository
             DbContext = dbContext;
         }
 
-        public Task<int> AddAsync<T>(T entity) where T : class
+        public Task<int> AddAsync<T>(T entity) where T : class, IBaseEntity
         {
             EntityEntry dbEntityEntry = DbContext.Entry(entity);
             if (dbEntityEntry.State != EntityState.Detached)
@@ -38,7 +39,7 @@ namespace Repository
             return Task.FromResult(1);
         }
 
-        public Task<int> UpdateAsync<T>(T entity) where T : class
+        public Task<int> UpdateAsync<T>(T entity) where T : class, IBaseEntity
         {
             EntityEntry dbEntityEntry = DbContext.Entry(entity);
             if (dbEntityEntry.State == EntityState.Detached)
@@ -50,7 +51,7 @@ namespace Repository
             return Task.FromResult(1);
         }
 
-        public Task<int> DeleteAsync<T>(T entity) where T : class
+        public Task<int> DeleteAsync<T>(T entity) where T : class, IBaseEntity
         {
             EntityEntry dbEntityEntry = DbContext.Entry(entity);
             if (dbEntityEntry.State != EntityState.Deleted)
@@ -65,7 +66,7 @@ namespace Repository
             return Task.FromResult(1);
         }
 
-        public Task<int> DeleteAsync<T>(Guid id) where T : class
+        public Task<int> DeleteAsync<T>(Guid id) where T : class, IBaseEntity
         {
             var entity = DbContext.Set<T>().Find(id);
             if (entity == null)
@@ -91,7 +92,7 @@ namespace Repository
             DbContext.Dispose();
         }
 
-        public Task<int> GetAsync<T>(T entity) where T : class
+        public Task<int> GetAsync<T>(T entity) where T : class, IBaseEntity
         {
             if (entity == null)
             {
@@ -99,7 +100,7 @@ namespace Repository
             }
             return GetAsync<T>(entity);
         }
-        public Task<int> GetAsync<T>(Guid id) where T : class
+        public Task<int> GetAsync<T>(Guid id) where T : class, IBaseEntity
         {
             var entity = DbContext.Set<T>().Find(id);
             if (entity == null)

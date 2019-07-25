@@ -49,9 +49,9 @@ namespace WebAPI
             var mappedGoal = _mapper.Map<GoalDto, IGoal>(goal);
             var returnedGoal = await _service.AddGoalAsync(mappedGoal);
 
-            //return Ok(_mapper.Map<GoalDto>(returnedGoal));
+            return Ok(_mapper.Map<GoalDto>(returnedGoal));
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
+            //return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
         }
     }
 

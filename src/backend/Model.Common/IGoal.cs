@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace Model.Common
 {
     public interface IGoal
     {
-        Guid GoalId { get; set; }
+        Guid Id { get; set; }
 
         string GoalName { get; set; }
 

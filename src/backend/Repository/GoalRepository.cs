@@ -28,7 +28,7 @@ namespace Repository
 
         public async Task<IGoal> GetGoalAsync(Guid goalId)
         {
-            var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
             return Mapper.Map<IGoal>(getGoal);
 
             //var unitOfWork = UowFactory.CreateUnitOfWork();
@@ -43,19 +43,23 @@ namespace Repository
 
         public async Task<IGoal> AddGoalAsync(IGoal goal)
         {
+
+            //Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
+            //await Context.SaveChangesAsync();
+            //return goal;
+
+            goal.Id = Guid.NewGuid();
             goal.DateCreated = DateTime.UtcNow;
+            goal.DateUpdated = DateTime.UtcNow;
 
-            Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
-            await Context.SaveChangesAsync();
+            var unitOfWork = UowFactory.CreateUnitOfWork();
+            var entity = Mapper.Map<GoalEntity>(goal);
+
+            var newGoal = await unitOfWork.AddAsync(entity);
+
+            await unitOfWork.CommitAsync();
+
             return goal;
-
-            //var unitOfWork = UowFactory.CreateUnitOfWork();
-
-            //var newGoal = await unitOfWork.AddAsync(goal);
-
-            //await unitOfWork.CommitAsync();
-
-            //return Mapper.Map<IGoal>(newGoal);
         }
 
         public async Task<bool> UpdateGoalAsync(IGoal goalUpdate)
@@ -72,16 +76,13 @@ namespace Repository
 
         public async Task<bool> DeleteGoalAsync(Guid goalId)
         {
-            var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
             if (deleteGoal != null)
             {
                 Context.Goals.Remove(deleteGoal);
                 await Context.SaveChangesAsync();
             }
             return true;
-
-
-
         }
     }
 }
