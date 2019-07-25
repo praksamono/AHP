@@ -58,6 +58,7 @@ namespace WebAPI
 	public class AlternativeDTO
 	{
 		public string AlternativeName { get; set; }
+		public Guid GoalId { get; set; }
 	}
 
 }

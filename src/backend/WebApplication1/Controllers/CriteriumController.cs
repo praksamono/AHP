@@ -53,5 +53,6 @@ namespace WebAPI
     public class CriteriumDTO
     {
         public string CriteriumName { get; set; }
+        public Guid GoalId { get; set; }
     }
 }
