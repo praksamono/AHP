@@ -33,6 +33,11 @@ namespace AHP.Service
             return await alternativeRepository.AddAlternativeAsync(alternative);
         }
 
+        public async Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives)
+        {
+            return await alternativeRepository.AddAlternativeListAsync(alternatives);
+        }
+
         public async Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative)
         {
             await alternativeRepository.UpdateAlternativeAsnyc(updatedAlternative);

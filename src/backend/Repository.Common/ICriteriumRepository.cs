@@ -14,6 +14,8 @@ namespace Repository.Common
 
         Task<ICriterium> AddCriteriumAsync(ICriterium criterium );
 
+        Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList);
+
         Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate);
 
         Task<bool> DeleteCriteriumAsync(Guid criteriumId);

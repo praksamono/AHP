@@ -15,6 +15,8 @@ namespace AHP.Service.Common
 
         Task<IAlternative> AddAlternativeAsync(IAlternative alternative);
 
+        Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives);
+
         Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative);
 
         Task<bool> DeleteAlternativeAsync(Guid alternativeID);

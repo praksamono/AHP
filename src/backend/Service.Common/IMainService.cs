@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+using Model.Common;
 
 namespace AHP.Service.Common
 {
     public interface IMainService
     {
+        void AHPMethod(int[] ComparisonValues, ICriteriumAlternative criteriumAlternative = null);
     }
 }
