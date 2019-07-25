@@ -30,7 +30,7 @@ namespace WebAPI
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(criterium));
+            return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(criteria));
         }
 
         [HttpPost]

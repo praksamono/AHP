@@ -20,6 +20,7 @@ using Repository;
 using Repository.Common;
 using DAL;
 using AutoMapper;
+using WebAPI;
 
 
 namespace WebApplication1
