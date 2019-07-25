@@ -32,7 +32,7 @@ namespace WebAPI
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<GoalDTO>(goal));
+            return Ok(_mapper.Map<IGoal, GoalDTO>(goal));
         }
 
 
@@ -45,7 +45,7 @@ namespace WebAPI
                 // throw new HttpResponseException("Goal name is not set.", HttpStatusCode.BadRequest);
             }
 
-            var mappedGoal = _mapper.Map<IGoal>(goal);
+            var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
             var returnedGoal = await _service.AddGoalAsync(mappedGoal);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);

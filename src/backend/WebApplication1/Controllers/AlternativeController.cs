@@ -32,7 +32,7 @@ namespace WebAPI
 			{
 				return NotFound();
 			}
-			return Ok(_mapper.Map<List<AlternativeDTO>>(alternatives));
+			return Ok(_mapper.Map<List<IAlternative>, List<AlternativeDTO>>(alternatives));
 		}
 
 		[HttpPost]
@@ -47,11 +47,11 @@ namespace WebAPI
 				}
 			}
 
-			var mappedAlts = _mapper.Map<List<IAlternative>>(alternatives);
+			var mappedAlts = _mapper.Map<List<AlternativeDTO>, List<IAlternative>>(alternatives);
 			// service treba metodu za listu alternativa
 			// await _service.CreateAlternativesAsync(mappedAlts);
 
-			return CreatedAtAction(nameof(GetAlternativesAsync), new { }, mappedAlts);
+			return Ok(mappedAlts);
 		}
 
 	}

@@ -31,7 +31,8 @@ namespace WebAPI
         }
       }
 
-      //var status = await _criteriumAlternativeService.AddCriteriumAlternative(criterium);
+      // crit_alt treba metodu
+      // var status = await _criteriumAlternativeService.AddCriteriumAlternative(criterium.values, criterium.name);
       return Ok(/*status*/);
     }
   }
