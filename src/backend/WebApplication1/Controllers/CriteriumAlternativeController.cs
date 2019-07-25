@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
 using AHP.Service.Common;
 using Model.Common;
 
@@ -13,11 +12,10 @@ namespace WebAPI
   [ApiController]
   public class CriteriumAlternativeController : ControllerBase
   {
-    private readonly ICriteriumAlternativeService _criteriumAlternativeService;
-    private readonly IMapper _mapper;
-    public CriteriumAlternativeController(ICriteriumAlternativeService criteriumAlternativeService)
+    private readonly IMainService _mainService;
+    public CriteriumAlternativeController(IMainService mainService)
     {
-      _criteriumAlternativeService = criteriumAlternativeService;
+      _mainService = mainService;
     }
 
     [HttpPost]
@@ -31,15 +29,14 @@ namespace WebAPI
         }
       }
 
-      // crit_alt treba metodu
-      // var status = await _criteriumAlternativeService.AddCriteriumAlternative(criterium.values, criterium.name);
+      var status = await _mainService.AHPMethod(criterium.values, criterium.criteriumName);
       return Ok(/*status*/);
     }
   }
 
   public class CriteriumAlternativeDTO
   {
-    public int[] values;
-    public string name;
+      public int[] values;
+      public string criteriumName;
   }
 }
