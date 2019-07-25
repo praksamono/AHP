@@ -22,11 +22,11 @@ namespace WebAPI
         }
 
         [HttpGet]
-        public async Task<ActionResult<CriteriumDTO>> GetAsync()
+        public async Task<ActionResult<List<CriteriumDTO>>> GetAsync()
         {
-            // var criterium = await _criteriumService.GetCriteriumAsync();
+            var criteria = await _criteriumService.GetAllCriteriumsAsync();
 
-            if (criterium == null)
+            if (criteria == null)
             {
                 return NotFound();
             }
@@ -44,8 +44,9 @@ namespace WebAPI
                 }
             }
 
-            var mappedCriterium = _mapper.Map<ICriterium>(Criteria);
-            //var status = await _criteriumService.AddCriteriumAsync(mappedCriterium);
+            var mappedCriteria = _mapper.Map<List<ICriterium>>(Criteria);
+            // service treba metodu za listu kriterija
+            //var status = await _criteriumService.AddCriteriumAsync(mappedCriteria);
             return Ok(/*status*/);
         }
       }

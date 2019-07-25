@@ -20,5 +20,10 @@ namespace Model
 
         public List<ICriterium> Criteriums { get; set; }
 
+        public Goal(string name) {
+            this.GoalId = new Guid();
+            this.GoalName = name;
+        }
+
     }
 }

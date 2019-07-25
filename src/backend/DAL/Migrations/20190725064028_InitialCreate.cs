@@ -30,17 +30,17 @@ namespace DAL.Migrations
                     GlobalPriority = table.Column<float>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false),
-                    GoalEntityGoalId = table.Column<Guid>(nullable: true)
+                    GoalId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Alternatives", x => x.AlternativeId);
                     table.ForeignKey(
-                        name: "FK_Alternatives_Goals_GoalEntityGoalId",
-                        column: x => x.GoalEntityGoalId,
+                        name: "FK_Alternatives_Goals_GoalId",
+                        column: x => x.GoalId,
                         principalTable: "Goals",
                         principalColumn: "GoalId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,17 +52,17 @@ namespace DAL.Migrations
                     GlobalCriteriumPriority = table.Column<float>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false),
-                    GoalEntityGoalId = table.Column<Guid>(nullable: true)
+                    GoalId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Criteriums", x => x.CriteriumId);
                     table.ForeignKey(
-                        name: "FK_Criteriums_Goals_GoalEntityGoalId",
-                        column: x => x.GoalEntityGoalId,
+                        name: "FK_Criteriums_Goals_GoalId",
+                        column: x => x.GoalId,
                         principalTable: "Goals",
                         principalColumn: "GoalId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,7 +85,7 @@ namespace DAL.Migrations
                         column: x => x.AlternativeId,
                         principalTable: "Alternatives",
                         principalColumn: "AlternativeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CriteriumAlternatives_Criteriums_CriteriumId",
                         column: x => x.CriteriumId,
@@ -95,14 +95,14 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alternatives_GoalEntityGoalId",
+                name: "IX_Alternatives_GoalId",
                 table: "Alternatives",
-                column: "GoalEntityGoalId");
+                column: "GoalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Criteriums_GoalEntityGoalId",
+                name: "IX_Criteriums_GoalId",
                 table: "Criteriums",
-                column: "GoalEntityGoalId");
+                column: "GoalId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

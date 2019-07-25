@@ -26,7 +26,7 @@ namespace WebAPI
 		[HttpGet]
 		public async Task<ActionResult<List<AlternativeDTO>>> GetAlternativesAsync()
 		{
-			// var alternatives = await _service.GetAlternativesAsync();
+			var alternatives = await _service.GetAllAlternativesAsync();
 
 			if (alternatives == null)
 			{
@@ -48,6 +48,7 @@ namespace WebAPI
 			}
 
 			var mappedAlts = _mapper.Map<List<IAlternative>>(alternatives);
+			// service treba metodu za listu alternativa
 			// await _service.CreateAlternativesAsync(mappedAlts);
 
 			return CreatedAtAction(nameof(GetAlternativesAsync), new { }, mappedAlts);

@@ -49,6 +49,7 @@ namespace WebApplication1
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new RepositoryProfile());
+                cfg.AddProfile(new WebAPIProfile());
             });
 
             var mapper = config.CreateMapper();

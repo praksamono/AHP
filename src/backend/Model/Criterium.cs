@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
-    public class Criterium
+    public class Criterium : ICriterium
     {
         public Guid CriteriumId { get; set; }
 
@@ -19,5 +19,9 @@ namespace Model
         public DateTime DateUpdated { get; set; }
 
         public List<ICriteriumAlternative> criteriumAlternative { get; set; }
+
+        public Guid GoalId { get; set; }
+
+        public IGoal Goal { get; set; }
     }
 }

@@ -8,11 +8,11 @@ namespace Model.Common
     {
         Guid CriteriumId { get; set; }
 
-        ICriterium criterium { get; set; }
+        ICriterium Criterium { get; set; }
 
         Guid AlternativeId { get; set; }
 
-        IAlternative alternative { get; set; }
+        IAlternative Alternative { get; set; }
 
         float LocalPriority { get; set; }
     }

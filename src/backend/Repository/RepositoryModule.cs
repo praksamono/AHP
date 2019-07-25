@@ -12,7 +12,12 @@ namespace Repository
         {
             // builder.RegisterType<ClassName>().As<InterfaceName>(); for new Classes
             builder.RegisterType<GoalRepository>().As<IGoalRepository>();
+            builder.RegisterType<CriteriumRepository>().As<ICriteriumRepository>();
+            builder.RegisterType<AlternativeRepository>().As<IAlternativeRepository>();
+            builder.RegisterType<CriteriumAlternativeRepository>().As<ICriteriumAlternativeRepository>();
+
             builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
         }
     }

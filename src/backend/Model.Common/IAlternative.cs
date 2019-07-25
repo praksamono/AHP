@@ -15,7 +15,11 @@ namespace Model.Common
 
         DateTime DateUpdated { get; set; }
 
-        List<ICriteriumAlternative> criteriumAlternatives { get; set; }
+        List<ICriteriumAlternative> CriteriumAlternatives { get; set; }
+
+        Guid GoalId { get; set; }
+
+        IGoal Goal { get; set; }
 
     }
 }

@@ -30,6 +30,9 @@ namespace Repository
         {
             var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
             return Mapper.Map<IGoal>(getGoal);
+
+            //var unitOfWork = UowFactory.CreateUnitOfWork();
+
         }
 
         public async Task<List<IGoal>> GetAllGoalsAsync()
@@ -46,13 +49,13 @@ namespace Repository
             await Context.SaveChangesAsync();
             return goal;
 
-            //var unitOfWork = _uowFactory.CreateUnitOfWork();
+            //var unitOfWork = UowFactory.CreateUnitOfWork();
 
             //var newGoal = await unitOfWork.AddAsync(goal);
 
             //await unitOfWork.CommitAsync();
 
-            //return _mapper.Map<IGoal>(newGoal);
+            //return Mapper.Map<IGoal>(newGoal);
         }
 
         public async Task<bool> UpdateGoalAsync(IGoal goalUpdate)
@@ -76,6 +79,9 @@ namespace Repository
                 await Context.SaveChangesAsync();
             }
             return true;
+
+
+
         }
     }
 }
