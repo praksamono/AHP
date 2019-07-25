@@ -9,6 +9,26 @@ namespace AHP.Service
     class MainService
     {
         #region  Calculation
+
+        public async void AHPMethod(int[] ComparisonValues, string Criterion = "")
+        {
+            if(Criterion == "")
+            {
+                float[,] Matrix = MatrixInit(ComparisonValues);
+                float[] NormalisedVector = CalculatePriorities(Matrix);
+                
+                //Send Normalised vector values to the repository layer in order to fill in the overall criteria priorities
+            }
+
+            else
+            {
+                float[,] Matrix = MatrixInit(ComparisonValues);
+                float[] NormalisedVector = CalculatePriorities(Matrix);
+
+                //Send Normalised vector values to the repository layer, fill in the CriteriumAlternatives objects with the param Criterion name and the array of floats.
+            }
+        }
+               
         public float[] CalculatePriorities(float[,] Matrix)
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
         ///<returns>Float array of priorities</returns>
