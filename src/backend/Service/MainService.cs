@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Repository.Common;
 using Model.Common;
+using System.Threading.Tasks;
 
 //The controller sends an array of comparison values.
 
@@ -12,7 +13,7 @@ namespace AHP.Service
     {
         #region  Calculation
 
-        public async void AHPMethod(int[] ComparisonValues, string Criterion = "")
+        public async Task<bool> AHPMethod(int[] ComparisonValues, string Criterion = "")
         {
             if(Criterion == "")
             {
@@ -29,6 +30,8 @@ namespace AHP.Service
 
                 //Send Normalised vector values to the repository layer, fill in the CriteriumAlternatives objects with the param Criterion name and the array of floats.
             }
+
+            return true;
         }
 
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
