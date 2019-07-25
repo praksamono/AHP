@@ -20,11 +20,11 @@ namespace AHP.Service
         }
 
         //Methods
-        public async void AddGoalAsync(IGoal goal)
+        public async Task<IGoal> AddGoalAsync(IGoal goal)
         {
             //add exception handling
 
-            await goalRepository.AddGoalAsync(goal);
+            return await goalRepository.AddGoalAsync(goal);
         }
 
         public async Task<IGoal> GetGoalAsync(Guid goalID)
@@ -41,17 +41,18 @@ namespace AHP.Service
             return await goalRepository.GetAllGoalsAsync();
         }
 
-        public async void UpdateGoalAsync()
+        public async Task<bool> UpdateGoalAsync(IGoal updatedGoal)
         {
             //add exception handling
- 
+            await goalRepository.UpdateGoalAsync(updatedGoal);
+            return true;
         }
 
-        public async void DeleteGoalAsync(Guid goalID)
+        public async Task<bool> DeleteGoalAsync(Guid goalID)
         {
             //add exception handling
 
-            await goalRepository.DeleteGoalAsync(goalID);
+            return await goalRepository.DeleteGoalAsync(goalID);
         }
     }
 }

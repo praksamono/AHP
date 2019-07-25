@@ -56,7 +56,7 @@ namespace Repository
             return Mapper.Map<ICriterium>(getCriterium);
         }
 
-        public async Task<bool> UpdateCriteriumAsnyc(ICriterium criteriumUpdate)
+        public async Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate)
         {
             criteriumUpdate.DateUpdated = DateTime.UtcNow;
 
