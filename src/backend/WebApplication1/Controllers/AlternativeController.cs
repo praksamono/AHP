@@ -48,10 +48,9 @@ namespace WebAPI
 			}
 
 			var mappedAlts = _mapper.Map<List<AlternativeDTO>, List<IAlternative>>(alternatives);
-			// service treba metodu za listu alternativa
-			// await _service.CreateAlternativesAsync(mappedAlts);
+			var status = await _service.AddAlternativeListAsync(mappedAlts);
 
-			return Ok(mappedAlts);
+			return Ok(status);
 		}
 
 	}

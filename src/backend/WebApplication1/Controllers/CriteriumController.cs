@@ -45,9 +45,9 @@ namespace WebAPI
             }
 
             var mappedCriteria = _mapper.Map<List<ICriterium>>(Criteria);
-            // service treba metodu za listu kriterija
-            //var status = await _criteriumService.AddCriteriumAsync(mappedCriteria);
-            return Ok(/*status*/);
+            var status = await _criteriumService.AddCriteriumListAsync(mappedCriteria);
+
+            return Ok(status);
         }
       }
 

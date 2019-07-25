@@ -30,7 +30,7 @@ namespace WebAPI
       }
 
       var status = await _mainService.AHPMethod(criterium.values, criterium.criteriumName);
-      return Ok(/*status*/);
+      return Ok(status);
     }
   }
 
