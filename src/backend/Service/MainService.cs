@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Repository.Common;
+using Model.Common;
+using System.Threading.Tasks;
 
 //The controller sends an array of comparison values.
 
@@ -10,13 +13,13 @@ namespace AHP.Service
     {
         #region  Calculation
 
-        public async void AHPMethod(int[] ComparisonValues, string Criterion = "")
+        public async Task<bool> AHPMethod(int[] ComparisonValues, string Criterion = "")
         {
             if(Criterion == "")
             {
                 float[,] Matrix = MatrixInit(ComparisonValues);
                 float[] NormalisedVector = CalculatePriorities(Matrix);
-                
+
                 //Send Normalised vector values to the repository layer in order to fill in the overall criteria priorities
             }
 
@@ -27,11 +30,13 @@ namespace AHP.Service
 
                 //Send Normalised vector values to the repository layer, fill in the CriteriumAlternatives objects with the param Criterion name and the array of floats.
             }
+
+            return true;
         }
-               
-        public float[] CalculatePriorities(float[,] Matrix)
+
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
         ///<returns>Float array of priorities</returns>
+        public float[] CalculatePriorities(float[,] Matrix)        
         {
             int MatrixSize = Matrix.GetLength(0); //Gets the length of the first dimension in the matrix, since the matrix is always square it does not matter which dimension's length we take
 
@@ -52,12 +57,12 @@ namespace AHP.Service
         }
         #endregion
 
-        #region MatrixOperations
-        static public float[,] MatrixInit(int[] ComparisonValues)
         ///<summary>Initialises a calculation matrix from comparison values(of alternatives or criteria) passed from the controller. </summary>
         ///<param name="ComparisonValues">Array of integers containing comparison values. The values are in the range [-4, 4], where negative numbers represent
         ///'left' priority and are mapped as |2n-1|. Positive values are mapped as 2n+1 to get the full range of values [1, 9] used in AHP.</param>
         ///<returns>2D array of floats that is the calculation matrix for future calculations.</returns>
+        #region MatrixOperations
+        static public float[,] MatrixInit(int[] ComparisonValues)        
         {
             int MatrixSize = ComparisonValues.Length;
             float[,] Matrix = new float[MatrixSize, MatrixSize];
@@ -92,8 +97,8 @@ namespace AHP.Service
             return Matrix;
         }
 
-        public float MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber)
         ///<summary>Sums up the elements in the RowNumber row of a Matrix</summary>
+        public float MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber)        
         {
             float sum = 0;
             for (int i = 0; i < MatrixSize; i++)
@@ -104,9 +109,9 @@ namespace AHP.Service
             return sum;
         }
 
-        public float MatrixSum(float[,] Matrix, int MatrixSize)
         ///<summary>Sums up all the elements of a matrix. It only traverses the upper triangle of a matrix since we know the matrix has a property of reciprocal values.</summary>
         ///<returns>Float representing the sum of all matrix elements</returns>
+        public float MatrixSum(float[,] Matrix, int MatrixSize)        
         {
             float sum = 0f;
 

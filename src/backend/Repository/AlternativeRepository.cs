@@ -33,6 +33,19 @@ namespace Repository
             return newAlternative;
         }
 
+        public async Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> newAlternatives)
+        {   
+            foreach (IAlternative alternative in newAlternatives)
+            {
+                alternative.DateCreated = DateTime.UtcNow;
+
+                Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(alternative));
+                await Context.SaveChangesAsync();
+            }
+            
+            return newAlternatives;
+        }
+
         public async Task<bool> DeleteAlternativeAsync(Guid alternativeId)
         {
             var deleteAlternative = await Context.Alternatives.SingleOrDefaultAsync(x => x.Id == alternativeId);

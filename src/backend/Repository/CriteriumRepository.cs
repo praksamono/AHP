@@ -33,6 +33,19 @@ namespace Repository
             return criterium;
         }
 
+        public async Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList)
+        {
+            foreach(ICriterium criterium in criteriumList)
+            {
+                criterium.DateCreated = DateTime.UtcNow;
+
+                Context.Criteriums.Add(Mapper.Map<ICriterium, CriteriumEntity>(criterium));
+                await Context.SaveChangesAsync();
+            }
+            
+            return criteriumList;
+        }
+
         public async Task<bool> DeleteCriteriumAsync(Guid criteriumId)
         {
             var deleteCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);

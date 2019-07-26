@@ -14,12 +14,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using AHP.Service;
-
+using AHP.Service.Common;
 using Model;
 using Repository;
-using DAL;
 using Repository.Common;
-using Repository;
+using DAL;
 using AutoMapper;
 using WebAPI;
 
@@ -54,7 +53,7 @@ namespace WebApplication1
             });
 
             var mapper = config.CreateMapper();
-          
+
             //services.AddSingleton(mapper);
 
             var builder = new Autofac.ContainerBuilder();

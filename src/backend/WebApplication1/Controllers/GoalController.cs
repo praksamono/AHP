@@ -38,13 +38,13 @@ namespace WebAPI
 
         [HttpPost]
         public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDto goal)
+
         {
             if (string.IsNullOrEmpty(goal.GoalName))
             {
                 return BadRequest(new {message = "Goal name is not set."});
                 // throw new HttpResponseException("Goal name is not set.", HttpStatusCode.BadRequest);
             }
-            //IGoal g = IGoalService.AddGoalAsync(_mapper.Map<IGoal, GoalDto>(goal));
 
             var mappedGoal = _mapper.Map<GoalDto, IGoal>(goal);
             var returnedGoal = await _service.AddGoalAsync(mappedGoal);
@@ -59,6 +59,6 @@ namespace WebAPI
     {
 
         public string GoalName { get; set; }
-
     }
+
 }

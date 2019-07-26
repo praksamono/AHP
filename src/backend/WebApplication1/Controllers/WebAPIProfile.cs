@@ -10,8 +10,8 @@ namespace WebAPI
        public WebAPIProfile()
         {
             CreateMap<GoalDto, Model.Common.IGoal>().ReverseMap();
-            //CreateMap<CriteriumDTO, Model.Common.ICriterium>().ReverseMap();
-            //CreateMap<AlternativeDTO, Model.Common.IAlternative>().ReverseMap();
+            CreateMap<CriteriumDTO, Model.Common.ICriterium>().ReverseMap();
+            CreateMap<AlternativeDTO, Model.Common.IAlternative>().ReverseMap();
         }
     }
 }
