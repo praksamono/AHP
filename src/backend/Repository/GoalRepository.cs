@@ -28,10 +28,13 @@ namespace Repository
 
         public async Task<IGoal> GetGoalAsync(Guid goalId)
         {
-            var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
-            return Mapper.Map<IGoal>(getGoal);
+            //var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
+            //return Mapper.Map<IGoal>(getGoal);
 
-            //var unitOfWork = UowFactory.CreateUnitOfWork();
+            var unitOfWork = UowFactory.CreateUnitOfWork();
+            
+            var getGoal = await unitOfWork.GetAsync<GoalEntity>(goalId);
+            return Mapper.Map<IGoal>(getGoal);
 
         }
 
@@ -66,22 +69,32 @@ namespace Repository
         {
             goalUpdate.DateUpdated = DateTime.UtcNow;
 
-            if (Context != null)
-            {
-                Context.Goals.Update(Mapper.Map<IGoal, GoalEntity>(goalUpdate));
-                await Context.SaveChangesAsync();
-            }
+            var unitOfWork = UowFactory.CreateUnitOfWork();
+            var entity = Mapper.Map<GoalEntity>(goalUpdate);
+
+            await unitOfWork.UpdateAsync(entity);
+
+            await unitOfWork.CommitAsync();
+
             return true;
         }
 
         public async Task<bool> DeleteGoalAsync(Guid goalId)
         {
-            var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
-            if (deleteGoal != null)
-            {
-                Context.Goals.Remove(deleteGoal);
-                await Context.SaveChangesAsync();
-            }
+            //var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
+            //if (deleteGoal != null)
+            //{
+            //    Context.Goals.Remove(deleteGoal);
+            //    await Context.SaveChangesAsync();
+            //}
+            //return true;
+
+            var unitOfWork = UowFactory.CreateUnitOfWork();
+
+            var deleteGoal = await unitOfWork.DeleteAsync<GoalEntity>(goalId);
+
+            await unitOfWork.CommitAsync();
+
             return true;
         }
     }

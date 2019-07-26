@@ -23,7 +23,7 @@ namespace WebAPI
             _mapper = mapper;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GoalDto>> GetByIdAsync(Guid id)
         {
             var goal = await _service.GetGoalAsync(id);
@@ -32,7 +32,7 @@ namespace WebAPI
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<GoalDto>(goal));
+            return Ok(_mapper.Map<IGoal,GoalDto>(goal));
         }
 
 
@@ -52,6 +52,17 @@ namespace WebAPI
             return Ok(_mapper.Map<GoalDto>(returnedGoal));
 
             //return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<IGoal>> DeleteGoalAsync(Guid id)
+        {
+            if (id == null)
+            {
+                return BadRequest(new { message = "Id can't be empty." });
+            }
+            var goal = await _service.DeleteGoalAsync(id);
+            return Ok(id);
         }
     }
 
