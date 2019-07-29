@@ -8,7 +8,7 @@ namespace Model
     public class Goal : IGoal
     {
   
-        public Guid GoalId { get; set; }
+        public Guid Id { get; set; }
 
         public string GoalName { get; set; }
 
@@ -19,11 +19,6 @@ namespace Model
         public List<IAlternative> Alternatives { get; set; }
 
         public List<ICriterium> Criteriums { get; set; }
-
-        public Goal(string name) {
-            this.GoalId = new Guid();
-            this.GoalName = name;
-        }
 
     }
 }

@@ -12,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
 using AHP.Service;
 using AHP.Service.Common;
 using Model;
@@ -21,7 +20,6 @@ using Repository.Common;
 using DAL;
 using AutoMapper;
 using WebAPI;
-
 
 namespace WebApplication1
 {

@@ -56,13 +56,14 @@ namespace WebAPI
                 return BadRequest(new { message = "Id can't be empty." });
             }
 
-            var goal = _service.DeleteGoalAsync(id);
+            var goal = await _service.DeleteGoalAsync(id);
 
             return Ok();
         }
 
         [HttpPost]
         public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDTO goal)
+
         {
             if (string.IsNullOrEmpty(goal.GoalName))
             {
@@ -73,32 +74,34 @@ namespace WebAPI
             var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
             var returnedGoal = await _service.AddGoalAsync(mappedGoal);
 
-            return Ok(returnedGoal);
+            return Ok(_mapper.Map<GoalDTO>(returnedGoal));
+
+            //return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
         }
 
+
         [HttpPut]
-        public async Task<ActionResult<IGoal>> UpdateGoalAsync(GoalDTO goal)
+        public async Task<ActionResult> UpdateGoalAsync(GoalDTO goal)
         {
             if (string.IsNullOrEmpty(goal.GoalName))
             {
                 return BadRequest(new { message = "Goal name is not set." });
             }
-
             var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
             var newGoal = await _service.UpdateGoalAsync(mappedGoal);
-
-            // Fix return type
             return Ok();
         }
     }
 
+
+
     public class GoalDTO
     {
-        public Guid GoalId { get; set; }
         public string GoalName { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
         public List<IAlternative> Alternatives { get; set; }
         public List<ICriterium> Criteriums { get; set; }
     }
+
 }

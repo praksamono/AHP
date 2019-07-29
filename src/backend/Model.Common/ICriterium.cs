@@ -5,7 +5,7 @@ namespace Model.Common
 {
     public interface ICriterium
     {
-        Guid CriteriumId { get; set; }
+        Guid Id { get; set; }
 
         string CriteriumName { get; set; }
 

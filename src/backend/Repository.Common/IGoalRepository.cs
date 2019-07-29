@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Entities;
 using Model.Common;
 
 namespace Repository.Common

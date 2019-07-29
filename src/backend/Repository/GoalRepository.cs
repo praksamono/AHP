@@ -15,73 +15,79 @@ namespace Repository
     {
         private readonly IMapper Mapper;
 
-        IUnitOfWorkFactory UowFactory;
+        IUnitOfWorkFactory uowFactory;
 
-        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
+        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper/*, AHPContext context*/)
         {
-            this.UowFactory = uowFactory;
+            this.uowFactory = uowFactory;
             this.Mapper = mapper;
-            this.Context = context;
+            //this.Context = context;
         }
 
         protected AHPContext Context { get; private set; }
 
         public async Task<IGoal> GetGoalAsync(Guid goalId)
         {
-            var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
+            //var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
+            //return Mapper.Map<IGoal>(getGoal);
+
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            var getGoal = await unitOfWork.GetAsync<GoalEntity>(goalId);
             return Mapper.Map<IGoal>(getGoal);
-
-            //var unitOfWork = UowFactory.CreateUnitOfWork();
-
         }
 
         public async Task<List<IGoal>> GetAllGoalsAsync()
         {
-            var allGoals = await Context.Goals.ToListAsync();
-            return Mapper.Map<List<IGoal>>(allGoals);
+            //var allGoals = await Context.Goals.ToListAsync();
+            //return Mapper.Map<List<IGoal>>(allGoals);
+
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            var getGoal = await unitOfWork.GetAllAsync<GoalEntity>();
+            return Mapper.Map<List<IGoal>>(getGoal);
         }
 
         public async Task<IGoal> AddGoalAsync(IGoal goal)
         {
+
+            //Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
+            //await Context.SaveChangesAsync();
+            //return goal;
+
+            goal.Id = Guid.NewGuid();
             goal.DateCreated = DateTime.UtcNow;
+            goal.DateUpdated = DateTime.UtcNow;
 
-            Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
-            await Context.SaveChangesAsync();
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            var entity = Mapper.Map<GoalEntity>(goal);
+            await unitOfWork.AddAsync(entity);
+            await unitOfWork.CommitAsync();
             return goal;
-
-            //var unitOfWork = UowFactory.CreateUnitOfWork();
-
-            //var newGoal = await unitOfWork.AddAsync(goal);
-
-            //await unitOfWork.CommitAsync();
-
-            //return Mapper.Map<IGoal>(newGoal);
         }
 
         public async Task<bool> UpdateGoalAsync(IGoal goalUpdate)
         {
             goalUpdate.DateUpdated = DateTime.UtcNow;
-
-            if (Context != null)
-            {
-                Context.Goals.Update(Mapper.Map<IGoal, GoalEntity>(goalUpdate));
-                await Context.SaveChangesAsync();
-            }
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            var entity = Mapper.Map<GoalEntity>(goalUpdate);
+            await unitOfWork.UpdateAsync(entity);
+            await unitOfWork.CommitAsync();
             return true;
         }
 
         public async Task<bool> DeleteGoalAsync(Guid goalId)
         {
-            var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.GoalId == goalId);
-            if (deleteGoal != null)
-            {
-                Context.Goals.Remove(deleteGoal);
-                await Context.SaveChangesAsync();
-            }
+            //var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
+            //if (deleteGoal != null)
+            //{
+            //    Context.Goals.Remove(deleteGoal);
+            //    await Context.SaveChangesAsync();
+            //}
+            //return true;
+
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            await unitOfWork.DeleteAsync<GoalEntity>(goalId);
+            await unitOfWork.CommitAsync();
             return true;
-
-
-
         }
     }
 }

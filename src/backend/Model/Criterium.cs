@@ -7,7 +7,7 @@ namespace Model
 {
     public class Criterium : ICriterium
     {
-        public Guid CriteriumId { get; set; }
+        public Guid Id { get; set; }
 
         public string CriteriumName { get; set; }
 
