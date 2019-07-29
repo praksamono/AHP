@@ -98,10 +98,6 @@ namespace WebAPI
     public class GoalDTO
     {
         public string GoalName { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
-        public List<IAlternative> Alternatives { get; set; }
-        public List<ICriterium> Criteriums { get; set; }
     }
 
 }
