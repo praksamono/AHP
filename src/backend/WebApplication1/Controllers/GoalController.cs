@@ -73,7 +73,7 @@ namespace WebAPI
             var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
             var returnedGoal = await _service.AddGoalAsync(mappedGoal);
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
+            return Ok(returnedGoal);
         }
 
         [HttpPut]
@@ -94,6 +94,11 @@ namespace WebAPI
 
     public class GoalDTO
     {
+        public Guid GoalId { get; set; }
         public string GoalName { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated { get; set; }
+        public List<IAlternative> Alternatives { get; set; }
+        public List<ICriterium> Criteriums { get; set; }
     }
 }
