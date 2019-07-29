@@ -36,8 +36,9 @@ namespace WebAPI
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<ICriterium>>> PostAsync(List<CriteriumDTO> Criteria)
+        public async Task<ActionResult<List<ICriterium>>> PostAsync([FromBody]List<CriteriumDTO> Criteria)
         {
+            // var readCriteria = JsonConvert.DeserializeObject<List<CriteriumDTO>>(Criteria);
             foreach (var criterium in Criteria)
             {
                 if (string.IsNullOrEmpty(criterium.CriteriumName))
@@ -49,11 +50,11 @@ namespace WebAPI
             var mappedCriteria = _mapper.Map<List<ICriterium>>(Criteria);
             var status = await _criteriumService.AddCriteriumListAsync(mappedCriteria);
 
-            return Ok(status);
+            return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(mappedCriteria));
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons){
+        public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons){
             var allCriteria = await _criteriumService.GetAllCriteriumsAsync();
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
@@ -69,7 +70,7 @@ namespace WebAPI
                 await _criteriumService.UpdateCriteriumAsync(criterion);
             }
 
-            return Ok();
+            return Ok("sve oke");
         }
       }
 
