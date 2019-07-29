@@ -23,6 +23,19 @@ namespace WebAPI
             _mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<GoalDTO>> GetAllGoalsAsync()
+        {
+            var allGoals = await _service.GetAllGoalsAsync();
+
+            if(allGoals == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<List<IGoal>, List<GoalDTO>>(allGoals)); ;
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<GoalDTO>> GetByIdAsync(Guid id)
         {
@@ -32,7 +45,7 @@ namespace WebAPI
             {
                 return NotFound();
             }
-            return Ok(id);
+            return Ok(_mapper.Map<IGoal, GoalDTO>(goal));
         }
 
         [HttpDelete("{id}")]
@@ -45,7 +58,7 @@ namespace WebAPI
 
             var goal = _service.DeleteGoalAsync(id);
 
-            return Ok(id);
+            return Ok();
         }
 
         [HttpPost]
@@ -61,6 +74,21 @@ namespace WebAPI
             var returnedGoal = await _service.AddGoalAsync(mappedGoal);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<IGoal>> UpdateGoalAsync(GoalDTO goal)
+        {
+            if (string.IsNullOrEmpty(goal.GoalName))
+            {
+                return BadRequest(new { message = "Goal name is not set." });
+            }
+
+            var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
+            var newGoal = await _service.UpdateGoalAsync(mappedGoal);
+
+            // Fix return type
+            return Ok();
         }
     }
 
