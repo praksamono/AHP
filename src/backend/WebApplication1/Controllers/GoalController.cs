@@ -56,7 +56,7 @@ namespace WebAPI
                 return BadRequest(new { message = "Id can't be empty." });
             }
 
-            var goal = _service.DeleteGoalAsync(id);
+            var goal = await _service.DeleteGoalAsync(id);
 
             return Ok();
         }
@@ -77,7 +77,7 @@ namespace WebAPI
         }
 
         [HttpPut]
-        public async Task<ActionResult<IGoal>> UpdateGoalAsync(GoalDTO goal)
+        public async Task<ActionResult> UpdateGoalAsync(GoalDTO goal)
         {
             if (string.IsNullOrEmpty(goal.GoalName))
             {
@@ -87,7 +87,6 @@ namespace WebAPI
             var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
             var newGoal = await _service.UpdateGoalAsync(mappedGoal);
 
-            // Fix return type
             return Ok();
         }
     }

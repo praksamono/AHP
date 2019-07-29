@@ -10,7 +10,7 @@ using Model.Common;
 
 namespace WebAPI
 {
-    [Route("api/alternatives")]
+    [Route("api/alternatives/[action]")]
     [ApiController]
     public class AlternativeController : ControllerBase
     {
@@ -49,13 +49,27 @@ namespace WebAPI
         }
 
         [HttpPost]
+        public async Task<ActionResult<IAlternative>> AddAlternativeAsync(AlternativeDTO alternative)
+        {
+            if (string.IsNullOrEmpty(alternative.AlternativeName))
+            {
+                return BadRequest(new { message = "Add alterantive async." });
+            }
+
+            var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
+            var status = await _service.AddAlternativeAsync(mappedAlternative);
+
+            return Ok(status);
+        }
+
+        [HttpPost]
         public async Task<ActionResult<List<IAlternative>>> CreateAlternativesAsync(List<AlternativeDTO> alternatives)
         {
             foreach (var alternative in alternatives)
             {
                 if (string.IsNullOrEmpty(alternative.AlternativeName))
                 {
-                    return BadRequest(new { message = "Alternative name is not set." });
+                    return BadRequest(new { message = "Create alternative async." });
                     // throw new HttpResponseException("Alternative name is not set.", HttpStatusCode.BadRequest);
                 }
             }
@@ -74,7 +88,21 @@ namespace WebAPI
                 return BadRequest(new { message = "Id can't be empty." });
             }
 
-            var alternative = _service.DeleteAlternativeAsync(id);
+            var alternative = await _service.DeleteAlternativeAsync(id);
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateAlternativeAsync(AlternativeDTO alternative)
+        {
+            if (string.IsNullOrEmpty(alternative.AlternativeName))
+            {
+                return BadRequest(new { message = "Alternative name can't be empty." });
+            }
+
+            var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
+            var newAlternative = await _service.UpdateAlternativeAsync(mappedAlternative);
 
             return Ok();
         }
