@@ -6,6 +6,10 @@ button {
   height: 8vh;
   background-color: #CC324E;
   color: #FFFFFF;
+  width: 40vh;
+  font-size: 6.5vh;
+  margin-left:16%;
+
 }
 
 button.long {
@@ -24,11 +28,11 @@ button.short#plus {
   position: relative;
   margin-bottom: 10vh;
 }
-.text-input {
+#Goal {
   position: relative;
   -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  -ms-grid-row-align: center;
+  align-self: center;
   background-color: #FFFFFF;
   color: #4F4F4F;
   text-align: center;
@@ -37,7 +41,7 @@ button.short#plus {
   border-radius: 7vh;
   outline: none;
   margin: 5vw;
-  width: 80vh;
+  width: 55vh;
   height: 13vh;
 }
 /*label styling*/
@@ -45,4 +49,18 @@ label{
   color: #CC324E;
   font-weight: bold;
   width: 150px;
+  font-size: 20px;
+  float:center;
+}
+.form{
+  float:center;
+  position : relative;
+  margin-left:25%;
+}
+.warning{
+  color: #CC324E;
+  font-weight: bold;
+  width: 150px;
+  font-size: 20px;
+  float:center;
 }
