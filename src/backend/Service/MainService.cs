@@ -15,29 +15,29 @@ namespace AHP.Service
 
         public async Task<float[]> AHPMethod(int[] ComparisonValues)
         {
-            float[,] Matrix = await MatrixInit(ComparisonValues);
-            float[] NormalisedVector = await CalculatePriorities(Matrix);
+            float[,] Matrix = MatrixInit(ComparisonValues);
+            float[] NormalisedVector = CalculatePriorities(Matrix);
 
             return NormalisedVector;
         }
 
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
         ///<returns>Float array of priorities</returns>
-        public async Task<float[]> CalculatePriorities(float[,] Matrix)        
+        public float[] CalculatePriorities(float[,] Matrix)        
         {
             int MatrixSize = Matrix.GetLength(0); //Gets the length of the first dimension in the matrix, since the matrix is always square it does not matter which dimension's length we take
 
-            await MatrixSquare(ref Matrix, MatrixSize);
-            await MatrixSquare(ref Matrix, MatrixSize); //Square the matrix twice for more precision((?) - Expensive operation)
+            MatrixSquare(ref Matrix, MatrixSize);
+            MatrixSquare(ref Matrix, MatrixSize); //Square the matrix twice for more precision((?) - Expensive operation)
 
-            float matrixSum = await MatrixSum(Matrix, MatrixSize); //Calculate the matrix sum for normalisation
+            float matrixSum = MatrixSum(Matrix, MatrixSize); //Calculate the matrix sum for normalisation
 
             //Normalised vector
             float[] NormalisedVector = new float[MatrixSize];
 
             for (int i = 0; i < MatrixSize; i++)
             {
-                NormalisedVector[i] = await MatrixRowSum(Matrix, MatrixSize, i) / matrixSum;
+                NormalisedVector[i] = MatrixRowSum(Matrix, MatrixSize, i) / matrixSum;
             }
 
             return NormalisedVector;
