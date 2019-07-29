@@ -91,31 +91,6 @@ namespace WebAPI
             var newGoal = await _service.UpdateGoalAsync(mappedGoal);
             return Ok();
         }
-
-        [HttpGet]
-        public async Task<ActionResult<GoalDTO>> GetAllGoalsAsync()
-        {
-            var allGoals = await _service.GetAllGoalsAsync();
-            if (allGoals == null)
-            {
-                return NotFound();
-            }
-            return Ok(_mapper.Map<List<IGoal>, List<GoalDTO>>(allGoals)); ;
-        }
-
-        [HttpPut]
-        public async Task<ActionResult> UpdateGoalAsync(GoalDTO goal)
-        {
-            if (string.IsNullOrEmpty(goal.GoalName))
-            {
-                return BadRequest(new { message = "Goal name is not set." });
-            }
-
-            var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
-            var newGoal = await _service.UpdateGoalAsync(mappedGoal);
-
-            return Ok();
-        }
     }
 
 
