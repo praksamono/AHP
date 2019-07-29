@@ -55,15 +55,17 @@ namespace WebAPI
         [HttpPut]
         public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons){
             var allCriteria = await _criteriumService.GetAllCriteriumsAsync();
-            float[] priorities = await _mainService.AHPMethodAsync(comparisons);
+            var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
+
+            float[] priorities = await _mainService.AHPMethod(comparisons);
 
             int index = 0;
-            foreach (var criterium in allCriteria) {
+            foreach (var criterium in mappedCriteria) {
                 criterium.LocalPriority = priorities[index++];
             }
 
-            var mappedCriteria = _mapper.Map<List<ICriterium>>(allCriteria);
-            foreach (var criterion in mappedCriteria) {
+            var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
+            foreach (var criterion in reMappedCriteria) {
                 await _criteriumService.UpdateCriteriumAsync(criterion);
             }
 
