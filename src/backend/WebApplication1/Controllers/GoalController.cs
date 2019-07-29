@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,9 +32,21 @@ namespace WebAPI
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<IGoal, GoalDTO>(goal));
+            return Ok(id);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteGoalAsync(Guid id)
+        {
+            if (id == null)
+            {
+                return BadRequest(new { message = "Id can't be empty." });
+            }
+
+            var goal = _service.DeleteGoalAsync(id);
+
+            return Ok(id);
+        }
 
         [HttpPost]
         public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDTO goal)
@@ -42,7 +54,7 @@ namespace WebAPI
         {
             if (string.IsNullOrEmpty(goal.GoalName))
             {
-                return BadRequest(new {message = "Goal name is not set."});
+                return BadRequest(new { message = "Goal name is not set." });
                 // throw new HttpResponseException("Goal name is not set.", HttpStatusCode.BadRequest);
             }
 
@@ -54,16 +66,6 @@ namespace WebAPI
             //return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<IGoal>> DeleteGoalAsync(Guid id)
-        {
-            if (id == null)
-            {
-                return BadRequest(new { message = "Id can't be empty." });
-            }
-            var goal = await _service.DeleteGoalAsync(id);
-            return Ok(id);
-        }
 
         [HttpPut]
         public async Task<ActionResult> UpdateGoalAsync(GoalDTO goal)
