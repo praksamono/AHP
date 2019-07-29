@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Repository.Common;
 using Model.Common;
+using AHP.Service.Common;
 using System.Threading.Tasks;
 
 //The controller sends an array of comparison values.
 
 namespace AHP.Service
 {
-    class MainService
+    class MainService : IMainService
     {
         #region  Calculation
 
@@ -23,7 +24,7 @@ namespace AHP.Service
 
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
         ///<returns>Float array of priorities</returns>
-        public float[] CalculatePriorities(float[,] Matrix)        
+        public float[] CalculatePriorities(float[,] Matrix)
         {
             int MatrixSize = Matrix.GetLength(0); //Gets the length of the first dimension in the matrix, since the matrix is always square it does not matter which dimension's length we take
 
@@ -49,7 +50,7 @@ namespace AHP.Service
         ///'left' priority and are mapped as |2n-1|. Positive values are mapped as 2n+1 to get the full range of values [1, 9] used in AHP.</param>
         ///<returns>2D array of floats that is the calculation matrix for future calculations.</returns>
         #region MatrixOperations
-        static public float[,] MatrixInit(int[] ComparisonValues)        
+        public float[,] MatrixInit(int[] ComparisonValues)
         {
             int MatrixSize = ComparisonValues.Length;
             float[,] Matrix = new float[MatrixSize, MatrixSize];
@@ -85,7 +86,7 @@ namespace AHP.Service
         }
 
         ///<summary>Sums up the elements in the RowNumber row of a Matrix</summary>
-        public float MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber)        
+        public float MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber)
         {
             float sum = 0;
             for (int i = 0; i < MatrixSize; i++)
@@ -98,7 +99,7 @@ namespace AHP.Service
 
         ///<summary>Sums up all the elements of a matrix. It only traverses the upper triangle of a matrix since we know the matrix has a property of reciprocal values.</summary>
         ///<returns>Float representing the sum of all matrix elements</returns>
-        public float MatrixSum(float[,] Matrix, int MatrixSize)        
+        public float MatrixSum(float[,] Matrix, int MatrixSize)
         {
             float sum = 0f;
 
@@ -107,7 +108,7 @@ namespace AHP.Service
                 sum += 1f; //For each new row add the 1.0 that is located on the main diagonal
                 for (int j = i + 1; j < MatrixSize; j++)
                 {
-                    sum += Matrix[i, j]; //Add the element on position i,j and also it's reciprocal element on j,i 
+                    sum += Matrix[i, j]; //Add the element on position i,j and also it's reciprocal element on j,i
                     sum += Matrix[j, i];
                 }
             }
@@ -116,11 +117,11 @@ namespace AHP.Service
 
         ///<summary>Squares a quadratic matrix</summary>
         ///<param name="Matrix">2D array of floats passed by reference</param>
-        public void MatrixSquare(ref float[,] Matrix, int MatrixSize)        
+        public void MatrixSquare(ref float[,] Matrix, int MatrixSize)
         {
             float[,] MatrixCopy = new float[MatrixSize, MatrixSize];
 
-            for (int i = 0; i < MatrixSize; i++) //Copy the original matrix 
+            for (int i = 0; i < MatrixSize; i++) //Copy the original matrix
             {
                 for (int j = 0; j < MatrixSize; j++)
                 {
