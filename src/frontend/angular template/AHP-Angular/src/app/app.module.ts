@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +20,9 @@ import { LegendComponent } from './components/legend/legend.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { ResultsComponent } from './components/results/results.component';
 import { SlideralternativeComponent } from './components/slideralternative/slideralternative.component';
+import { AddGoalComponent } from './components/add-goal/add-goal.component';
+
+
 
 
 @NgModule({
@@ -36,12 +41,15 @@ import { SlideralternativeComponent } from './components/slideralternative/slide
     SliderComponent,
     ResultsComponent,
     SlideralternativeComponent,
+    AddGoalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

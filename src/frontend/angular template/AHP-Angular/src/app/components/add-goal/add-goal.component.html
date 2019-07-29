@@ -1,0 +1,16 @@
+<form [formGroup]="rForm" (ngSubmit)="onSubmit()">
+  <label for="Goal">Goal :
+    <input type="text" id="Goal" formControlName="goal"/>
+    <br>
+    <span *ngIf="(getGoal().dirty || getGoal().touched) && getGoal().invalid && (getGoal()).errors['required']">Goal specification is required!</span>
+    <br>
+    <span *ngIf="(getGoal().dirty || getGoal().touched) && getGoal().invalid && getGoal().errors['invalidInput']">Goal contains only letters!</span>
+    <br>
+    <span *ngIf="(getGoal().dirty || getGoal().touched) && getGoal().invalid && getGoal().errors['minLength']"></span>
+  </label>
+  <button type="submit" [disabled]="!rForm.valid">Next</button>
+</form>
+
+
+
+

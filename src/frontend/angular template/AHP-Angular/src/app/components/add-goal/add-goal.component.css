@@ -1,0 +1,48 @@
+button {
+  border: none;
+  border-radius: 3em;
+  outline: none;
+  margin: 1vh;
+  height: 8vh;
+  background-color: #CC324E;
+  color: #FFFFFF;
+}
+
+button.long {
+  width: 40vh;
+  font-size: 6.5vh;
+}
+
+button.short {
+  font-size: 10vh;
+  width: 16vh;
+}
+
+button.short#plus {
+  width: 13vh;
+  height: 13vh;
+  position: relative;
+  margin-bottom: 10vh;
+}
+.text-input {
+  position: relative;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  background-color: #FFFFFF;
+  color: #4F4F4F;
+  text-align: center;
+  font-size: 5vh;
+  border: 0.5vh solid #CC324E;
+  border-radius: 7vh;
+  outline: none;
+  margin: 5vw;
+  width: 80vh;
+  height: 13vh;
+}
+/*label styling*/
+label{
+  color: #CC324E;
+  font-weight: bold;
+  width: 150px;
+}
