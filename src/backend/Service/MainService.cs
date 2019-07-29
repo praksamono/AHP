@@ -13,25 +13,12 @@ namespace AHP.Service
     {
         #region  Calculation
 
-        public async Task<bool> AHPMethod(int[] ComparisonValues, string Criterion = "")
+        public async Task<float[]> AHPMethod(int[] ComparisonValues)
         {
-            if(Criterion == "")
-            {
-                float[,] Matrix = MatrixInit(ComparisonValues);
-                float[] NormalisedVector = CalculatePriorities(Matrix);
+            float[,] Matrix = MatrixInit(ComparisonValues);
+            float[] NormalisedVector = CalculatePriorities(Matrix);
 
-                //Send Normalised vector values to the repository layer in order to fill in the overall criteria priorities
-            }
-
-            else
-            {
-                float[,] Matrix = MatrixInit(ComparisonValues);
-                float[] NormalisedVector = CalculatePriorities(Matrix);
-
-                //Send Normalised vector values to the repository layer, fill in the CriteriumAlternatives objects with the param Criterion name and the array of floats.
-            }
-
-            return true;
+            return NormalisedVector;
         }
 
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
@@ -127,9 +114,9 @@ namespace AHP.Service
             return 1f;
         }
 
-        public void MatrixSquare(ref float[,] Matrix, int MatrixSize)
         ///<summary>Squares a quadratic matrix</summary>
         ///<param name="Matrix">2D array of floats passed by reference</param>
+        public void MatrixSquare(ref float[,] Matrix, int MatrixSize)        
         {
             float[,] MatrixCopy = new float[MatrixSize, MatrixSize];
 

@@ -9,6 +9,6 @@ namespace AHP.Service.Common
 {
     public interface IMainService
     {
-        Task<bool> AHPMethod(int[] ComparisonValues, string Criterion = "");
+        Task<float[]> AHPMethod(int[] ComparisonValues);
     }
 }
