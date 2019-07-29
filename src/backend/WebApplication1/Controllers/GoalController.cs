@@ -100,7 +100,6 @@ namespace WebAPI
 
     public class GoalDTO
     {
-
         public string GoalName { get; set; }
     }
 
