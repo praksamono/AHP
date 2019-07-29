@@ -11,7 +11,7 @@ namespace Model
 {
     public class CriteriumAlternative : ICriteriumAlternative
     {
-        public Guid CriteriumAlternativeId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid CriteriumId { get; set; }
 

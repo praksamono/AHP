@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Repository.Common;
+using DAL.Entities;
 
 namespace Repository
 {
@@ -18,6 +19,8 @@ namespace Repository
 
             builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+
+            builder.RegisterType<BaseEntity>().As<IBaseEntity>();
 
         }
     }

@@ -21,7 +21,6 @@ using DAL;
 using AutoMapper;
 using WebAPI;
 
-
 namespace WebApplication1
 {
     public class Startup
