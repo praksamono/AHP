@@ -17,11 +17,11 @@ namespace Repository
 
         IUnitOfWorkFactory uowFactory;
 
-        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper/*, AHPContext context*/)
+        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
         {
             this.uowFactory = uowFactory;
             this.Mapper = mapper;
-            //this.Context = context;
+            this.Context = context;
         }
 
         protected AHPContext Context { get; private set; }
@@ -36,14 +36,16 @@ namespace Repository
             return Mapper.Map<IGoal>(getGoal);
         }
 
-        public async Task<List<IGoal>> GetAllGoalsAsync()
+        public async Task<List<IGoal>> GetAllGoalsAsync(int page, int pageSize)
         {
-            //var allGoals = await Context.Goals.ToListAsync();
+            //var allGoals = await Context.Goals.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
             //return Mapper.Map<List<IGoal>>(allGoals);
+
+
 
             var unitOfWork = uowFactory.CreateUnitOfWork();
             var getGoal = await unitOfWork.GetAllAsync<GoalEntity>();
-            return Mapper.Map<List<IGoal>>(getGoal);
+            return Mapper.Map<List<IGoal>>(getGoal.Skip((page - 1) * pageSize).Take(pageSize));
         }
 
         public async Task<IGoal> AddGoalAsync(IGoal goal)

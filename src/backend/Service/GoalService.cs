@@ -34,11 +34,11 @@ namespace AHP.Service
             return await goalRepository.GetGoalAsync(goalID);
         }
 
-        public async Task<List<IGoal>> GetAllGoalsAsync()
+        public async Task<List<IGoal>> GetAllGoalsAsync(int page, int pageSize)
         {
             //add exception handling
 
-            return await goalRepository.GetAllGoalsAsync();
+            return await goalRepository.GetAllGoalsAsync(page, pageSize);
         }
 
         public async Task<bool> UpdateGoalAsync(IGoal updatedGoal)

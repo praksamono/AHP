@@ -13,14 +13,14 @@ namespace Repository
     public class CriteriumAlternativeRepository : ICriteriumAlternativeRepository
     {
 
-        private readonly IMapper mapper;
+        private readonly IMapper Mapper;
 
         IUnitOfWorkFactory uowFactory;
 
         public CriteriumAlternativeRepository(IUnitOfWorkFactory uowFactory, IMapper mapper/*, AHPContext context*/)
         {
             this.uowFactory = uowFactory;
-            this.mapper = mapper;
+            this.Mapper = mapper;
             //this.Context = context;
         }
 

@@ -11,7 +11,7 @@ namespace Repository.Common
     {
         Task<IGoal> GetGoalAsync(Guid goalId);
 
-        Task<List<IGoal>> GetAllGoalsAsync();
+        Task<List<IGoal>> GetAllGoalsAsync(int page, int pageSize = 10);
 
         Task<IGoal> AddGoalAsync(IGoal goal);
 
