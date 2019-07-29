@@ -15,11 +15,11 @@ namespace Repository
     {
         private readonly IMapper Mapper;
 
-        IUnitOfWorkFactory UowFactory;
+        IUnitOfWorkFactory uowFactory;
 
         public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
         {
-            this.UowFactory = uowFactory;
+            this.uowFactory = uowFactory;
             this.Mapper = mapper;
             this.Context = context;
         }
@@ -31,11 +31,9 @@ namespace Repository
             //var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
             //return Mapper.Map<IGoal>(getGoal);
 
-            var unitOfWork = UowFactory.CreateUnitOfWork();
-            
+            var unitOfWork = uowFactory.CreateUnitOfWork();
             var getGoal = await unitOfWork.GetAsync<GoalEntity>(goalId);
             return Mapper.Map<IGoal>(getGoal);
-
         }
 
         public async Task<List<IGoal>> GetAllGoalsAsync()
@@ -55,27 +53,20 @@ namespace Repository
             goal.DateCreated = DateTime.UtcNow;
             goal.DateUpdated = DateTime.UtcNow;
 
-            var unitOfWork = UowFactory.CreateUnitOfWork();
+            var unitOfWork = uowFactory.CreateUnitOfWork();
             var entity = Mapper.Map<GoalEntity>(goal);
-
-            var newGoal = await unitOfWork.AddAsync(entity);
-
+            await unitOfWork.AddAsync(entity);
             await unitOfWork.CommitAsync();
-
             return goal;
         }
 
         public async Task<bool> UpdateGoalAsync(IGoal goalUpdate)
         {
             goalUpdate.DateUpdated = DateTime.UtcNow;
-
-            var unitOfWork = UowFactory.CreateUnitOfWork();
+            var unitOfWork = uowFactory.CreateUnitOfWork();
             var entity = Mapper.Map<GoalEntity>(goalUpdate);
-
             await unitOfWork.UpdateAsync(entity);
-
             await unitOfWork.CommitAsync();
-
             return true;
         }
 
@@ -89,12 +80,9 @@ namespace Repository
             //}
             //return true;
 
-            var unitOfWork = UowFactory.CreateUnitOfWork();
-
-            var deleteGoal = await unitOfWork.DeleteAsync<GoalEntity>(goalId);
-
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            await unitOfWork.DeleteAsync<GoalEntity>(goalId);
             await unitOfWork.CommitAsync();
-
             return true;
         }
     }

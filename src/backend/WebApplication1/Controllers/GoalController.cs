@@ -24,7 +24,7 @@ namespace WebAPI
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GoalDto>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GoalDTO>> GetByIdAsync(Guid id)
         {
             var goal = await _service.GetGoalAsync(id);
 
@@ -32,12 +32,12 @@ namespace WebAPI
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<IGoal,GoalDto>(goal));
+            return Ok(_mapper.Map<IGoal, GoalDTO>(goal));
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDto goal)
+        public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDTO goal)
 
         {
             if (string.IsNullOrEmpty(goal.GoalName))
@@ -46,10 +46,10 @@ namespace WebAPI
                 // throw new HttpResponseException("Goal name is not set.", HttpStatusCode.BadRequest);
             }
 
-            var mappedGoal = _mapper.Map<GoalDto, IGoal>(goal);
+            var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
             var returnedGoal = await _service.AddGoalAsync(mappedGoal);
 
-            return Ok(_mapper.Map<GoalDto>(returnedGoal));
+            return Ok(_mapper.Map<GoalDTO>(returnedGoal));
 
             //return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
         }
@@ -64,9 +64,23 @@ namespace WebAPI
             var goal = await _service.DeleteGoalAsync(id);
             return Ok(id);
         }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateGoalAsync(GoalDTO goal)
+        {
+            if (string.IsNullOrEmpty(goal.GoalName))
+            {
+                return BadRequest(new { message = "Goal name is not set." });
+            }
+            var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
+            var newGoal = await _service.UpdateGoalAsync(mappedGoal);
+            return Ok();
+        }
     }
 
-    public class GoalDto
+
+
+    public class GoalDTO
     {
 
         public string GoalName { get; set; }
