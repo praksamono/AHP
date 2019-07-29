@@ -15,10 +15,12 @@ namespace WebAPI
     {
         private readonly IMapper _mapper;
         private readonly ICriteriumService _criteriumService;
-        public CriteriumController(IMapper mapper, ICriteriumService criteriumService)
+        private readonly IMainService _mainService;
+        public CriteriumController(IMapper mapper, ICriteriumService criteriumService, IMainService mainService)
         {
             _mapper = mapper;
             _criteriumService = criteriumService;
+            _mainService = mainService;
         }
 
         [HttpGet]
@@ -49,11 +51,32 @@ namespace WebAPI
 
             return Ok(status);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons){
+            var allCriteria = await _criteriumService.GetAllCriteriumsAsync();
+            var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
+
+            float[] priorities = await _mainService.AHPMethod(comparisons);
+
+            int index = 0;
+            foreach (var criterium in mappedCriteria) {
+                criterium.LocalPriority = priorities[index++];
+            }
+
+            var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
+            foreach (var criterion in reMappedCriteria) {
+                await _criteriumService.UpdateCriteriumAsync(criterion);
+            }
+
+            return Ok();
+        }
       }
 
     public class CriteriumDTO
     {
         public string CriteriumName { get; set; }
+        public float LocalPriority { get; set; }
         public Guid GoalId { get; set; }
     }
 }
