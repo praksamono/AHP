@@ -17,14 +17,14 @@ namespace Repository
 
         private readonly IUnitOfWorkFactory uowFactory;
 
-        public AlternativeRepository(AHPContext context, IMapper mapper, IUnitOfWorkFactory uowFactory)
+        public AlternativeRepository(/*AHPContext context,*/ IMapper mapper, IUnitOfWorkFactory uowFactory)
         {
-            this.Context = context;
+            //this.Context = context;
             this.Mapper = mapper;
             this.uowFactory = uowFactory;
         }
 
-        protected AHPContext Context { get; private set; }
+        //protected AHPContext Context { get; private set; }
 
         public async Task<IAlternative> AddAlternativeAsync(IAlternative newAlternative)
         {
@@ -96,13 +96,22 @@ namespace Repository
 
         public async Task<List<IAlternative>> GetAllAlternativesAsync()
         {
-            var allAlternatives = await Context.Alternatives.ToListAsync();
-            return Mapper.Map<List<IAlternative>>(allAlternatives);
+            //var allAlternatives = await Context.Alternatives.ToListAsync();
+            //return Mapper.Map<List<IAlternative>>(allAlternatives);
+
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            var getAlternative = await unitOfWork.GetAllAsync<AlternativeEntity>();
+            return Mapper.Map<List<IAlternative>>(getAlternative);
         }
         
         public async Task<IAlternative> GetAlternativeAsync(Guid alternativeId)
         {
-            var getAlternative = await Context.Alternatives.SingleOrDefaultAsync(x => x.Id == alternativeId);
+            //var getAlternative = await Context.Alternatives.SingleOrDefaultAsync(x => x.Id == alternativeId);
+            //return Mapper.Map<IAlternative>(getAlternative);
+
+
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            var getAlternative = await unitOfWork.GetAsync<AlternativeEntity>(alternativeId);
             return Mapper.Map<IAlternative>(getAlternative);
         }
 

@@ -80,13 +80,22 @@ namespace Repository
 
         public async Task<List<ICriterium>> GetAllCriteriumsAsync()
         {
-            var allCriteriums = await Context.Criteriums.ToListAsync();
-            return Mapper.Map<List<ICriterium>>(allCriteriums);
+            //var allCriteriums = await Context.Criteriums.ToListAsync();
+            //return Mapper.Map<List<ICriterium>>(allCriteriums);
+
+
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            var getCriterium = await unitOfWork.GetAllAsync<CriteriumEntity>();
+            return Mapper.Map<List<ICriterium>>(getCriterium);
         }
 
         public async Task<ICriterium> GetCriteriumAsync(Guid criteriumId)
         {
-            var getCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);
+            //var getCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);
+            //return Mapper.Map<ICriterium>(getCriterium);
+
+            var unitOfWork = uowFactory.CreateUnitOfWork();
+            var getCriterium = await unitOfWork.GetAsync<CriteriumEntity>(criteriumId);
             return Mapper.Map<ICriterium>(getCriterium);
         }
 
