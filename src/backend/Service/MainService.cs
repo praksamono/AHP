@@ -13,44 +13,31 @@ namespace AHP.Service
     {
         #region  Calculation
 
-        public async Task<bool> AHPMethod(int[] ComparisonValues, string Criterion = "")
+        public async Task<float[]> AHPMethod(int[] ComparisonValues)
         {
-            if(Criterion == "")
-            {
-                float[,] Matrix = MatrixInit(ComparisonValues);
-                float[] NormalisedVector = CalculatePriorities(Matrix);
+            float[,] Matrix = await MatrixInit(ComparisonValues);
+            float[] NormalisedVector = await CalculatePriorities(Matrix);
 
-                //Send Normalised vector values to the repository layer in order to fill in the overall criteria priorities
-            }
-
-            else
-            {
-                float[,] Matrix = MatrixInit(ComparisonValues);
-                float[] NormalisedVector = CalculatePriorities(Matrix);
-
-                //Send Normalised vector values to the repository layer, fill in the CriteriumAlternatives objects with the param Criterion name and the array of floats.
-            }
-
-            return true;
+            return NormalisedVector;
         }
 
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
         ///<returns>Float array of priorities</returns>
-        public float[] CalculatePriorities(float[,] Matrix)        
+        public async Task<float[]> CalculatePriorities(float[,] Matrix)        
         {
             int MatrixSize = Matrix.GetLength(0); //Gets the length of the first dimension in the matrix, since the matrix is always square it does not matter which dimension's length we take
 
-            MatrixSquare(ref Matrix, MatrixSize);
-            MatrixSquare(ref Matrix, MatrixSize); //Square the matrix twice for more precision((?) - Expensive operation)
+            await MatrixSquare(ref Matrix, MatrixSize);
+            await MatrixSquare(ref Matrix, MatrixSize); //Square the matrix twice for more precision((?) - Expensive operation)
 
-            float matrixSum = MatrixSum(Matrix, MatrixSize); //Calculate the matrix sum for normalisation
+            float matrixSum = await MatrixSum(Matrix, MatrixSize); //Calculate the matrix sum for normalisation
 
             //Normalised vector
             float[] NormalisedVector = new float[MatrixSize];
 
             for (int i = 0; i < MatrixSize; i++)
             {
-                NormalisedVector[i] = MatrixRowSum(Matrix, MatrixSize, i) / matrixSum;
+                NormalisedVector[i] = await MatrixRowSum(Matrix, MatrixSize, i) / matrixSum;
             }
 
             return NormalisedVector;
@@ -127,9 +114,9 @@ namespace AHP.Service
             return 1f;
         }
 
-        public void MatrixSquare(ref float[,] Matrix, int MatrixSize)
         ///<summary>Squares a quadratic matrix</summary>
         ///<param name="Matrix">2D array of floats passed by reference</param>
+        public void MatrixSquare(ref float[,] Matrix, int MatrixSize)        
         {
             float[,] MatrixCopy = new float[MatrixSize, MatrixSize];
 
