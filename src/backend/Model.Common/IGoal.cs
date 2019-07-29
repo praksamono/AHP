@@ -1,18 +1,19 @@
-﻿using System;
+﻿using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Model.Common
 {
-    interface IGoal
+    public interface IGoal
     {
-        int id { get; set; }
+        Guid Id { get; set; }
 
         string GoalName { get; set; }
 
-        string DateCreated { get; set; }
+        DateTime DateCreated { get; set; }
 
-        string DateUpdated { get; set; }
+        DateTime DateUpdated { get; set; }
 
         List<IAlternative> Alternatives { get; set; }
 

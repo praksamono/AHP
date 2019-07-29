@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Repository.Common;
+using DAL.Entities;
 
 namespace Repository
 {
@@ -10,6 +12,16 @@ namespace Repository
        public static void ConfigureRepositoryModule(ContainerBuilder builder)
         {
             // builder.RegisterType<ClassName>().As<InterfaceName>(); for new Classes
+            builder.RegisterType<GoalRepository>().As<IGoalRepository>();
+            builder.RegisterType<CriteriumRepository>().As<ICriteriumRepository>();
+            builder.RegisterType<AlternativeRepository>().As<IAlternativeRepository>();
+            builder.RegisterType<CriteriumAlternativeRepository>().As<ICriteriumAlternativeRepository>();
+
+            builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+
+            builder.RegisterType<BaseEntity>().As<IBaseEntity>();
+
         }
     }
 }

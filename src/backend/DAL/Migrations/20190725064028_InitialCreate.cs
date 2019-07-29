@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,9 +11,8 @@ namespace DAL.Migrations
                 name: "Goals",
                 columns: table => new
                 {
-                    GoalId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    GoalName = table.Column<string>(nullable: true),
+                    GoalId = table.Column<Guid>(nullable: false),
+                    GoalName = table.Column<string>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false)
                 },
@@ -27,13 +25,12 @@ namespace DAL.Migrations
                 name: "Alternatives",
                 columns: table => new
                 {
-                    AlternativeId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AlternativeName = table.Column<string>(nullable: true),
+                    AlternativeId = table.Column<Guid>(nullable: false),
+                    AlternativeName = table.Column<string>(nullable: false),
                     GlobalPriority = table.Column<float>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false),
-                    GoalId = table.Column<int>(nullable: true)
+                    GoalId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,20 +40,19 @@ namespace DAL.Migrations
                         column: x => x.GoalId,
                         principalTable: "Goals",
                         principalColumn: "GoalId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Criteriums",
                 columns: table => new
                 {
-                    CriteriumId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CriteriumName = table.Column<string>(nullable: true),
+                    CriteriumId = table.Column<Guid>(nullable: false),
+                    CriteriumName = table.Column<string>(nullable: false),
                     GlobalCriteriumPriority = table.Column<float>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false),
-                    GoalId = table.Column<int>(nullable: true)
+                    GoalId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,29 +62,32 @@ namespace DAL.Migrations
                         column: x => x.GoalId,
                         principalTable: "Goals",
                         principalColumn: "GoalId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Criterium_Alternatives",
+                name: "CriteriumAlternatives",
                 columns: table => new
                 {
-                    CriteriumId = table.Column<int>(nullable: false),
-                    AlternativeId = table.Column<int>(nullable: false),
-                    LocalPriority = table.Column<float>(nullable: false)
+                    CriteriumAlternativeId = table.Column<Guid>(nullable: false),
+                    CriteriumId = table.Column<Guid>(nullable: false),
+                    AlternativeId = table.Column<Guid>(nullable: false),
+                    LocalPriority = table.Column<float>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateUpdated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Criterium_Alternatives", x => new { x.CriteriumId, x.AlternativeId });
-                    table.UniqueConstraint("AK_Criterium_Alternatives_AlternativeId_CriteriumId", x => new { x.AlternativeId, x.CriteriumId });
+                    table.PrimaryKey("PK_CriteriumAlternatives", x => new { x.CriteriumId, x.AlternativeId });
+                    table.UniqueConstraint("AK_CriteriumAlternatives_AlternativeId_CriteriumAlternativeId", x => new { x.AlternativeId, x.CriteriumAlternativeId });
                     table.ForeignKey(
-                        name: "FK_Criterium_Alternatives_Alternatives_AlternativeId",
+                        name: "FK_CriteriumAlternatives_Alternatives_AlternativeId",
                         column: x => x.AlternativeId,
                         principalTable: "Alternatives",
                         principalColumn: "AlternativeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Criterium_Alternatives_Criteriums_CriteriumId",
+                        name: "FK_CriteriumAlternatives_Criteriums_CriteriumId",
                         column: x => x.CriteriumId,
                         principalTable: "Criteriums",
                         principalColumn: "CriteriumId",
@@ -109,7 +108,7 @@ namespace DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Criterium_Alternatives");
+                name: "CriteriumAlternatives");
 
             migrationBuilder.DropTable(
                 name: "Alternatives");

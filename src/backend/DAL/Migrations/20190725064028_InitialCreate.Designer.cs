@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(AHPContext))]
-    partial class AHPContextModelSnapshot : ModelSnapshot
+    [Migration("20190725064028_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.AlternativeEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("AlternativeId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AlternativeName")
@@ -33,13 +35,11 @@ namespace DAL.Migrations
 
                     b.Property<float>("GlobalPriority");
 
-                    b.Property<Guid?>("GoalEntityId");
-
                     b.Property<Guid>("GoalId");
 
-                    b.HasKey("Id");
+                    b.HasKey("AlternativeId");
 
-                    b.HasIndex("GoalEntityId");
+                    b.HasIndex("GoalId");
 
                     b.ToTable("Alternatives");
                 });
@@ -50,24 +50,25 @@ namespace DAL.Migrations
 
                     b.Property<Guid>("AlternativeId");
 
+                    b.Property<Guid>("CriteriumAlternativeId")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateUpdated");
-
-                    b.Property<Guid>("Id");
 
                     b.Property<float>("LocalPriority");
 
                     b.HasKey("CriteriumId", "AlternativeId");
 
-                    b.HasAlternateKey("AlternativeId", "CriteriumId");
+                    b.HasAlternateKey("AlternativeId", "CriteriumAlternativeId");
 
                     b.ToTable("CriteriumAlternatives");
                 });
 
             modelBuilder.Entity("DAL.CriteriumEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("CriteriumId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CriteriumName")
@@ -79,20 +80,18 @@ namespace DAL.Migrations
 
                     b.Property<float>("GlobalCriteriumPriority");
 
-                    b.Property<Guid?>("GoalEntityId");
-
                     b.Property<Guid>("GoalId");
 
-                    b.HasKey("Id");
+                    b.HasKey("CriteriumId");
 
-                    b.HasIndex("GoalEntityId");
+                    b.HasIndex("GoalId");
 
                     b.ToTable("Criteriums");
                 });
 
             modelBuilder.Entity("DAL.GoalEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("GoalId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
@@ -102,7 +101,7 @@ namespace DAL.Migrations
                     b.Property<string>("GoalName")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("GoalId");
 
                     b.ToTable("Goals");
                 });
@@ -111,7 +110,8 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.GoalEntity", "GoalEntity")
                         .WithMany("Alternatives")
-                        .HasForeignKey("GoalEntityId");
+                        .HasForeignKey("GoalId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DAL.CriteriumAlternativeEntity", b =>
@@ -131,7 +131,8 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.GoalEntity", "GoalEntity")
                         .WithMany("Criteriums")
-                        .HasForeignKey("GoalEntityId");
+                        .HasForeignKey("GoalId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

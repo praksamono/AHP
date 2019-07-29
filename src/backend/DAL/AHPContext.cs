@@ -11,27 +11,27 @@ namespace DAL
         {
         }
 
-        public DbSet<Goal> Goals{get; set;}
+        public DbSet<GoalEntity> Goals{get; set;}
 
-        public DbSet<Criterium> Criteriums { get; set; }
+        public DbSet<CriteriumEntity> Criteriums { get; set; }
 
-        public DbSet<Criterium_Alternative> Criterium_Alternatives { get; set; }
+        public DbSet<CriteriumAlternativeEntity> CriteriumAlternatives { get; set; }
 
-        public DbSet<Alternative> Alternatives { get; set; }
+        public DbSet<AlternativeEntity> Alternatives { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Criterium_Alternative>()
+            modelBuilder.Entity<CriteriumAlternativeEntity>()
                 .HasKey(ca => new { ca.CriteriumId, ca.AlternativeId });
 
-            modelBuilder.Entity<Criterium_Alternative>()
-                .HasOne(ca => ca.criterium)
-                .WithMany(c => c.criterium_alternatives)
+            modelBuilder.Entity<CriteriumAlternativeEntity>()
+                .HasOne(ca => ca.CriteriumEntity)
+                .WithMany(c => c.CriteriumAlternatives)
                 .HasForeignKey(ca => ca.CriteriumId);
 
-            modelBuilder.Entity<Criterium_Alternative>()
-                .HasOne(ca => ca.alternative)
-                .WithMany(a => a.criterium_alternatives)
+            modelBuilder.Entity<CriteriumAlternativeEntity>()
+                .HasOne(ca => ca.AlternativeEntity)
+                .WithMany(a => a.CriteriumAlternatives)
                 .HasForeignKey(ca => ca.AlternativeId);
         }
 
