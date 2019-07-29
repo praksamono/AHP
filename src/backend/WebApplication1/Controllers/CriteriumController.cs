@@ -55,7 +55,7 @@ namespace WebAPI
         [HttpPut]
         public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons){
             List<CriteriumDTO> allCriteria = GetAsync();
-            float[] priorities = await _mainService.AHPMethod(comparisons);
+            float[] priorities = await _mainService.AHPMethodAsync(comparisons);
 
             int index = 0;
             foreach (var criterium in allCriteria) {
