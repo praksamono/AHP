@@ -64,8 +64,8 @@ namespace WebAPI
             return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(mappedCriteria));
         }
 
-        [HttpPut]
-        public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons,Guid id){
+        [HttpPut("{goalId}")]
+        public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons, Guid id){
             if (id == null)
             {
                 return BadRequest(new { message = "Criterium id is not set." });
@@ -77,8 +77,14 @@ namespace WebAPI
             float[] priorities = await _mainService.AHPMethod(comparisons);
 
             int index = 0;
+
+            // DEBUG needed (stop index from getting out of range)
+            
+            // Console.WriteLine(mappedCriteria.Count);
             foreach (var criterium in mappedCriteria) {
-                criterium.LocalPriority = priorities[index++];
+                // Console.WriteLine(index);
+                criterium.LocalPriority = priorities[index];
+                ++index;
             }
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
