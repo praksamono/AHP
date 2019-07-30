@@ -26,10 +26,18 @@ namespace Repository
 
         protected AHPContext Context { get; private set; }
 
-        public async Task<ICriteriumAlternative> AddCriteriumAlternativeAsync(ICriteriumAlternative criteriumAlternative, Guid criteriumID, Guid alternativeID)
+        public async Task<ICriteriumAlternative> AddCriteriumAlternativeAsync(ICriteriumAlternative criteriumAlternative, ICriterium criterium, IAlternative alternative, Guid criteriumID, Guid alternativeID, float priorityValue)
         {
+            criteriumAlternative.Id = Guid.NewGuid();
             criteriumAlternative.AlternativeId = alternativeID;
             criteriumAlternative.CriteriumId = criteriumID;
+            criteriumAlternative.Alternative = alternative;
+            criteriumAlternative.Criterium = criterium;
+            criteriumAlternative.LocalPriority = priorityValue;
+
+            Context.CriteriumAlternatives.Add(Mapper.Map<ICriteriumAlternative, CriteriumAlternativeEntity>(criteriumAlternative));
+            await Context.SaveChangesAsync();
+
             return criteriumAlternative;
         }
         public async Task<bool> DeleteCriteriumAlternativeAsync(Guid criteriumAlternativeId)

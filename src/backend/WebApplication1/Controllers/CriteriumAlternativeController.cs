@@ -13,15 +13,16 @@ namespace WebAPI
     public class CriteriumAlternativeController : ControllerBase
     {
         private readonly IMainService _mainService;
+        private readonly ICriteriumAlternativeService _criteriumAlternativeService;
         public CriteriumAlternativeController(IMainService mainService)
         {
             _mainService = mainService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync(CriteriumAlternativeDTO criteriumAlternative)
+        public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync(int[] values, Guid criteriumID)
         {
-            foreach (var value in criteriumAlternative.values)
+            foreach (var value in values)
             {
                 if (Math.Abs(value) > 4)
                 {
@@ -30,11 +31,13 @@ namespace WebAPI
             }
 
             float[] priorities = await _mainService.AHPMethod(criteriumAlternative.values);
+            List<ICriterium> criteriaList;
+            List<IAlternative> alternativesList;
 
             //int index = 0;
             for (int i = 0; i < priorities.Length; i++)
             {
-                
+                await _criteriumAlternativeService.AddCriteriumAlternativeAsync();
             }
 
             /*foreach (var criterium in mappedCriteria)
@@ -57,6 +60,5 @@ namespace WebAPI
     {
         public int[] values;
         public Guid criteriumID;
-        public string criteriumName;
     }
 }
