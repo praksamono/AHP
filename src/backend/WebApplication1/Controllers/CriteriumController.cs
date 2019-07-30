@@ -23,10 +23,11 @@ namespace WebAPI
             _mainService = mainService;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<CriteriumDTO>>> GetAsync(Guid id)
+
+        [HttpGet("{goalId}")]
+        public async Task<ActionResult<List<CriteriumDTO>>> GetAsync(Guid goalId)
         {
-            var criteria = await _criteriumService.GetAllCriteriumsAsync(id);
+            var criteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
 
             if (criteria == null)
             {
@@ -35,9 +36,10 @@ namespace WebAPI
             return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(criteria));
         }
 
-        [HttpPost]
-        public async Task<ActionResult<List<ICriterium>>> PostAsync(List<CriteriumDTO> Criteria)
+        [HttpPost("{goalId}")]
+        public async Task<ActionResult<List<ICriterium>>> PostAsync([FromBody]List<CriteriumDTO> Criteria, Guid goalId)
         {
+            // Console.WriteLine(goalId);
             foreach (var criterium in Criteria)
             {
                 if (string.IsNullOrEmpty(criterium.CriteriumName))
@@ -47,9 +49,9 @@ namespace WebAPI
             }
 
             var mappedCriteria = _mapper.Map<List<ICriterium>>(Criteria);
-            var status = await _criteriumService.AddCriteriumListAsync(mappedCriteria);
+            var status = await _criteriumService.AddCriteriumListAsync(mappedCriteria, goalId);
 
-            return Ok(status);
+            return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(mappedCriteria));
         }
 
         [HttpPut]
@@ -69,7 +71,7 @@ namespace WebAPI
                 await _criteriumService.UpdateCriteriumAsync(criterion,id);
             }
 
-            return Ok();
+            return Ok("sve oke");
         }
       }
 
