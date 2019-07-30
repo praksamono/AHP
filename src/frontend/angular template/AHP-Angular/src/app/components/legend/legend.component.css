@@ -1,0 +1,18 @@
+legend {
+  position:fixed;
+  z-index: 9;
+  right: 1 vw;
+  top: 57vh;
+  border: 2px solid #CC324E;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 4px 2.5px #BBB;
+  box-shadow: 4px 2.5px #BBB;
+}
+
+legend p {
+  text-align: center;
+  color: #4F4F4F;
+  padding: 10px 5px;
+  font-size: 2vh;
+}

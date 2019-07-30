@@ -1,0 +1,43 @@
+.form {
+    display: flex;
+  }
+
+  .form input[type='text'] {
+    flex: 10;
+    padding: 5px;
+  }
+
+  .form input[type='submit'] {
+    flex: 2;
+  }
+  .form-container {
+    display:block;
+    width:90%;
+    padding:2em;
+    margin: 2em auto;
+    background:#fff;
+}
+
+.alert {
+    background: #f2edda;
+    padding: 7px;
+    font-size: .9em;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: 2s alertAnim forwards;
+}
+
+.button {
+    margin-top: 3rem;
+}
+
+@keyframes alertAnim {
+    from {
+        opacity:0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity:1;
+        transform: translateY(0);
+    }
+}
