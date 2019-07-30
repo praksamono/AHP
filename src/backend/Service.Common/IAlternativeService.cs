@@ -11,13 +11,13 @@ namespace AHP.Service.Common
     {
         Task<IAlternative> GetAlternativeAsync(Guid alternativeID);
 
-        Task<List<IAlternative>> GetAllAlternativesAsync();
+        Task<List<IAlternative>> GetAllAlternativesAsync(Guid goalId);
 
-        Task<IAlternative> AddAlternativeAsync(IAlternative alternative);
+        Task<IAlternative> AddAlternativeAsync(IAlternative alternative, Guid goalId);
 
-        Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives);
+        Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives, Guid goalId);
 
-        Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative);
+        Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, Guid goalId);
 
         Task<bool> DeleteAlternativeAsync(Guid alternativeID);
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -26,12 +27,13 @@ namespace Repository
 
         protected AHPContext Context { get; private set; }
 
-        public async Task<IAlternative> AddAlternativeAsync(IAlternative newAlternative)
+        public async Task<IAlternative> AddAlternativeAsync(IAlternative newAlternative, Guid goalId)
         {
 
             newAlternative.Id = Guid.NewGuid();
             newAlternative.DateCreated = DateTime.UtcNow;
             newAlternative.DateUpdated = DateTime.UtcNow;
+            newAlternative.GoalId = goalId;
 
             Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(newAlternative));
             await Context.SaveChangesAsync();
@@ -49,13 +51,14 @@ namespace Repository
             //return newAlternative;
         }
 
-        public async Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternativesList)
+        public async Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternativesList, Guid goalId)
         {
             foreach (IAlternative alternative in alternativesList)
             {
                 alternative.Id = Guid.NewGuid();
                 alternative.DateCreated = DateTime.UtcNow;
                 alternative.DateUpdated = DateTime.UtcNow;
+                alternative.GoalId = goalId;
 
                 Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(alternative));
                 await Context.SaveChangesAsync();
@@ -96,9 +99,10 @@ namespace Repository
             //return true;
         }
 
-        public async Task<List<IAlternative>> GetAllAlternativesAsync()
+        public async Task<List<IAlternative>> GetAllAlternativesAsync(Guid goalId)
         {
-            var allAlternatives = await Context.Alternatives.ToListAsync();
+            var allAlternatives = await Context.Alternatives.Where(alternative => alternative != null
+                && alternative.GoalId == goalId).ToListAsync();
             return Mapper.Map<List<IAlternative>>(allAlternatives);
 
             //var unitOfWork = uowFactory.CreateUnitOfWork();
@@ -117,7 +121,7 @@ namespace Repository
             //return Mapper.Map<IAlternative>(getAlternative);
         }
 
-        public async Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate)
+        public async Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate, Guid goalId)
         {
             alternativeUpdate.DateUpdated = DateTime.UtcNow;
             var unitOfWork = uowFactory.CreateUnitOfWork();
