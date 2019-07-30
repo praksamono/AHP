@@ -88,7 +88,7 @@ namespace WebAPI
                 await _criteriumService.UpdateCriteriumAsync(criterion,id);
             }
 
-            return Ok("sve oke");
+            return Ok();
         }
       }
 
