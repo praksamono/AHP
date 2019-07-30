@@ -44,6 +44,11 @@ namespace WebAPI
         [HttpPost("{goalId}")]
         public async Task<ActionResult<List<ICriterium>>> PostAsync([FromBody]List<CriteriumDTO> Criteria, Guid goalId)
         {
+            if(goalId == null)
+            {
+                return BadRequest(new { message = "Goal id is not set." });
+            }
+
             // Console.WriteLine(goalId);
             foreach (var criterium in Criteria)
             {
@@ -61,17 +66,24 @@ namespace WebAPI
 
         [HttpPut]
         public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons,Guid id){
+            if (id == null)
+            {
+                return BadRequest(new { message = "Criterium id is not set." });
+            }
+
             var allCriteria = await _criteriumService.GetAllCriteriumsAsync(id);
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
             float[] priorities = await _mainService.AHPMethod(comparisons);
 
             int index = 0;
+
             foreach (var criterium in mappedCriteria) {
                 criterium.LocalPriority = priorities[index++];
             }
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
+
             foreach (var criterion in reMappedCriteria) {
                 await _criteriumService.UpdateCriteriumAsync(criterion,id);
             }

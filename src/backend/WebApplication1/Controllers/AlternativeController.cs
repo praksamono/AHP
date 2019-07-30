@@ -38,6 +38,11 @@ namespace WebAPI
         [HttpGet("{id}")]
         public async Task<ActionResult<AlternativeDTO>> GetAlternativeByIdAsync(Guid id)
         {
+            if(id == null)
+            {
+                return BadRequest(new { message = "Alternative id is not set." });
+            }
+
             var alternative = await _service.GetAlternativeAsync(id);
 
             if (alternative == null)
@@ -85,7 +90,7 @@ namespace WebAPI
         {
             if (id == null)
             {
-                return BadRequest(new { message = "Id can't be empty." });
+                return BadRequest(new { message = "Alternative id is not set." });
             }
 
             var alternative = await _service.DeleteAlternativeAsync(id);
