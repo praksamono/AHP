@@ -18,6 +18,11 @@ namespace AHP.Service
             this.criteriumAlternativeRepository = criteriumAlternativeRepository;
         }
 
+        public async Task<ICriterium> AddCriteriumAlternativeAsync(ICriteriumAlternative criteriumAlternative, Guid criteriumID, Guid alternativeID)
+        {
+            return await criteriumAlternativeRepository.AddCriteriumAlternativeAsync(criteriumAlternative, criteriumID, alternativeID);
+        }
+
         public async Task<ICriteriumAlternative> GetCriteriumAlternativeAsync(Guid criteriumAlternativeId)
         {
             return await criteriumAlternativeRepository.GetCriteriumAlternativeAsync(criteriumAlternativeId);
