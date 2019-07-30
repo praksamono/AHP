@@ -26,6 +26,11 @@ namespace WebAPI
         [HttpGet("{goalId}")]
         public async Task<ActionResult<List<CriteriumDTO>>> GetAsync(Guid goalId)
         {
+            if (goalId == null)
+            {
+                return BadRequest(new { message = "Goal id is not set." });
+            }
+
             var criteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
 
             if (criteria == null)

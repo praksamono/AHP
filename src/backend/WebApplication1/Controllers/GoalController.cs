@@ -53,7 +53,7 @@ namespace WebAPI
         {
             if (id == null)
             {
-                return BadRequest(new { message = "Id can't be empty." });
+                return BadRequest(new { message = "Goal id is not set." });
             }
 
             var goal = await _service.DeleteGoalAsync(id);
