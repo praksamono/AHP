@@ -80,7 +80,6 @@ namespace WebAPI
         //
         //     return Ok();
         // }
-    }
 
 	public class AlternativeDTO
 	{
