@@ -23,24 +23,24 @@ namespace AHP.Service
             return await alternativeRepository.GetAlternativeAsync(alternativeID);
         }
 
-        public async Task<List<IAlternative>> GetAllAlternativesAsync()
+        public async Task<List<IAlternative>> GetAllAlternativesAsync(Guid goalId)
         {
-            return await alternativeRepository.GetAllAlternativesAsync();
+            return await alternativeRepository.GetAllAlternativesAsync(goalId);
         }
 
-        public async Task<IAlternative> AddAlternativeAsync(IAlternative alternative)
+        public async Task<IAlternative> AddAlternativeAsync(IAlternative alternative, Guid goalId)
         {
-            return await alternativeRepository.AddAlternativeAsync(alternative);
+            return await alternativeRepository.AddAlternativeAsync(alternative, goalId);
         }
 
-        public async Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives)
+        public async Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives, Guid goalId)
         {
-            return await alternativeRepository.AddAlternativeListAsync(alternatives);
+            return await alternativeRepository.AddAlternativeListAsync(alternatives, goalId);
         }
 
-        public async Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative)
+        public async Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, Guid goalId)
         {
-            await alternativeRepository.UpdateAlternativeAsnyc(updatedAlternative);
+            await alternativeRepository.UpdateAlternativeAsnyc(updatedAlternative, goalId);
             return true;
         }
 

@@ -24,9 +24,9 @@ namespace WebAPI
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<AlternativeDTO>>> GetAlternativesAsync()
+        public async Task<ActionResult<List<AlternativeDTO>>> GetAlternativesAsync(Guid goalId)
         {
-            var alternatives = await _service.GetAllAlternativesAsync();
+            var alternatives = await _service.GetAllAlternativesAsync(goalId);
 
             if (alternatives == null)
             {
@@ -54,7 +54,7 @@ namespace WebAPI
         }
 
         [HttpPost]
-        public async Task<ActionResult<IAlternative>> AddAlternativeAsync(AlternativeDTO alternative)
+        public async Task<ActionResult<IAlternative>> AddAlternativeAsync(AlternativeDTO alternative, Guid goalId)
         {
             if (string.IsNullOrEmpty(alternative.AlternativeName))
             {
@@ -62,13 +62,13 @@ namespace WebAPI
             }
 
             var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
-            var status = await _service.AddAlternativeAsync(mappedAlternative);
+            var status = await _service.AddAlternativeAsync(mappedAlternative, goalId);
 
             return Ok(status);
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<IAlternative>>> CreateAlternativesAsync(List<AlternativeDTO> alternatives)
+        public async Task<ActionResult<List<IAlternative>>> CreateAlternativesAsync(List<AlternativeDTO> alternatives, Guid goalId)
         {
             foreach (var alternative in alternatives)
             {
@@ -80,7 +80,7 @@ namespace WebAPI
             }
 
             var mappedAlts = _mapper.Map<List<AlternativeDTO>, List<IAlternative>>(alternatives);
-            var status = await _service.AddAlternativeListAsync(mappedAlts);
+            var status = await _service.AddAlternativeListAsync(mappedAlts, goalId);
 
             return Ok(status);
         }
@@ -99,7 +99,7 @@ namespace WebAPI
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateAlternativeAsync(AlternativeDTO alternative)
+        public async Task<ActionResult> UpdateAlternativeAsync(AlternativeDTO alternative, Guid goalId)
         {
             if (string.IsNullOrEmpty(alternative.AlternativeName))
             {
@@ -107,7 +107,7 @@ namespace WebAPI
             }
 
             var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
-            var newAlternative = await _service.UpdateAlternativeAsync(mappedAlternative);
+            var newAlternative = await _service.UpdateAlternativeAsync(mappedAlternative, goalId);
 
             return Ok();
         }
