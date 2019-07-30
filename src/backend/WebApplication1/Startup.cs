@@ -18,7 +18,6 @@ using Model;
 using DAL;
 using Repository;
 using Repository.Common;
-using DAL;
 using AutoMapper;
 using WebAPI;
 

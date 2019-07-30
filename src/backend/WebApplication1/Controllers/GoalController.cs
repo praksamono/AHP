@@ -24,9 +24,12 @@ namespace WebAPI
         }
 
         [HttpGet]
-        public async Task<ActionResult<GoalDTO>> GetAllGoalsAsync()
+        public async Task<ActionResult<GoalDTO>> GetAllGoalsAsync(int page, int pageSize)
         {
-            var allGoals = await _service.GetAllGoalsAsync();
+            page =  2;
+            pageSize =  10;
+
+            var allGoals = await _service.GetAllGoalsAsync(page, pageSize);
 
             if(allGoals == null)
             {

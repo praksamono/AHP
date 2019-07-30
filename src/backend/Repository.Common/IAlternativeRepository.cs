@@ -14,7 +14,7 @@ namespace Repository.Common
 
         Task<IAlternative> AddAlternativeAsync(IAlternative alternative);
 
-        Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> newAlternatives);
+        Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternativesList);
 
         Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate);
 

@@ -18,9 +18,9 @@ namespace AHP.Service
             this.criteriumRepository = criteriumRepository;
         }
 
-        public async Task<ICriterium> AddCriteriumAsync(ICriterium criterium)
+        public async Task<ICriterium> AddCriteriumAsync(ICriterium criterium, Guid goalId)
         {
-            return await criteriumRepository.AddCriteriumAsync(criterium);
+            return await criteriumRepository.AddCriteriumAsync(criterium, goalId);
         }
 
         public async Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList, Guid goalId)
