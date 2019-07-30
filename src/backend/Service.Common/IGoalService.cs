@@ -13,7 +13,7 @@ namespace AHP.Service.Common
 
         Task<IGoal> GetGoalAsync(Guid goalID);
 
-        Task<List<IGoal>> GetAllGoalsAsync();
+        Task<List<IGoal>> GetAllGoalsAsync(int page, int pageSize);
 
         Task<bool> UpdateGoalAsync(IGoal updatedGoal);
 

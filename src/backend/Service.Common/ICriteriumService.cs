@@ -9,7 +9,7 @@ namespace AHP.Service.Common
 {
     public interface ICriteriumService
     {
-        Task<ICriterium> AddCriteriumAsync(ICriterium criterium);
+        Task<ICriterium> AddCriteriumAsync(ICriterium criterium, Guid goalId);
 
         Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList, Guid goalId);
 

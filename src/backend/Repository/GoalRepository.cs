@@ -17,51 +17,56 @@ namespace Repository
 
         IUnitOfWorkFactory uowFactory;
 
-        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper/*, AHPContext context*/)
+        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
         {
             this.uowFactory = uowFactory;
             this.Mapper = mapper;
-            //this.Context = context;
+            this.Context = context;
         }
 
         protected AHPContext Context { get; private set; }
 
         public async Task<IGoal> GetGoalAsync(Guid goalId)
         {
-            //var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
-            //return Mapper.Map<IGoal>(getGoal);
-
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var getGoal = await unitOfWork.GetAsync<GoalEntity>(goalId);
+            var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
             return Mapper.Map<IGoal>(getGoal);
+
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+            //var getGoal = await unitOfWork.GetAsync<GoalEntity>(goalId);
+            //return Mapper.Map<IGoal>(getGoal);
         }
 
-        public async Task<List<IGoal>> GetAllGoalsAsync()
+        public async Task<List<IGoal>> GetAllGoalsAsync(int page, int pageSize)
         {
-            //var allGoals = await Context.Goals.ToListAsync();
-            //return Mapper.Map<List<IGoal>>(allGoals);
+            var allGoals = await Context.Goals.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            return Mapper.Map<List<IGoal>>(allGoals);
 
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var getGoal = await unitOfWork.GetAllAsync<GoalEntity>();
-            return Mapper.Map<List<IGoal>>(getGoal);
+
+
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+            //var getGoal = await unitOfWork.GetAllAsync<GoalEntity>();
+            //return Mapper.Map<List<IGoal>>(getGoal.Skip((page - 1) * pageSize).Take(pageSize));
         }
 
         public async Task<IGoal> AddGoalAsync(IGoal goal)
         {
-
-            //Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
-            //await Context.SaveChangesAsync();
-            //return goal;
-
             goal.Id = Guid.NewGuid();
             goal.DateCreated = DateTime.UtcNow;
             goal.DateUpdated = DateTime.UtcNow;
 
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var entity = Mapper.Map<GoalEntity>(goal);
-            await unitOfWork.AddAsync(entity);
-            await unitOfWork.CommitAsync();
+            Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
+            await Context.SaveChangesAsync();
             return goal;
+
+            //goal.Id = Guid.NewGuid();
+            //goal.DateCreated = DateTime.UtcNow;
+            //goal.DateUpdated = DateTime.UtcNow;
+
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+            //var entity = Mapper.Map<GoalEntity>(goal);
+            //await unitOfWork.AddAsync(entity);
+            //await unitOfWork.CommitAsync();
+            //return goal;
         }
 
         public async Task<bool> UpdateGoalAsync(IGoal goalUpdate)
@@ -76,18 +81,18 @@ namespace Repository
 
         public async Task<bool> DeleteGoalAsync(Guid goalId)
         {
-            //var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
-            //if (deleteGoal != null)
-            //{
-            //    Context.Goals.Remove(deleteGoal);
-            //    await Context.SaveChangesAsync();
-            //}
-            //return true;
-
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            await unitOfWork.DeleteAsync<GoalEntity>(goalId);
-            await unitOfWork.CommitAsync();
+            var deleteGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
+            if (deleteGoal != null)
+            {
+                Context.Goals.Remove(deleteGoal);
+                await Context.SaveChangesAsync();
+            }
             return true;
+
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+            //await unitOfWork.DeleteAsync<GoalEntity>(goalId);
+            //await unitOfWork.CommitAsync();
+            //return true;
         }
     }
 }
