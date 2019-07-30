@@ -9,16 +9,16 @@ namespace AHP.Service.Common
 {
     public interface ICriteriumService
     {
-        Task<ICriterium> AddCriteriumAsync(ICriterium criterium);
+        Task<ICriterium> AddCriteriumAsync(ICriterium criterium, Guid goalId);
 
-        Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList);
+        Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList, Guid goalId);
 
         Task<bool> DeleteCriteriumAsync(Guid criteriumID);
 
-        Task<List<ICriterium>> GetAllCriteriumsAsync();
+        Task<List<ICriterium>> GetAllCriteriumsAsync(Guid goalId);
 
         Task<ICriterium> GetCriteriumAsync(Guid criteriumID);
 
-        Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium);
+        Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium, Guid goalId);
     }
 }

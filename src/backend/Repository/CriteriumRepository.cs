@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -24,82 +25,102 @@ namespace Repository
         }
 
         protected AHPContext Context { get; private set; }
-        public async Task<ICriterium> AddCriteriumAsync(ICriterium criterium)
+        public async Task<ICriterium> AddCriteriumAsync(ICriterium criterium, Guid goalId)
         {
-            //criterium.DateCreated = DateTime.UtcNow;
-
-            //Context.Criteriums.Add(Mapper.Map<ICriterium, CriteriumEntity>(criterium));
-            //await Context.SaveChangesAsync();
-            //return criterium;
-
-
             criterium.Id = Guid.NewGuid();
             criterium.DateCreated = DateTime.UtcNow;
             criterium.DateUpdated = DateTime.UtcNow;
+            criterium.GoalId = goalId;
 
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var entity = Mapper.Map<CriteriumEntity>(criterium);
-            await unitOfWork.AddAsync(entity);
-            await unitOfWork.CommitAsync();
+            Context.Criteriums.Add(Mapper.Map<ICriterium, CriteriumEntity>(criterium));
+            await Context.SaveChangesAsync();
             return criterium;
+
+
+            //criterium.Id = Guid.NewGuid();
+            //criterium.DateCreated = DateTime.UtcNow;
+            //criterium.DateUpdated = DateTime.UtcNow;
+
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+            //var entity = Mapper.Map<CriteriumEntity>(criterium);
+            //await unitOfWork.AddAsync(entity);
+            //await unitOfWork.CommitAsync();
+            //return criterium;
         }
 
-        public async Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList)
+        public async Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList, Guid goalId)
         {
-            var unitOfWork = uowFactory.CreateUnitOfWork();
 
             foreach (ICriterium criterium in criteriumList)
             {
                 criterium.Id = Guid.NewGuid();
                 criterium.DateCreated = DateTime.UtcNow;
                 criterium.DateUpdated = DateTime.UtcNow;
+                criterium.GoalId = goalId;
 
-                var entity = Mapper.Map<ICriterium, CriteriumEntity>(criterium);
-                await unitOfWork.AddAsync(entity);
-                await unitOfWork.CommitAsync();
+                Context.Criteriums.Add(Mapper.Map<ICriterium, CriteriumEntity>(criterium));
+                await Context.SaveChangesAsync();
             }
-            
+
             return criteriumList;
+
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+
+            //foreach (ICriterium criterium in criteriumList)
+            //{
+            //    criterium.Id = Guid.NewGuid();
+            //    criterium.DateCreated = DateTime.UtcNow;
+            //    criterium.DateUpdated = DateTime.UtcNow;
+
+            //    var entity = Mapper.Map<ICriterium, CriteriumEntity>(criterium);
+            //    await unitOfWork.AddAsync(entity);
+            //    await unitOfWork.CommitAsync();
+            //}
+
+            //return criteriumList;
         }
 
         public async Task<bool> DeleteCriteriumAsync(Guid criteriumId)
         {
-            //var deleteCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);
-            //if (deleteCriterium != null)
-            //{
-            //    Context.Criteriums.Remove(deleteCriterium);
-            //    await Context.SaveChangesAsync();
-            //}
-            //return true;
-
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            await unitOfWork.DeleteAsync<CriteriumEntity>(criteriumId);
-            await unitOfWork.CommitAsync();
+            var deleteCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);
+            if (deleteCriterium != null)
+            {
+                Context.Criteriums.Remove(deleteCriterium);
+                await Context.SaveChangesAsync();
+            }
             return true;
+
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+            //await unitOfWork.DeleteAsync<CriteriumEntity>(criteriumId);
+            //await unitOfWork.CommitAsync();
+            //return true;
         }
 
-        public async Task<List<ICriterium>> GetAllCriteriumsAsync()
+        public async Task<List<ICriterium>> GetAllCriteriumsAsync(Guid goalId)
         {
             //var allCriteriums = await Context.Criteriums.ToListAsync();
             //return Mapper.Map<List<ICriterium>>(allCriteriums);
 
+          var criteriums = await Context.Criteriums.Where(criterium => criterium != null
+                && criterium.GoalId == goalId).ToListAsync();
+            return Mapper.Map<List<ICriterium>>(criteriums);
 
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var getCriterium = await unitOfWork.GetAllAsync<CriteriumEntity>();
-            return Mapper.Map<List<ICriterium>>(getCriterium);
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+            //var getCriterium = await unitOfWork.GetAllAsync<CriteriumEntity>();
+            //return Mapper.Map<List<ICriterium>>(getCriterium);
         }
 
         public async Task<ICriterium> GetCriteriumAsync(Guid criteriumId)
         {
-            //var getCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);
-            //return Mapper.Map<ICriterium>(getCriterium);
-
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var getCriterium = await unitOfWork.GetAsync<CriteriumEntity>(criteriumId);
+            var getCriterium = await Context.Criteriums.SingleOrDefaultAsync(x => x.Id == criteriumId);
             return Mapper.Map<ICriterium>(getCriterium);
+
+            //var unitOfWork = uowFactory.CreateUnitOfWork();
+            //var getCriterium = await unitOfWork.GetAsync<CriteriumEntity>(criteriumId);
+            //return Mapper.Map<ICriterium>(getCriterium);
         }
 
-        public async Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate)
+        public async Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate, Guid goalId)
         {
             criteriumUpdate.DateUpdated = DateTime.UtcNow;
             var unitOfWork = uowFactory.CreateUnitOfWork();

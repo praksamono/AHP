@@ -18,14 +18,14 @@ namespace AHP.Service
             this.criteriumRepository = criteriumRepository;
         }
 
-        public async Task<ICriterium> AddCriteriumAsync(ICriterium criterium)
+        public async Task<ICriterium> AddCriteriumAsync(ICriterium criterium, Guid goalId)
         {
-            return await criteriumRepository.AddCriteriumAsync(criterium);
+            return await criteriumRepository.AddCriteriumAsync(criterium, goalId);
         }
 
-        public async Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList)
+        public async Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList, Guid goalId)
         {
-            return await criteriumRepository.AddCriteriumListAsync(criteriumList);
+            return await criteriumRepository.AddCriteriumListAsync(criteriumList, goalId);
         }
 
         public async Task<bool> DeleteCriteriumAsync(Guid criteriumID)
@@ -34,9 +34,9 @@ namespace AHP.Service
             return true;
         }
 
-        public async Task<List<ICriterium>> GetAllCriteriumsAsync()
+        public async Task<List<ICriterium>> GetAllCriteriumsAsync(Guid goalId)
         {
-            return await criteriumRepository.GetAllCriteriumsAsync();
+            return await criteriumRepository.GetAllCriteriumsAsync(goalId);
         }
 
         public async Task<ICriterium> GetCriteriumAsync(Guid criteriumID)
@@ -44,9 +44,9 @@ namespace AHP.Service
             return await criteriumRepository.GetCriteriumAsync(criteriumID);
         }
 
-        public async Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium)
+        public async Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium, Guid goalId)
         {
-           return await criteriumRepository.UpdateCriteriumAsync(updatedCriterium);
+           return await criteriumRepository.UpdateCriteriumAsync(updatedCriterium, goalId);
         }
     }
 }

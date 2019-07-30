@@ -23,10 +23,10 @@ namespace WebAPI
             _mainService = mainService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<CriteriumDTO>>> GetAsync()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<CriteriumDTO>>> GetAsync(Guid id)
         {
-            var criteria = await _criteriumService.GetAllCriteriumsAsync();
+            var criteria = await _criteriumService.GetAllCriteriumsAsync(id);
 
             if (criteria == null)
             {
@@ -53,8 +53,8 @@ namespace WebAPI
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons){
-            var allCriteria = await _criteriumService.GetAllCriteriumsAsync();
+        public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons,Guid id){
+            var allCriteria = await _criteriumService.GetAllCriteriumsAsync(id);
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
             float[] priorities = await _mainService.AHPMethod(comparisons);
@@ -66,7 +66,7 @@ namespace WebAPI
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
             foreach (var criterion in reMappedCriteria) {
-                await _criteriumService.UpdateCriteriumAsync(criterion);
+                await _criteriumService.UpdateCriteriumAsync(criterion,id);
             }
 
             return Ok();
