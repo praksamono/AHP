@@ -37,7 +37,6 @@ namespace WebAPI
                 
             }
 
-            foreach()
             /*foreach (var criterium in mappedCriteria)
             {
               criterium.LocalPriority = priorities[index++];
@@ -58,5 +57,6 @@ namespace WebAPI
     {
         public int[] values;
         public Guid criteriumID;
+        public string criteriumName;
     }
 }

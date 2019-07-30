@@ -1,0 +1,13 @@
+// Post criteria with goalId
+
+route: api/criteria/goalId
+body:
+
+[
+	{
+		"CriteriumName": "name1"
+	},
+	{
+		"CriteriumName": "name2"
+	}
+]
