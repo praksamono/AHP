@@ -8,35 +8,35 @@ using Model.Common;
 
 namespace WebAPI
 {
-  [Route("api/criteriumalternatives")]
-  [ApiController]
-  public class CriteriumAlternativeController : ControllerBase
-  {
-    private readonly IMainService _mainService;
-    public CriteriumAlternativeController(IMainService mainService)
+    [Route("api/criteriumalternatives")]
+    [ApiController]
+    public class CriteriumAlternativeController : ControllerBase
     {
-      _mainService = mainService;
-    }
-
-    [HttpPost]
-    public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync(CriteriumAlternativeDTO criterium)
-    {
-      foreach (var value in criterium.values)
-      {
-        if (Math.Abs(value) > 4)
+        private readonly IMainService _mainService;
+        public CriteriumAlternativeController(IMainService mainService)
         {
-          return BadRequest(new { message = "Invalid comparison value." });
+            _mainService = mainService;
         }
-      }
 
-      var status = await _mainService.AHPMethod(criterium.values);
-      return Ok(status);
+        [HttpPost]
+        public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync(CriteriumAlternativeDTO criterium)
+        {
+            foreach (var value in criterium.values)
+            {
+                if (Math.Abs(value) > 4)
+                {
+                    return BadRequest(new { message = "Invalid comparison value." });
+                }
+            }
+
+            var status = await _mainService.AHPMethod(criterium.values);
+            return Ok(status);
+        }
     }
-  }
 
-  public class CriteriumAlternativeDTO
-  {
-      public int[] values;
-      public string criteriumName;
-  }
+    public class CriteriumAlternativeDTO
+    {
+        public int[] values;
+        public string criteriumName;
+    }
 }

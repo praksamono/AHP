@@ -10,13 +10,13 @@ namespace Repository.Common
     {
         Task<IAlternative> GetAlternativeAsync(Guid alternativeId);
 
-        Task<List<IAlternative>> GetAllAlternativesAsync();
+        Task<List<IAlternative>> GetAllAlternativesAsync(Guid goalId);
 
-        Task<IAlternative> AddAlternativeAsync(IAlternative alternative);
+        Task<IAlternative> AddAlternativeAsync(IAlternative alternative, Guid goalId);
 
-        Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternativesList);
+        Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternativesList, Guid goalId);
 
-        Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate);
+        Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate, Guid goalId);
 
         Task<bool> DeleteAlternativeAsync(Guid alternativeId);
     }

@@ -44,7 +44,7 @@ namespace WebAPI
         [HttpPost("{goalId}")]
         public async Task<ActionResult<List<ICriterium>>> PostAsync([FromBody]List<CriteriumDTO> Criteria, Guid goalId)
         {
-            if(goalId == null)
+            if (goalId == null)
             {
                 return BadRequest(new { message = "Goal id is not set." });
             }
@@ -77,7 +77,6 @@ namespace WebAPI
             float[] priorities = await _mainService.AHPMethod(comparisons);
 
             int index = 0;
-
             foreach (var criterium in mappedCriteria) {
                 criterium.LocalPriority = priorities[index++];
             }

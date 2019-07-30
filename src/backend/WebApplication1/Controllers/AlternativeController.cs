@@ -10,7 +10,7 @@ using Model.Common;
 
 namespace WebAPI
 {
-    [Route("api/alternatives/[action]")]
+    [Route("api/alternatives")]
     [ApiController]
     public class AlternativeController : ControllerBase
     {
@@ -23,10 +23,10 @@ namespace WebAPI
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<AlternativeDTO>>> GetAlternativesAsync()
+        [HttpGet("{goalId}")]
+        public async Task<ActionResult<List<AlternativeDTO>>> GetAlternativesAsync(Guid goalId)
         {
-            var alternatives = await _service.GetAllAlternativesAsync();
+            var alternatives = await _service.GetAllAlternativesAsync(goalId);
 
             if (alternatives == null)
             {
@@ -35,88 +35,57 @@ namespace WebAPI
             return Ok(_mapper.Map<List<IAlternative>, List<AlternativeDTO>>(alternatives));
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AlternativeDTO>> GetAlternativeByIdAsync(Guid id)
-        {
-            if(id == null)
-            {
-                return BadRequest(new { message = "Alternative id is not set." });
-            }
 
-            var alternative = await _service.GetAlternativeAsync(id);
-
-            if (alternative == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(_mapper.Map<IAlternative, AlternativeDTO>(alternative));
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<IAlternative>> AddAlternativeAsync(AlternativeDTO alternative)
-        {
-            if (string.IsNullOrEmpty(alternative.AlternativeName))
-            {
-                return BadRequest(new { message = "Alternative name is not set." });
-            }
-
-            var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
-            var status = await _service.AddAlternativeAsync(mappedAlternative);
-
-            return Ok(status);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<List<IAlternative>>> CreateAlternativesAsync(List<AlternativeDTO> alternatives)
+        [HttpPost("{goalId}")]
+        public async Task<ActionResult<List<IAlternative>>> CreateAlternativesAsync([FromBody]List<AlternativeDTO> alternatives, Guid goalId)
         {
             foreach (var alternative in alternatives)
             {
                 if (string.IsNullOrEmpty(alternative.AlternativeName))
                 {
-                    return BadRequest(new { message = "Alternative name is not set." });
+                    return BadRequest(new { message = "Alternative name can't be empty." });
                     // throw new HttpResponseException("Alternative name is not set.", HttpStatusCode.BadRequest);
                 }
             }
 
             var mappedAlts = _mapper.Map<List<AlternativeDTO>, List<IAlternative>>(alternatives);
-            var status = await _service.AddAlternativeListAsync(mappedAlts);
+            var status = await _service.AddAlternativeListAsync(mappedAlts, goalId);
 
             return Ok(status);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAlternativeAsync(Guid id)
-        {
-            if (id == null)
-            {
-                return BadRequest(new { message = "Alternative id is not set." });
-            }
+        // [HttpDelete("{id}")]
+        // public async Task<ActionResult> DeleteAlternativeAsync(Guid id)
+        // {
+        //     if (id == null)
+        //     {
+        //         return BadRequest(new { message = "Id can't be empty." });
+        //     }
+        //
+        //     var alternative = await _service.DeleteAlternativeAsync(id);
+        //
+        //     return Ok();
+        // }
 
-            var alternative = await _service.DeleteAlternativeAsync(id);
-
-            return Ok();
-        }
-
-        [HttpPut]
-        public async Task<ActionResult> UpdateAlternativeAsync(AlternativeDTO alternative)
-        {
-            if (string.IsNullOrEmpty(alternative.AlternativeName))
-            {
-                return BadRequest(new { message = "Alternative name is not set." });
-            }
-
-            var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
-            var newAlternative = await _service.UpdateAlternativeAsync(mappedAlternative);
-
-            return Ok();
-        }
+        // [HttpPut]
+        // public async Task<ActionResult> UpdateAlternativeAsync(AlternativeDTO alternative)
+        // {
+        //     if (string.IsNullOrEmpty(alternative.AlternativeName))
+        //     {
+        //         return BadRequest(new { message = "Alternative name can't be empty." });
+        //     }
+        //
+        //     var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
+        //     var newAlternative = await _service.UpdateAlternativeAsync(mappedAlternative);
+        //
+        //     return Ok();
+        // }
     }
 
 	public class AlternativeDTO
 	{
 		public string AlternativeName { get; set; }
-		public Guid GoalId { get; set; }
+		public Guid Id { get; set; }
 	}
 
 }
