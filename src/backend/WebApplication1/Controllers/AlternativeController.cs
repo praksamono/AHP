@@ -38,6 +38,11 @@ namespace WebAPI
         [HttpGet("{id}")]
         public async Task<ActionResult<AlternativeDTO>> GetAlternativeByIdAsync(Guid id)
         {
+            if(id == null)
+            {
+                return BadRequest(new { message = "Alternative id is not set." });
+            }
+
             var alternative = await _service.GetAlternativeAsync(id);
 
             if (alternative == null)
@@ -53,7 +58,7 @@ namespace WebAPI
         {
             if (string.IsNullOrEmpty(alternative.AlternativeName))
             {
-                return BadRequest(new { message = "Add alterantive async." });
+                return BadRequest(new { message = "Alternative name is not set." });
             }
 
             var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
@@ -69,7 +74,7 @@ namespace WebAPI
             {
                 if (string.IsNullOrEmpty(alternative.AlternativeName))
                 {
-                    return BadRequest(new { message = "Create alternative async." });
+                    return BadRequest(new { message = "Alternative name is not set." });
                     // throw new HttpResponseException("Alternative name is not set.", HttpStatusCode.BadRequest);
                 }
             }
@@ -85,7 +90,7 @@ namespace WebAPI
         {
             if (id == null)
             {
-                return BadRequest(new { message = "Id can't be empty." });
+                return BadRequest(new { message = "Alternative id is not set." });
             }
 
             var alternative = await _service.DeleteAlternativeAsync(id);
@@ -98,7 +103,7 @@ namespace WebAPI
         {
             if (string.IsNullOrEmpty(alternative.AlternativeName))
             {
-                return BadRequest(new { message = "Alternative name can't be empty." });
+                return BadRequest(new { message = "Alternative name is not set." });
             }
 
             var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
