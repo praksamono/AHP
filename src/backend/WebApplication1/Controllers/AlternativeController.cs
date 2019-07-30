@@ -58,7 +58,7 @@ namespace WebAPI
         {
             if (string.IsNullOrEmpty(alternative.AlternativeName))
             {
-                return BadRequest(new { message = "Add alterantive async." });
+                return BadRequest(new { message = "Alternative name is not set." });
             }
 
             var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
@@ -74,7 +74,7 @@ namespace WebAPI
             {
                 if (string.IsNullOrEmpty(alternative.AlternativeName))
                 {
-                    return BadRequest(new { message = "Create alternative async." });
+                    return BadRequest(new { message = "Alternative name is not set." });
                     // throw new HttpResponseException("Alternative name is not set.", HttpStatusCode.BadRequest);
                 }
             }
@@ -103,7 +103,7 @@ namespace WebAPI
         {
             if (string.IsNullOrEmpty(alternative.AlternativeName))
             {
-                return BadRequest(new { message = "Alternative name can't be empty." });
+                return BadRequest(new { message = "Alternative name is not set." });
             }
 
             var mappedAlternative = _mapper.Map<AlternativeDTO, IAlternative>(alternative);
