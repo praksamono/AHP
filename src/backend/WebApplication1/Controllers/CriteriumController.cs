@@ -23,10 +23,10 @@ namespace WebAPI
             _mainService = mainService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<CriteriumDTO>>> GetAsync()
+        [HttpGet("{goalId}")]
+        public async Task<ActionResult<List<CriteriumDTO>>> GetAsync(Guid goalId)
         {
-            var criteria = await _criteriumService.GetAllCriteriumsAsync();
+            var criteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
 
             if (criteria == null)
             {
@@ -35,10 +35,10 @@ namespace WebAPI
             return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(criteria));
         }
 
-        [HttpPost]
-        public async Task<ActionResult<List<ICriterium>>> PostAsync([FromBody]List<CriteriumDTO> Criteria)
+        [HttpPost("{goalId}")]
+        public async Task<ActionResult<List<ICriterium>>> PostAsync([FromBody]List<CriteriumDTO> Criteria, Guid goalId)
         {
-            // var readCriteria = JsonConvert.DeserializeObject<List<CriteriumDTO>>(Criteria);
+            // Console.WriteLine(goalId);
             foreach (var criterium in Criteria)
             {
                 if (string.IsNullOrEmpty(criterium.CriteriumName))
@@ -48,14 +48,14 @@ namespace WebAPI
             }
 
             var mappedCriteria = _mapper.Map<List<ICriterium>>(Criteria);
-            var status = await _criteriumService.AddCriteriumListAsync(mappedCriteria);
+            var status = await _criteriumService.AddCriteriumListAsync(mappedCriteria, goalId);
 
             return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(mappedCriteria));
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons){
-            var allCriteria = await _criteriumService.GetAllCriteriumsAsync();
+        public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons, Guid goalId){
+            var allCriteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
             float[] priorities = await _mainService.AHPMethod(comparisons);
@@ -67,7 +67,7 @@ namespace WebAPI
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
             foreach (var criterion in reMappedCriteria) {
-                await _criteriumService.UpdateCriteriumAsync(criterion);
+                await _criteriumService.UpdateCriteriumAsync(criterion, goalId);
             }
 
             return Ok("sve oke");
