@@ -78,8 +78,7 @@ namespace WebAPI
             int index = 0;
 
             foreach (var criterium in mappedCriteria) {
-                Console.WriteLine(criterium);
-                criterium.LocalPriority = priorities[index++];
+                criterium.GlobalCriteriumPriority = priorities[index++];
             }
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
@@ -95,7 +94,7 @@ namespace WebAPI
     public class CriteriumDTO
     {
         public string CriteriumName { get; set; }
-        public float LocalPriority { get; set; }
+        public float GlobalCriteriumPriority { get; set; }
         public Guid GoalId { get; set; }
     }
 }
