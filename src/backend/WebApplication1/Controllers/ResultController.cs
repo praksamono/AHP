@@ -25,7 +25,6 @@ namespace WebAPI
             _mapper = mapper;
         }
 
-        // TODO all
         [HttpGet("{goalId}")]
         public async Task<ActionResult<AlternativeDTO>> GetResultsAsync(Guid goalId)
         {
