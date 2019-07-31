@@ -16,16 +16,21 @@ namespace WebAPI
         private readonly IMapper _mapper;
         private readonly IMainService _mainService;
         private readonly ICriteriumAlternativeService _criteriumAlternativeService;
-        private readonly ICriteriumService criteriumService;
+        private readonly ICriteriumService _criteriumService;
         private readonly IAlternativeService _alternativeService;
-        public CriteriumAlternativeController(IMainService mainService)
+        public CriteriumAlternativeController(IMainService mainService, ICriteriumService criteriumService, IAlternativeService alternativeService, ICriteriumAlternativeService criteriumAlternativeService, IMapper mapper)
         {
             _mainService = mainService;
+            _criteriumService = criteriumService;
+            _alternativeService = alternativeService;
+            _criteriumAlternativeService = criteriumAlternativeService;
+            _mapper = mapper;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync(CriteriumAlternativeDTO criteriumAlternative, int[] values)
-        {   
+        [HttpPost("{criteriumId}")]
+        public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync([FromBody]int[] values, Guid criteriumId)
+        {
+            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
             //Exceptions
             foreach (var value in values)
             {
@@ -35,24 +40,22 @@ namespace WebAPI
                 }
             }
 
-            if (criteriumAlternative.goalId == null)
-            {
-                return BadRequest(new { message = "AlternativeCriterium - Goal ID does not exist." });
-            }
 
             //Calculate priorities using AHP
             float[] priorities = await _mainService.AHPMethod(values);
             //Assign ICriterium
-            criteriumAlternative.criterium = await criteriumService.GetCriteriumAsync(criteriumAlternative.criteriumID);
+            criteriumAlternative.criterium = await _criteriumService.GetCriteriumAsync(criteriumId);
+            criteriumAlternative.CriteriumId = criteriumId;
             //Fetch list of alternatives connected to the current goal
-            List<IAlternative> alternativesList = await _alternativeService.GetAllAlternativesAsync(criteriumAlternative.goalId);
+            List<IAlternative> alternativesList = await _alternativeService.GetAllAlternativesAsync(criteriumAlternative.criterium.GoalId);
 
             int index = 0;
             foreach(IAlternative alternative in alternativesList)
             {
                 criteriumAlternative.alternative = alternative; //Assign alternative from list
+                criteriumAlternative.AlternativeId = alternative.Id;
                 criteriumAlternative.LocalPriority = priorities[index++]; //Assign i-th priority from priorities
-                ICriteriumAlternative _criteriumAlternative =_mapper.Map<ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
+                ICriteriumAlternative _criteriumAlternative =_mapper.Map<CriteriumAlternativeDTO, ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
                 await _criteriumAlternativeService.AddCriteriumAlternativeAsync(_criteriumAlternative); //Add to database
             }
             return Ok();
@@ -61,13 +64,11 @@ namespace WebAPI
 
     public class CriteriumAlternativeDTO
     {   //Sent in the POST request
-        public Guid criteriumID;
-        public Guid goalId; //Should not be mapped to I object
+        public Guid CriteriumId;
         //Calculated in controller methods
         public float LocalPriority;
         //Fetched in controller methods
-        public Guid CriteriumID;
-        public Guid AlternativeID;
+        public Guid AlternativeId;
         public ICriterium criterium;
         public IAlternative alternative;
     }
