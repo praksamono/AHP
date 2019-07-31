@@ -105,14 +105,17 @@ namespace AHP.Service
 
             for (int i = 0; i < MatrixSize; i++)
             {
-                sum += 1f; //For each new row add the 1.0 that is located on the main diagonal
-                for (int j = i + 1; j < MatrixSize; j++)
-                {
-                    sum += Matrix[i, j]; //Add the element on position i,j and also it's reciprocal element on j,i
-                    sum += Matrix[j, i];
+                // sum += 1f; //For each new row add the 1.0 that is located on the main diagonal
+                // for (int j = i + 1; j < MatrixSize; j++)
+                // {
+                //     sum += Matrix[i, j]; //Add the element on position i,j and also it's reciprocal element on j,i
+                //     sum += Matrix[j, i];
+                // }
+                for (int j = 0; j < MatrixSize; j++) {
+                    sum += Matrix[i,j];
                 }
             }
-            return 1f;
+            return sum;
         }
 
         ///<summary>Squares a quadratic matrix</summary>
