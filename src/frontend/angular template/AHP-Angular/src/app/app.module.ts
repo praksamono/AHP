@@ -21,6 +21,7 @@ import { SliderComponent } from './components/slider/slider.component';
 import { ResultsComponent } from './components/results/results.component';
 import { SlideralternativeComponent } from './components/slideralternative/slideralternative.component';
 import { AddGoalComponent } from './components/add-goal/add-goal.component';
+import {GoalService} from './common/services/goal.service';
 
 
 
