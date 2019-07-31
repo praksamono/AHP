@@ -10,11 +10,11 @@ namespace AHP.Service.Common
     public interface IMainService
     {
         Task<float[]> AHPMethod(int[] ComparisonValues);
-        float[] CalculatePriorities(float[,] Matrix);
-        float[,] MatrixInit(int[] ComparisonValues);
-        float MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber);
-        float MatrixSum(float[,] Matrix, int MatrixSize);
-        void MatrixSquare(ref float[,] Matrix, int MatrixSize);
+        Task<float[]> CalculatePriorities(float[,] Matrix);
+        Task<float[,]> MatrixInit(int[] ComparisonValues);
+        Task<float> MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber);
+        Task<float> MatrixSum(float[,] Matrix, int MatrixSize);
+        Task<float[,]> MatrixSquare(float[,] Matrix, int MatrixSize);
 
     }
 }
