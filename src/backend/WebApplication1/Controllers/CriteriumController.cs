@@ -67,7 +67,7 @@ namespace WebAPI
         public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons, Guid goalId){
             if (goalId == null)
             {
-                return BadRequest(new { message = "Criterium id is not set." });
+                return BadRequest(new { message = "GoalId is not set." });
             }
 
             var allCriteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
