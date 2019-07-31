@@ -85,6 +85,7 @@ namespace WebAPI
 	public class AlternativeDTO
 	{
 		public string AlternativeName { get; set; }
+        public float GlobalPriority { get; set; }
 		public Guid Id { get; set; }
 	}
 
