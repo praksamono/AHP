@@ -103,6 +103,11 @@ namespace Repository
 
             var criteriums = await Context.Criteriums.Where(criterium => criterium != null
                 && criterium.GoalId == goalId).ToListAsync();
+            // // DEBUG
+            // foreach (var crit in criteriums) {
+            //     Console.WriteLine(crit.GlobalCriteriumPriority);
+            // }
+            // // End DEBUG
             return Mapper.Map<List<ICriterium>>(criteriums);
 
             //var unitOfWork = uowFactory.CreateUnitOfWork();
@@ -126,17 +131,18 @@ namespace Repository
             float value = criteriumUpdate.GlobalCriteriumPriority;
 
             // Retrieve entity by id
-            var entity = Context.Criteriums.FirstOrDefault(item => item.Id == id);
+            var entity = await Context.Criteriums.SingleOrDefaultAsync(item => item.Id == id);
 
             // Validate entity is not null and update
             if (entity != null)
             {
                 entity.DateUpdated = DateTime.UtcNow;
                 entity.GlobalCriteriumPriority = value;
+
                 Context.Criteriums.Update(entity);
                 Context.SaveChanges();
             }
             return true;
-        }    
+        }
     }
 }

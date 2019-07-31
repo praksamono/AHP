@@ -74,9 +74,6 @@ namespace WebAPI
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
             float[] priorities = await _mainService.AHPMethod(comparisons);
-            // DEBUG
-            // Console.WriteLine(priorities);
-            // End DEBUG
 
             int index = 0;
 
@@ -84,19 +81,7 @@ namespace WebAPI
                 criterium.GlobalCriteriumPriority = priorities[index++];
             }
 
-            // DEBUG
-            // foreach (var criterium in mappedCriteria) {
-            //     Console.WriteLine(criterium.GlobalCriteriumPriority);
-            //     // criterium.GlobalCriteriumPriority = priorities[index++];
-            // }
-            // End DEBUG
-
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
-            // DEBUG
-            foreach (var criterium in reMappedCriteria) {
-                Console.WriteLine(criterium.GlobalCriteriumPriority);
-            }
-            // End DEBUG
 
             foreach (var criterion in reMappedCriteria) {
                 await _criteriumService.UpdateCriteriumAsync(criterion, goalId);
@@ -111,5 +96,6 @@ namespace WebAPI
         public string CriteriumName { get; set; }
         public float GlobalCriteriumPriority { get; set; }
         public Guid GoalId { get; set; }
+        public Guid Id { get; set; }
     }
 }
