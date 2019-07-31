@@ -122,16 +122,16 @@ namespace Repository
 
         public async Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate, Guid goalId)
         {
-            criteriumUpdate.DateUpdated = DateTime.UtcNow;
             Guid id = criteriumUpdate.Id;
-            float value = await Task.FromResult(criteriumUpdate.GlobalCriteriumPriority);
+            float value = criteriumUpdate.GlobalCriteriumPriority;
 
             // Retrieve entity by id
             var entity = Context.Criteriums.FirstOrDefault(item => item.Id == id);
 
-            // Validate entity is not null
+            // Validate entity is not null and update
             if (entity != null)
             {
+                entity.DateUpdated = DateTime.UtcNow;
                 entity.GlobalCriteriumPriority = value;
                 Context.Criteriums.Update(entity);
                 Context.SaveChanges();
