@@ -52,7 +52,7 @@ import {GoalService} from './common/services/goal.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [GoalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -39,7 +39,7 @@ export class GoalService {
 }
 //GET id
 
-GetIssue(id): Observable<Goal> {
+GetGoal(id): Observable<Goal> {
   return this.http.get<Goal>(this.baseurl + 'api/goals/' + id)
   .pipe(
     retry(1),

@@ -15,6 +15,8 @@ export class AddGoalComponent {
 
   url = `http://localhost:7867/`;
   rForm: FormGroup;
+  GoalArr : any=[];
+
   constructor(private fb: FormBuilder, private ngZone: NgZone, private router: Router, public goalservice: GoalService) {
     this.rForm = this.createFormGroup();
   }
@@ -38,5 +40,16 @@ export class AddGoalComponent {
 
   getGoal() {
     return this.rForm.get('goal');
+  }
+
+  getIfErrorIsTriggered(Errorname: string) : boolean {
+    const Control  = this.getGoal();
+    if(!Control){
+      return false;
+    }
+    if((Control.dirty || Control.touched) && Control.invalid && Control.errors && Control.errors[Errorname]) {
+      return true;
+    }
+    return false;
   }
 }

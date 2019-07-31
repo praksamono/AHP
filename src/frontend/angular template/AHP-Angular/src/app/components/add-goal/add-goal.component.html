@@ -5,15 +5,15 @@
     <br>
     <span class="warning" *ngIf="getGoal().errors">
       <br>
-      <span class="warning" *ngIf="(getGoal().dirty || getGoal().touched) && getGoal().invalid && (getGoal()).errors['required']">Goal specification is required!</span>
+      <span class="warning" *ngIf="getIfErrorIsTriggered('required')">Goal specification is required!</span>
       <br>
-      <span class="warning" *ngIf="(getGoal().dirty || getGoal().touched) && getGoal().invalid && getGoal().errors['invalidInput']">Goal contains only letters!</span>
-      <span class="warning" *ngIf="getGoal().errors['minlength']  && getGoal().invalid">Minimum Length is two letters!</span>
+      <span class="warning" *ngIf="getIfErrorIsTriggered('invalidInput')">Goal contains only letters!</span>
+      <span class="warning" *ngIf="getIfErrorIsTriggered('minlength')">Minimum Length is two letters!</span>
       <br>
-      <span class="warning" *ngIf="getGoal().errors['maxlength']  && getGoal().invalid">Maximum Length is 25 letters!</span>
+      <span class="warning" *ngIf="getIfErrorIsTriggered('maxlength')">Maximum Length is 25 letters!</span>
     </span>
   </div>
-  <button type="submit" [disabled]="(getGoal().errors['required']) || (getGoal().errors['invalidInput'])">Add Goal</button>
+  <button type="submit" [disabled]="getIfErrorIsTriggered('invalidInput')">Add Goal</button>
 </form>
 
 
