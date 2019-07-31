@@ -30,14 +30,14 @@ namespace WebAPI
                 }
             }
 
-            float[] priorities = await _mainService.AHPMethod(criteriumAlternative.values);
+            float[] priorities = await _mainService.AHPMethod(values);
             List<ICriterium> criteriaList;
             List<IAlternative> alternativesList;
 
             //int index = 0;
             for (int i = 0; i < priorities.Length; i++)
             {
-                await _criteriumAlternativeService.AddCriteriumAlternativeAsync();
+                //await _criteriumAlternativeService.AddCriteriumAlternativeAsync();
             }
 
             /*foreach (var criterium in mappedCriteria)
