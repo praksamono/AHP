@@ -16,29 +16,29 @@ namespace AHP.Service
 
         public async Task<float[]> AHPMethod(int[] ComparisonValues)
         {
-            float[,] Matrix = MatrixInit(ComparisonValues);
-            float[] NormalisedVector = CalculatePriorities(Matrix);
+            float[,] Matrix = await MatrixInit(ComparisonValues);
+            float[] NormalisedVector = await CalculatePriorities(Matrix);
 
             return NormalisedVector;
         }
 
         ///<summary>Calculates a vector of priorities from the comparison matrix</summary>
         ///<returns>Float array of priorities</returns>
-        public float[] CalculatePriorities(float[,] Matrix)
+        public async Task<float[]> CalculatePriorities(float[,] Matrix)
         {
             int MatrixSize = Matrix.GetLength(0); //Gets the length of the first dimension in the matrix, since the matrix is always square it does not matter which dimension's length we take
 
-            MatrixSquare(ref Matrix, MatrixSize);
-            MatrixSquare(ref Matrix, MatrixSize); //Square the matrix twice for more precision((?) - Expensive operation)
+            await MatrixSquare(Matrix, MatrixSize);
+            await MatrixSquare(Matrix, MatrixSize); //Square the matrix twice for more precision((?) - Expensive operation)
 
-            float matrixSum = MatrixSum(Matrix, MatrixSize); //Calculate the matrix sum for normalisation
+            float matrixSum = await MatrixSum(Matrix, MatrixSize); //Calculate the matrix sum for normalisation
 
             //Normalised vector
             float[] NormalisedVector = new float[MatrixSize];
 
             for (int i = 0; i < MatrixSize; i++)
             {
-                NormalisedVector[i] = MatrixRowSum(Matrix, MatrixSize, i) / matrixSum;
+                NormalisedVector[i] = await MatrixRowSum(Matrix, MatrixSize, i) / matrixSum;
             }
 
             return NormalisedVector;
@@ -50,7 +50,7 @@ namespace AHP.Service
         ///'left' priority and are mapped as |2n-1|. Positive values are mapped as 2n+1 to get the full range of values [1, 9] used in AHP.</param>
         ///<returns>2D array of floats that is the calculation matrix for future calculations.</returns>
         #region MatrixOperations
-        public float[,] MatrixInit(int[] ComparisonValues)
+        public async Task<float[,]> MatrixInit(int[] ComparisonValues)
         {
             int MatrixSize = ComparisonValues.Length;
             float[,] Matrix = new float[MatrixSize, MatrixSize];
@@ -86,7 +86,7 @@ namespace AHP.Service
         }
 
         ///<summary>Sums up the elements in the RowNumber row of a Matrix</summary>
-        public float MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber)
+        public async Task<float> MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber)
         {
             float sum = 0;
             for (int i = 0; i < MatrixSize; i++)
@@ -99,25 +99,28 @@ namespace AHP.Service
 
         ///<summary>Sums up all the elements of a matrix. It only traverses the upper triangle of a matrix since we know the matrix has a property of reciprocal values.</summary>
         ///<returns>Float representing the sum of all matrix elements</returns>
-        public float MatrixSum(float[,] Matrix, int MatrixSize)
+        public async Task<float> MatrixSum(float[,] Matrix, int MatrixSize)
         {
             float sum = 0f;
 
             for (int i = 0; i < MatrixSize; i++)
             {
-                sum += 1f; //For each new row add the 1.0 that is located on the main diagonal
-                for (int j = i + 1; j < MatrixSize; j++)
-                {
-                    sum += Matrix[i, j]; //Add the element on position i,j and also it's reciprocal element on j,i
-                    sum += Matrix[j, i];
+                // sum += 1f; //For each new row add the 1.0 that is located on the main diagonal
+                // for (int j = i + 1; j < MatrixSize; j++)
+                // {
+                //     sum += Matrix[i, j]; //Add the element on position i,j and also it's reciprocal element on j,i
+                //     sum += Matrix[j, i];
+                // }
+                for (int j = 0; j < MatrixSize; j++) {
+                    sum += Matrix[i,j];
                 }
             }
-            return 1f;
+            return sum;
         }
 
         ///<summary>Squares a quadratic matrix</summary>
         ///<param name="Matrix">2D array of floats passed by reference</param>
-        public void MatrixSquare(ref float[,] Matrix, int MatrixSize)
+        public async Task<float[,]> MatrixSquare(float[,] Matrix, int MatrixSize)
         {
             float[,] MatrixCopy = new float[MatrixSize, MatrixSize];
 
@@ -146,6 +149,8 @@ namespace AHP.Service
                     Matrix[i, j] = sum;
                 }
             }
+
+            return Matrix;
         }
         #endregion
 
