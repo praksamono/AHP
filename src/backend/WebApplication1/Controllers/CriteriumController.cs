@@ -49,7 +49,6 @@ namespace WebAPI
                 return BadRequest(new { message = "Goal id is not set." });
             }
 
-            // Console.WriteLine(goalId);
             foreach (var criterium in Criteria)
             {
                 if (string.IsNullOrEmpty(criterium.CriteriumName))
@@ -65,32 +64,28 @@ namespace WebAPI
         }
 
         [HttpPut("{goalId}")]
-        public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons, Guid id){
-            if (id == null)
+        public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons, Guid goalId){
+            if (goalId == null)
             {
                 return BadRequest(new { message = "Criterium id is not set." });
             }
 
-            var allCriteria = await _criteriumService.GetAllCriteriumsAsync(id);
+            var allCriteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
             float[] priorities = await _mainService.AHPMethod(comparisons);
 
             int index = 0;
 
-            // DEBUG needed (stop index from getting out of range)
-            
-            // Console.WriteLine(mappedCriteria.Count);
             foreach (var criterium in mappedCriteria) {
-                // Console.WriteLine(index);
-                criterium.LocalPriority = priorities[index];
-                ++index;
+                Console.WriteLine(criterium);
+                criterium.LocalPriority = priorities[index++];
             }
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
 
             foreach (var criterion in reMappedCriteria) {
-                await _criteriumService.UpdateCriteriumAsync(criterion,id);
+                await _criteriumService.UpdateCriteriumAsync(criterion, goalId);
             }
 
             return Ok();
