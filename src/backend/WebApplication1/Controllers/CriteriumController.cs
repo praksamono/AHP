@@ -49,7 +49,6 @@ namespace WebAPI
                 return BadRequest(new { message = "Goal id is not set." });
             }
 
-            // Console.WriteLine(goalId);
             foreach (var criterium in Criteria)
             {
                 if (string.IsNullOrEmpty(criterium.CriteriumName))
@@ -64,27 +63,28 @@ namespace WebAPI
             return Ok(_mapper.Map<List<ICriterium>, List<CriteriumDTO>>(mappedCriteria));
         }
 
-        [HttpPut]
-        public async Task<ActionResult<List<ICriterium>>> PutAsync(int[] comparisons,Guid id){
-            if (id == null)
+        [HttpPut("{goalId}")]
+        public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons, Guid goalId){
+            if (goalId == null)
             {
                 return BadRequest(new { message = "Criterium id is not set." });
             }
 
-            var allCriteria = await _criteriumService.GetAllCriteriumsAsync(id);
+            var allCriteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
             float[] priorities = await _mainService.AHPMethod(comparisons);
 
             int index = 0;
+
             foreach (var criterium in mappedCriteria) {
-                criterium.LocalPriority = priorities[index++];
+                criterium.GlobalCriteriumPriority = priorities[index++];
             }
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
 
             foreach (var criterion in reMappedCriteria) {
-                await _criteriumService.UpdateCriteriumAsync(criterion,id);
+                await _criteriumService.UpdateCriteriumAsync(criterion, goalId);
             }
 
             return Ok();
@@ -94,7 +94,7 @@ namespace WebAPI
     public class CriteriumDTO
     {
         public string CriteriumName { get; set; }
-        public float LocalPriority { get; set; }
+        public float GlobalCriteriumPriority { get; set; }
         public Guid GoalId { get; set; }
     }
 }
