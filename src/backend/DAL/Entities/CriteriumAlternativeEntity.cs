@@ -18,7 +18,7 @@ namespace DAL
 
         public AlternativeEntity AlternativeEntity { get; set; }
 
-        [Range(minimum: -9.0, maximum: 9.0)]
+        [Range(minimum: 0.0, maximum: 1.0)]
         public float LocalPriority { get; set; }
     }
 }
