@@ -40,25 +40,37 @@ namespace WebAPI
                 }
             }
 
+            criteriumAlternative = await AssignCriteriumAlternativesPropertiesAsync(criteriumAlternative, criteriumId);
+            await SendCriteriumAlternativesAsync(criteriumAlternative, values);
+            
+            return Ok();
+        }
 
-            //Calculate priorities using AHP
-            float[] priorities = await _mainService.AHPMethod(values);
+        private async Task<CriteriumAlternativeDTO> AssignCriteriumAlternativesPropertiesAsync(CriteriumAlternativeDTO criteriumAlternative, Guid criteriumId)
+        {   
             //Assign ICriterium
             criteriumAlternative.criterium = await _criteriumService.GetCriteriumAsync(criteriumId);
             criteriumAlternative.CriteriumId = criteriumId;
+            return criteriumAlternative;
+        }
+
+        private async Task<bool> SendCriteriumAlternativesAsync(CriteriumAlternativeDTO criteriumAlternative, int[] values)
+        {
+            //Calculate priorities using AHP
+            float[] priorities = await _mainService.AHPMethod(values);
             //Fetch list of alternatives connected to the current goal
             List<IAlternative> alternativesList = await _alternativeService.GetAllAlternativesAsync(criteriumAlternative.criterium.GoalId);
 
             int index = 0;
-            foreach(IAlternative alternative in alternativesList)
+            foreach (IAlternative alternative in alternativesList)
             {
                 criteriumAlternative.alternative = alternative; //Assign alternative from list
                 criteriumAlternative.AlternativeId = alternative.Id;
                 criteriumAlternative.LocalPriority = priorities[index++]; //Assign i-th priority from priorities
-                ICriteriumAlternative _criteriumAlternative =_mapper.Map<CriteriumAlternativeDTO, ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
+                ICriteriumAlternative _criteriumAlternative = _mapper.Map<CriteriumAlternativeDTO, ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
                 await _criteriumAlternativeService.AddCriteriumAlternativeAsync(_criteriumAlternative); //Add to database
             }
-            return Ok();
+            return true;
         }
     }
 
