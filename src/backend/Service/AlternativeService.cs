@@ -38,9 +38,9 @@ namespace AHP.Service
             return await alternativeRepository.AddAlternativeListAsync(alternatives, goalId);
         }
 
-        public async Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, Guid goalId)
+        public async Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, float valueInCriterium)
         {
-            await alternativeRepository.UpdateAlternativeAsnyc(updatedAlternative, goalId);
+            await alternativeRepository.UpdateAlternativeAsnyc(updatedAlternative, valueInCriterium);
             return true;
         }
 

@@ -34,6 +34,7 @@ namespace Repository
             newAlternative.DateCreated = DateTime.UtcNow;
             newAlternative.DateUpdated = DateTime.UtcNow;
             newAlternative.GoalId = goalId;
+            newAlternative.GlobalPriority = 0;
 
             Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(newAlternative));
             await Context.SaveChangesAsync();
@@ -59,6 +60,7 @@ namespace Repository
                 alternative.DateCreated = DateTime.UtcNow;
                 alternative.DateUpdated = DateTime.UtcNow;
                 alternative.GoalId = goalId;
+                alternative.GlobalPriority = 0;
 
                 Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(alternative));
                 await Context.SaveChangesAsync();
@@ -128,6 +130,27 @@ namespace Repository
             var entity = Mapper.Map<AlternativeEntity>(alternativeUpdate);
             await unitOfWork.UpdateAsync(entity);
             await unitOfWork.CommitAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate, float valueInCriterium)
+        {
+            Guid id = alternativeUpdate.Id;
+
+            // Retrieve entity by id
+            var entity = await Context.Alternatives.SingleOrDefaultAsync(item => item.Id == id);
+
+            // Validate entity is not null and update
+            if (entity != null)
+            {  
+                entity.DateUpdated = DateTime.UtcNow;
+                float currentValue = entity.GlobalPriority;
+                currentValue += valueInCriterium;
+                entity.GlobalPriority = currentValue;
+
+                Context.Alternatives.Update(entity);
+                Context.SaveChanges();
+            }
             return true;
         }
     }
