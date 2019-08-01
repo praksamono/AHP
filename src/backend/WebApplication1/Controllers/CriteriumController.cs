@@ -94,7 +94,7 @@ namespace WebAPI
 
             foreach (var criterion in reMappedCriteria)
             {
-                await _criteriumService.UpdateCriteriumAsync(criterion, goalId);
+                await _criteriumService.UpdateCriteriumAsync(criterion);
             }
 
             return Ok();
