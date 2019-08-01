@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -68,10 +69,10 @@ namespace WebAPI
         public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDTO goal)
 
         {
-            if (string.IsNullOrEmpty(goal.GoalName))
+            string errorMessage = await IsValidGoalName(goal.GoalName);
+            if (!string.IsNullOrEmpty(errorMessage))
             {
-                return BadRequest(new { message = "Goal name is not set." });
-                // throw new HttpResponseException("Goal name is not set.", HttpStatusCode.BadRequest);
+                return BadRequest(new { message = errorMessage });
             }
 
             var mappedGoal = _mapper.Map<GoalDTO, IGoal>(goal);
@@ -79,7 +80,6 @@ namespace WebAPI
 
             return Ok(_mapper.Map<GoalDTO>(returnedGoal));
 
-            //return CreatedAtAction(nameof(GetByIdAsync), new { id = returnedGoal.GoalId }, returnedGoal);
         }
 
 
@@ -94,6 +94,19 @@ namespace WebAPI
         //     var newGoal = await _service.UpdateGoalAsync(mappedGoal);
         //     return Ok();
         // }
+
+        private async Task<string> IsValidGoalName(string goalName)
+        {
+            if (string.IsNullOrEmpty(goalName))
+            {
+                return "Goal name is not set.";
+            }
+            if (!Regex.IsMatch(goalName, @"^[a-zA-Z ]+$"))
+            {
+                return "Goal name contains invalid characters.";
+            }
+            return "";
+        }
     }
 
 
