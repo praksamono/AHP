@@ -52,7 +52,11 @@ namespace AHP.Service
         #region MatrixOperations
         public async Task<float[,]> MatrixInit(int[] ComparisonValues)
         {
-            int MatrixSize = ComparisonValues.Length;
+            int MatrixSize = 2; // Default value (remains if there is just one comparison)
+            if (ComparisonValues.Length > 1)
+            {
+                MatrixSize = ComparisonValues.Length * (ComparisonValues.Length - 1) / 2;
+            }
             float[,] Matrix = new float[MatrixSize, MatrixSize];
             int Position = 0;
 
