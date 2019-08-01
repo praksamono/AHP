@@ -30,24 +30,23 @@ namespace WebAPI
         [HttpPost("{criteriumId}")]
         public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync([FromBody]int[] values, Guid criteriumId)
         {
-            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
-            //Exceptions
-            foreach (var value in values)
+            Guid goalId = (await _criteriumService.GetCriteriumAsync(criteriumId)).GoalId;
+            string errorMessage = await AreValidComparisonValues(values, goalId);
+            if (!string.IsNullOrEmpty(errorMessage))
             {
-                if (Math.Abs(value) > 4)
-                {
-                    return BadRequest(new { message = "Invalid comparison value." });
-                }
+                return BadRequest(new { message = errorMessage });
             }
+
+            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
 
             criteriumAlternative = await AssignCriteriumAlternativesPropertiesAsync(criteriumAlternative, criteriumId);
             await SendCriteriumAlternativesAsync(criteriumAlternative, values);
-            
+
             return Ok();
         }
 
         private async Task<CriteriumAlternativeDTO> AssignCriteriumAlternativesPropertiesAsync(CriteriumAlternativeDTO criteriumAlternative, Guid criteriumId)
-        {   
+        {
             //Assign ICriterium
             criteriumAlternative.criterium = await _criteriumService.GetCriteriumAsync(criteriumId);
             criteriumAlternative.CriteriumId = criteriumId;
@@ -71,6 +70,39 @@ namespace WebAPI
                 await _criteriumAlternativeService.AddCriteriumAlternativeAsync(_criteriumAlternative); //Add to database
             }
             return true;
+        }
+
+        private async Task<string> AreValidComparisonValues(int[] comparisons, Guid goalId)
+        {
+            if (comparisons == null || comparisons.Length == 0)
+            {
+                return "No comparison values.";
+            }
+            foreach (int comparison in comparisons)
+            {
+                if (Math.Abs(comparison) > 4)
+                {
+                    return "Comparison value out of range: " + comparison.ToString();
+                }
+            }
+
+            int requiredNumOfValues = await CalculateNumOfValues(goalId);
+            if (comparisons.Length > requiredNumOfValues)
+            {
+                return String.Format("Too many values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            if (comparisons.Length < requiredNumOfValues)
+            {
+                return String.Format("Not enough values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            return "";
+        }
+
+        private async Task<int> CalculateNumOfValues(Guid goalId)
+        {
+            var alternatives = await _alternativeService.GetAllAlternativesAsync(goalId);
+            int numOfComparisons = (alternatives.Count * (alternatives.Count - 1)) / 2;
+            return numOfComparisons;
         }
     }
 
