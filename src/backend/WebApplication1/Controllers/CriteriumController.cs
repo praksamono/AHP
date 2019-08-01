@@ -85,13 +85,15 @@ namespace WebAPI
 
             int index = 0;
 
-            foreach (var criterium in mappedCriteria) {
+            foreach (var criterium in mappedCriteria)
+            {
                 criterium.GlobalCriteriumPriority = priorities[index++];
             }
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
 
-            foreach (var criterion in reMappedCriteria) {
+            foreach (var criterion in reMappedCriteria)
+            {
                 await _criteriumService.UpdateCriteriumAsync(criterion, goalId);
             }
 
