@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
@@ -51,9 +52,10 @@ namespace WebAPI
 
             foreach (var criterium in Criteria)
             {
-                if (string.IsNullOrEmpty(criterium.CriteriumName))
+                string errorMessage = await IsValidCriterionName(criterium.CriteriumName);
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    return BadRequest(new { message = "Criterium name can't be empty." });
+                    return BadRequest(new { message = errorMessage });
                 }
             }
 
@@ -89,6 +91,21 @@ namespace WebAPI
 
             return Ok();
         }
+
+        private async Task<string> IsValidCriterionName(string criterionName)
+        {
+            if (string.IsNullOrEmpty(criterionName))
+            {
+                return "Criterion name is not set.";
+            }
+            if (!Regex.IsMatch(criterionName, @"^[a-zA-Z0-9 ]+$"))
+            {
+                return "Criterion name contains invalid characters: " + criterionName;
+            }
+            return "";
+        }
+
+
       }
 
     public class CriteriumDTO
