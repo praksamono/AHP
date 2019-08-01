@@ -11,6 +11,8 @@ namespace AHP.Service.Common
     {
         Task<ICriteriumAlternative> GetCriteriumAlternativeAsync(Guid criteriumAlternativeId);
 
+        Task<ICriteriumAlternative> AddCriteriumAlternativeAsync(ICriteriumAlternative criteriumAlternative);
+
         Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync();
 
         Task<bool> DeleteCriteriumAlternativeAsync(Guid criteriumAlternativeID);

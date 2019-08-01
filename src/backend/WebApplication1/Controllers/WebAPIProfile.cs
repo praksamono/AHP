@@ -12,6 +12,7 @@ namespace WebAPI
             CreateMap<GoalDTO, Model.Common.IGoal>().ReverseMap();
             CreateMap<CriteriumDTO, Model.Common.ICriterium>().ReverseMap();
             CreateMap<AlternativeDTO, Model.Common.IAlternative>().ReverseMap();
+            CreateMap<CriteriumAlternativeDTO, Model.Common.ICriteriumAlternative>().ReverseMap();
         }
     }
 }

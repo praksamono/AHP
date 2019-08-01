@@ -51,7 +51,7 @@ namespace WebAPI
             var mappedAlts = _mapper.Map<List<AlternativeDTO>, List<IAlternative>>(alternatives);
             var status = await _service.AddAlternativeListAsync(mappedAlts, goalId);
 
-            return Ok(status);
+            return Ok();
         }
 
         // [HttpDelete("{id}")]
@@ -85,6 +85,7 @@ namespace WebAPI
 	public class AlternativeDTO
 	{
 		public string AlternativeName { get; set; }
+        public float GlobalPriority { get; set; }
 		public Guid Id { get; set; }
 	}
 
