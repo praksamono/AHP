@@ -125,7 +125,7 @@ namespace Repository
             //return Mapper.Map<ICriterium>(getCriterium);
         }
 
-        public async Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate, Guid goalId)
+        public async Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate)
         {
             Guid id = criteriumUpdate.Id;
             float value = criteriumUpdate.GlobalCriteriumPriority;
