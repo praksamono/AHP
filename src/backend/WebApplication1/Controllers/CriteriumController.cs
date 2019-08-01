@@ -72,6 +72,12 @@ namespace WebAPI
                 return BadRequest(new { message = "GoalId is not set." });
             }
 
+            string errorMessage = await AreValidComparisonValues(comparisons, goalId);
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                return BadRequest(new { message = errorMessage });
+            }
+
             var allCriteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
@@ -105,7 +111,37 @@ namespace WebAPI
             return "";
         }
 
+        private async Task<string> AreValidComparisonValues(int[] comparisons, Guid goalId)
+        {
+            if (comparisons == null || comparisons.Length == 0)
+            {
+                return "No comparison values.";
+            }
+            foreach (int comparison in comparisons)
+            {
+                if (comparison > 4 || comparison < -4)
+                {
+                    return "Comparison value out of range: " + comparison.ToString();
+                }
+            }
 
+            int requiredNumOfValues = await CalculateNumOfValues(goalId);
+            if (comparisons.Length > requiredNumOfValues)
+            {
+                return String.Format("Too many values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            if (comparisons.Length < requiredNumOfValues)
+            {
+                return String.Format("Not enough values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            return "";
+        }
+
+        private async Task<int> CalculateNumOfValues(Guid goalId)
+        {
+            var criteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
+            return criteria.Count;
+        }
       }
 
     public class CriteriumDTO
