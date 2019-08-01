@@ -5,19 +5,23 @@ import {Observable, throwError} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+  }
+
 @Injectable({
-  providedIn: 'root'
-})
+    providedIn: 'root'
+  })
+
 export class GoalService {
 
-  baseurl = 'http://localhost:7867' ;
+  baseurl: string = 'http://localhost:7867/api' ;
+  goals= '/goals'
   constructor(private http: HttpClient) {}
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+
   errorHandle(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
@@ -31,8 +35,8 @@ export class GoalService {
     return throwError(errorMessage);
  }
  //POST
- CreateGoal(data): Observable<Goal> {
-  return this.http.post<Goal>(this.baseurl + '/api/goals', JSON.stringify(data), this.httpOptions)
+ CreateGoal(goal: Goal): Observable<Goal> {
+  return this.http.post<Goal>(`${this.baseurl}${this.goals}`, goal, httpOptions)
   .pipe(
     retry(1),
     catchError(this.errorHandle));
@@ -40,7 +44,7 @@ export class GoalService {
 //GET id
 
 GetGoal(id): Observable<Goal> {
-  return this.http.get<Goal>(this.baseurl + 'api/goals/' + id)
+  return this.http.get<Goal>(`${this.baseurl}${this.goals}`)
   .pipe(
     retry(1),
     catchError(this.errorHandle));

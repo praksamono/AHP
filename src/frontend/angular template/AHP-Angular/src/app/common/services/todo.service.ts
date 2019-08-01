@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Todo} from '../../common/models/Todo';
 import {Observable} from 'rxjs';
 
-const httpOptions={
-  headers:new HttpHeaders({
+const httpOptions = {
+  headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
 }

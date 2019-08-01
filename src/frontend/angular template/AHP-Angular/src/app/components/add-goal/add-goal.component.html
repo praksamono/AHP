@@ -1,6 +1,6 @@
 <form [formGroup]="rForm" (ngSubmit)="submitForm()" class="form">
   <div class="one">
-    <input type="text" id="Goal" formControlName="goal" placeholder="Goal name"/>
+    <input type="text" id="Goal" formControlName="goalname" placeholder="Goal name"/>
 
     <br>
     <span class="warning" *ngIf="getGoal().errors">
