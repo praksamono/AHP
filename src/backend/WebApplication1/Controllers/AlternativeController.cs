@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -41,10 +42,10 @@ namespace WebAPI
         {
             foreach (var alternative in alternatives)
             {
-                if (string.IsNullOrEmpty(alternative.AlternativeName))
+                string errorMessage = await IsValidAlternativeName(alternative.AlternativeName);
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    return BadRequest(new { message = "Alternative name can't be empty." });
-                    // throw new HttpResponseException("Alternative name is not set.", HttpStatusCode.BadRequest);
+                    return BadRequest(new { message = errorMessage });
                 }
             }
 
@@ -80,6 +81,19 @@ namespace WebAPI
         //
         //     return Ok();
         // }
+
+        private async Task<string> IsValidAlternativeName(string alternativeName)
+        {
+            if (string.IsNullOrEmpty(alternativeName))
+            {
+                return "Alternative name is not set.";
+            }
+            if (!Regex.IsMatch(alternativeName, @"^[a-zA-Z0-9 ]+$"))
+            {
+                return "Alternative name contains invalid characters: " + alternativeName;
+            }
+            return "";
+        }
     }
 
 	public class AlternativeDTO
