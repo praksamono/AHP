@@ -55,10 +55,10 @@ namespace WebAPI
 
         private async Task<bool> SendCriteriumAlternativesAsync(CriteriumAlternativeDTO criteriumAlternative, int[] values)
         {
-            //Calculate priorities using AHP
-            float[] priorities = await _mainService.AHPMethod(values);
             //Fetch list of alternatives connected to the current goal
             List<IAlternative> alternativesList = await _alternativeService.GetAllAlternativesAsync(criteriumAlternative.criterium.GoalId);
+            //Calculate priorities using AHP
+            float[] priorities = await _mainService.AHPMethod(values, alternativesList.Count);
 
             int index = 0;
             foreach (IAlternative alternative in alternativesList)

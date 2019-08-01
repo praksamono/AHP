@@ -14,9 +14,9 @@ namespace AHP.Service
     {
         #region  Calculation
 
-        public async Task<float[]> AHPMethod(int[] ComparisonValues)
+        public async Task<float[]> AHPMethod(int[] ComparisonValues, int NumOfElements)
         {
-            float[,] Matrix = await MatrixInit(ComparisonValues);
+            float[,] Matrix = await MatrixInit(ComparisonValues, NumOfElements);
             float[] NormalisedVector = await CalculatePriorities(Matrix);
 
             return NormalisedVector;
@@ -50,13 +50,9 @@ namespace AHP.Service
         ///'left' priority and are mapped as |2n-1|. Positive values are mapped as 2n+1 to get the full range of values [1, 9] used in AHP.</param>
         ///<returns>2D array of floats that is the calculation matrix for future calculations.</returns>
         #region MatrixOperations
-        public async Task<float[,]> MatrixInit(int[] ComparisonValues)
+        public async Task<float[,]> MatrixInit(int[] ComparisonValues, int NumOfElements)
         {
-            int MatrixSize = 2; // Default value (remains if there is just one comparison)
-            if (ComparisonValues.Length > 1)
-            {
-                MatrixSize = ComparisonValues.Length * (ComparisonValues.Length - 1) / 2;
-            }
+            int MatrixSize = NumOfElements;
             float[,] Matrix = new float[MatrixSize, MatrixSize];
             int Position = 0;
 
