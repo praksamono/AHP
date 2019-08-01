@@ -1,8 +1,8 @@
 <div>
     <h2>Adding Criteria : </h2>
 </div>
-<form action="" class="form" (ngSubmit)="onSubmit()">
-    <input type="text" name="title" [(ngModel)]="title" placeholder="Add Criteria">
+<form [formGroup]="rForm" class="form" (ngSubmit)="onSubmit()">
+    <input type="text" name="title" formControlName="title" placeholder="Add Criteria">
     <input type="submit" value="Add" class="btn">
 </form>
 

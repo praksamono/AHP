@@ -8,7 +8,7 @@ button {
   color: rgb(255, 255, 255);
   width: 40vh;
   font-size: 6.5vh;
-  margin-left:11%;
+  margin-left:12%;
 
 }
 button:disabled{
@@ -57,9 +57,9 @@ label{
   float:center;
 }
 .form{
-  float:center;
+  justify-content: center;
   position : relative;
-  margin-left:25%;
+  margin-left:32%;
 }
 .warning{
   color: #CC324E;
@@ -67,4 +67,14 @@ label{
   width: 150px;
   font-size: 20px;
   float:center;
+}
+div{
+  justify-content: center;
+}
+h2{
+  text-align: center;
+  color:#CC324E;
+}
+.one{
+  justify-content: center;
 }

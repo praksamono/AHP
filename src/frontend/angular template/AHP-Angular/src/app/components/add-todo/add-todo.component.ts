@@ -1,4 +1,7 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import {TodoService} from '../../common/services/todo.service';//todos are criteria
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-todo',
@@ -8,18 +11,32 @@ import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 export class AddTodoComponent implements OnInit {
   @Output() addTodo:EventEmitter<any> = new EventEmitter();
 
-  title: string;
-  constructor() { }
+  rForm:FormGroup;
+  CriteriaArr: any=[];
 
   ngOnInit() {
   }
 
+  constructor(private fb: FormBuilder, public criteriaservice: TodoService) {}
+
+   addCriteria(){
+     this.rForm=this.fb.group({
+       title:['']
+     })
+   }
+
+
+
   onSubmit(){
-    const todo={
+    this.criteriaservice.addCriteria(this.rForm.value).subscribe(res =>{
+      console.log('Criteria Added!');
+    })
+  }
+    /*const todo={
       title:this.title,
       completed:false
     }
     this.addTodo.emit(todo);
-  }
+  }*/
 
 }

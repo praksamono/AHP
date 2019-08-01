@@ -31,7 +31,7 @@ export class AddGoalComponent implements OnInit {
   }
   createFormGroup(){
     return new FormGroup({
-      goalname: new FormControl('', [Validators.required, goalinputValidator, Validators.minLength(2), Validators.maxLength(25)])
+      goal: new FormControl('', [Validators.required, goalinputValidator, Validators.minLength(2), Validators.maxLength(25)])
     });
   }
   submitForm(){

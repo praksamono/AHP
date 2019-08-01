@@ -1,12 +1,18 @@
 .form {
     display: flex;
   }
-  
+  div{
+    justify-content: center;
+  }
+  h2{
+    text-align: center;
+    color:#CC324E;
+  }
   .form input[type='text'] {
     flex: 10;
     padding: 5px;
   }
-  
+
   .form input[type='submit'] {
     flex: 2;
   }
