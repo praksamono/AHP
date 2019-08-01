@@ -92,14 +92,10 @@ namespace WebAPI
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
 
-<<<<<<< HEAD
-            foreach (var criterion in reMappedCriteria) {
-                await _criteriumService.UpdateCriteriumAsync(criterion);
-=======
+
             foreach (var criterion in reMappedCriteria)
             {
-                await _criteriumService.UpdateCriteriumAsync(criterion, goalId);
->>>>>>> 38244e789d84182a5e37c636aa3bc23467cbdce5
+                await _criteriumService.UpdateCriteriumAsync(criterion);
             }
 
             return Ok();
