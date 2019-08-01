@@ -119,7 +119,7 @@ namespace WebAPI
             }
             foreach (int comparison in comparisons)
             {
-                if (comparison > 4 || comparison < -4)
+                if (Math.Abs(comparison) > 4)
                 {
                     return "Comparison value out of range: " + comparison.ToString();
                 }
