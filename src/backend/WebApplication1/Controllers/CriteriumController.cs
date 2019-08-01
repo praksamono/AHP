@@ -140,7 +140,8 @@ namespace WebAPI
         private async Task<int> CalculateNumOfValues(Guid goalId)
         {
             var criteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
-            return criteria.Count;
+            int numOfComparisons = (criteria.Count * (criteria.Count - 1)) / 2;
+            return numOfComparisons;
         }
       }
 
