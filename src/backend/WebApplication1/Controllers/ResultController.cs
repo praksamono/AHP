@@ -14,7 +14,7 @@ namespace WebAPI
     [ApiController]
     public class ResultController : ControllerBase
     {
-        private readonly ICriteriumService _criteriumService;
+        // private readonly ICriteriumService _criteriumService;
         private readonly IAlternativeService _alternativeService;
         private readonly IMapper _mapper;
 
