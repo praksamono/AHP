@@ -55,7 +55,8 @@ namespace WebAPI
                 criteriumAlternative.alternative = alternative; //Assign alternative from list
                 criteriumAlternative.AlternativeId = alternative.Id;
                 criteriumAlternative.LocalPriority = priorities[index]; //Assign i-th priority from priorities
-                await _alternativeService.UpdateAlternativeAsync(alternative, priorities[index]);
+                var scaledPriority = priorities[index] * criteriumAlternative.criterium.GlobalCriteriumPriority;
+                await _alternativeService.UpdateAlternativeAsync(alternative, scaledPriority);
                 index++;
                 ICriteriumAlternative _criteriumAlternative =_mapper.Map<CriteriumAlternativeDTO, ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
                 await _criteriumAlternativeService.AddCriteriumAlternativeAsync(_criteriumAlternative); //Add to database
