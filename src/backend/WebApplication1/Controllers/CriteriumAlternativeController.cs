@@ -30,31 +30,20 @@ namespace WebAPI
         [HttpPost("{criteriumId}")]
         public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync([FromBody]int[] values, Guid criteriumId)
         {
-            Guid goalId = (await _criteriumService.GetCriteriumAsync(criteriumId)).GoalId;
-            string errorMessage = await AreValidComparisonValues(values, goalId);
-            if (!string.IsNullOrEmpty(errorMessage))
+            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
+            //Exceptions
+            foreach (var value in values)
             {
-                return BadRequest(new { message = errorMessage });
+                if (Math.Abs(value) > 4)
+                {
+                    return BadRequest(new { message = "Invalid comparison value." });
+                }
             }
 
-            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
 
-            criteriumAlternative = await AssignCriteriumAlternativesPropertiesAsync(criteriumAlternative, criteriumId);
-            await SendCriteriumAlternativesAsync(criteriumAlternative, values);
-
-            return Ok();
-        }
-
-        private async Task<CriteriumAlternativeDTO> AssignCriteriumAlternativesPropertiesAsync(CriteriumAlternativeDTO criteriumAlternative, Guid criteriumId)
-        {
             //Assign ICriterium
             criteriumAlternative.criterium = await _criteriumService.GetCriteriumAsync(criteriumId);
             criteriumAlternative.CriteriumId = criteriumId;
-            return criteriumAlternative;
-        }
-
-        private async Task<bool> SendCriteriumAlternativesAsync(CriteriumAlternativeDTO criteriumAlternative, int[] values)
-        {
             //Fetch list of alternatives connected to the current goal
             List<IAlternative> alternativesList = await _alternativeService.GetAllAlternativesAsync(criteriumAlternative.criterium.GoalId);
             //Calculate priorities using AHP
@@ -66,19 +55,12 @@ namespace WebAPI
                 criteriumAlternative.alternative = alternative; //Assign alternative from list
                 criteriumAlternative.AlternativeId = alternative.Id;
                 criteriumAlternative.LocalPriority = priorities[index]; //Assign i-th priority from priorities
-                await UpdateAlternativeGlobalPriority(criteriumAlternative, priorities[index++]);
-                ICriteriumAlternative _criteriumAlternative = _mapper.Map<CriteriumAlternativeDTO, ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
+                await _alternativeService.UpdateAlternativeAsync(alternative, priorities[index]);
+                index++;
+                ICriteriumAlternative _criteriumAlternative =_mapper.Map<CriteriumAlternativeDTO, ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
                 await _criteriumAlternativeService.AddCriteriumAlternativeAsync(_criteriumAlternative); //Add to database
             }
-            return true;
-        }
-
-        private async Task<bool> UpdateAlternativeGlobalPriority(CriteriumAlternativeDTO criteriumAlternative, float priority)
-        {
-            float value = priority * criteriumAlternative.criterium.GlobalCriteriumPriority;
-            _alternativeService.UpdateAlternativeAsync(criteriumAlternative.alternative, value);
-
-            return true;
+            return Ok();
         }
 
         private async Task<string> AreValidComparisonValues(int[] comparisons, Guid goalId)
