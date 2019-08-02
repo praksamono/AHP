@@ -5,6 +5,6 @@ type Priority={
 export class Todo{
     id:number;
     goalId:number;
-    criteriumName:string;
+    CriteriumName:string;
     completed:boolean;
 }

@@ -20,6 +20,7 @@ export class AddTodoComponent implements OnInit {
   constructor(private fb: FormBuilder, public criteriaservice: TodoService) {}
 
   ngOnInit() {
+    this.addCriteria();
     this.criteriaservice.getCriteria()
     .subscribe(
       data=>{
@@ -30,7 +31,7 @@ export class AddTodoComponent implements OnInit {
 
    addCriteria(){
      this.rForm=this.fb.group({
-       title:['']
+       CriteriumName:['']
      })
    }
 
