@@ -23,6 +23,7 @@ import { SlideralternativeComponent } from './components/slideralternative/slide
 import { AddGoalComponent } from './components/add-goal/add-goal.component';
 import {GoalService} from './common/services/goal.service';
 import {TodoService} from './common/services/todo.service';
+import {AlternativeService} from './common/services/alternative.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import {TodoService} from './common/services/todo.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [GoalService, TodoService],
+  providers: [GoalService, TodoService, AlternativeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

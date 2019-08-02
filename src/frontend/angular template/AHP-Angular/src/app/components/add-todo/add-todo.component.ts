@@ -34,8 +34,6 @@ export class AddTodoComponent implements OnInit {
      })
    }
 
-
-
   onSubmit(){
     this.criteriaservice.addCriteria(this.rForm.value).subscribe(res =>{
       console.log('Criteria Added!');

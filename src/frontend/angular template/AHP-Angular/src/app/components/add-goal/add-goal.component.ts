@@ -15,6 +15,7 @@ export class AddGoalComponent implements OnInit {
   url = `http://localhost:7867/`;
   rForm: FormGroup;
   GoalArr : any=[];
+  GoalIdAfterPost:number;
 
   ngOnInit() {
     this.addGoal()
@@ -37,6 +38,8 @@ export class AddGoalComponent implements OnInit {
   submitForm(){
     this.goalservice.CreateGoal(this.rForm.value).subscribe(res => {
       console.log('Goal Added');
+      this.GoalIdAfterPost=res.id;
+      console.log(this.GoalIdAfterPost);
     })
   }
 
