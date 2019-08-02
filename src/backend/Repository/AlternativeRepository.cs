@@ -149,9 +149,6 @@ namespace Repository
                 entity.GlobalPriority = currentValue;
 
                 Context.Alternatives.Update(entity);
-                // DEBUG
-                Console.WriteLine("Prije SaveChanges");
-                // End DEBUG
                 await Context.SaveChangesAsync();
             }
             return true;
