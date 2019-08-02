@@ -27,6 +27,11 @@ namespace WebAPI
         [HttpGet("{goalId}")]
         public async Task<ActionResult<List<AlternativeDTO>>> GetAlternativesAsync(Guid goalId)
         {
+            if (goalId == null)
+            {
+                return BadRequest(new { message = "Goal id is not set." });
+            }
+
             var alternatives = await _service.GetAllAlternativesAsync(goalId);
 
             if (alternatives == null)
@@ -40,6 +45,11 @@ namespace WebAPI
         [HttpPost("{goalId}")]
         public async Task<ActionResult<List<IAlternative>>> CreateAlternativesAsync([FromBody]List<AlternativeDTO> alternatives, Guid goalId)
         {
+            if (goalId == null)
+            {
+                return BadRequest(new { message = "Goal id is not set." });
+            }
+                
             foreach (var alternative in alternatives)
             {
                 string errorMessage = await IsValidAlternativeName(alternative.AlternativeName);

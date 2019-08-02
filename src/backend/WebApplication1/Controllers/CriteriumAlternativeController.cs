@@ -30,16 +30,19 @@ namespace WebAPI
         [HttpPost("{criteriumId}")]
         public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync([FromBody]int[] values, Guid criteriumId)
         {
-            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
-            //Exceptions
-            foreach (var value in values)
+            if (criteriumId == null)
             {
-                if (Math.Abs(value) > 4)
-                {
-                    return BadRequest(new { message = "Invalid comparison value." });
-                }
+                return BadRequest(new { message = "Criterion id is not set." });
             }
 
+            Guid goalId = (await _criteriumService.GetCriteriumAsync(criteriumId)).GoalId;
+            string errorMessage = await AreValidComparisonValues(values, goalId);
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                return BadRequest(new { message = errorMessage });
+            }
+
+            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
 
             //Assign ICriterium
             criteriumAlternative.criterium = await _criteriumService.GetCriteriumAsync(criteriumId);

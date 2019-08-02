@@ -49,6 +49,11 @@ namespace WebAPI
             {
                 return BadRequest(new { message = "Goal id is not set." });
             }
+            string criteriaCheck = await AreValidCriteria(Criteria);
+            if (!string.IsNullOrEmpty(criteriaCheck))
+            {
+                return BadRequest(new { message = criteriaCheck });
+            }
 
             foreach (var criterium in Criteria)
             {
@@ -69,7 +74,7 @@ namespace WebAPI
         public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons, Guid goalId){
             if (goalId == null)
             {
-                return BadRequest(new { message = "GoalId is not set." });
+                return BadRequest(new { message = "Goal id is not set." });
             }
 
             string errorMessage = await AreValidComparisonValues(comparisons, goalId);
@@ -98,6 +103,19 @@ namespace WebAPI
             }
 
             return Ok();
+        }
+
+        private async Task<string> AreValidCriteria(List<CriteriumDTO> Criteria)
+        {
+            if (Criteria.Count == 0)
+            {
+                return "No criteria sent.";
+            }
+            if (Criteria.Count < 2)
+            {
+                return "Not enough criteria sent (1 sent, at least 2 needed.)";
+            }
+            return "";
         }
 
         private async Task<string> IsValidCriterionName(string criterionName)

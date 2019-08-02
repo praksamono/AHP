@@ -1,9 +1,16 @@
+# __var__ => placeholder for value of "var"
+# () => empty request/response
+
+
+route: (POST) api/goals
 {
     "GoalName": "Choosing leader"
 }
+res => id (__goalId__)
 
 --------------------------------------------
 
+route: (POST) api/criteria/__goalId__
 [
 	{
 		"CriteriumName": "Experience"
@@ -18,9 +25,11 @@
 		"CriteriumName": "Age"
 	}
 ]
+res => [__critId__]
 
 --------------------------------------------
 
+route: (POST) api/alternatives/__goalId__
 [
 	{
 		"AlternativeName": "Tom"
@@ -32,23 +41,40 @@
 		"AlternativeName": "Harry"
 	}
 ]
+res => ()
 
 --------------------------------------------
 
+route: (PUT) api/criteria/__goalId__
 [-1, -1, -3, 1, -1, -2]
+res => ()
 
 --------------------------------------------
 
+route: (POST) api/criteriumalternatives/__critId__(0)
 [1, -1, -4]
+res => ()
 
 --------------------------------------------
 
+route: (POST) api/criteriumalternatives/__critId__(1)
 [-1, 2, 3]
+res => ()
 
 --------------------------------------------
 
+route: (POST) api/criteriumalternatives/__critId__(2)
 [-2, -4, -1]
+res => ()
 
 --------------------------------------------
 
+route: (POST) api/criteriumalternatives/__critId__(3)
 [1, -2, -4]
+res => ()
+
+--------------------------------------------
+
+route: (GET) api/results/__goalId__
+()
+res => [__alternatives__]
