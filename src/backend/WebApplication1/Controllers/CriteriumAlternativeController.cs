@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AHP.Service.Common;
 using Model.Common;
+using AutoMapper;
 
 namespace WebAPI
 {
@@ -12,16 +13,26 @@ namespace WebAPI
     [ApiController]
     public class CriteriumAlternativeController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IMainService _mainService;
-        public CriteriumAlternativeController(IMainService mainService)
+        private readonly ICriteriumAlternativeService _criteriumAlternativeService;
+        private readonly ICriteriumService _criteriumService;
+        private readonly IAlternativeService _alternativeService;
+        public CriteriumAlternativeController(IMainService mainService, ICriteriumService criteriumService, IAlternativeService alternativeService, ICriteriumAlternativeService criteriumAlternativeService, IMapper mapper)
         {
             _mainService = mainService;
+            _criteriumService = criteriumService;
+            _alternativeService = alternativeService;
+            _criteriumAlternativeService = criteriumAlternativeService;
+            _mapper = mapper;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync(CriteriumAlternativeDTO criterium)
+        [HttpPost("{criteriumId}")]
+        public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync([FromBody]int[] values, Guid criteriumId)
         {
-            foreach (var value in criterium.values)
+            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
+            //Exceptions
+            foreach (var value in values)
             {
                 if (Math.Abs(value) > 4)
                 {
@@ -29,14 +40,72 @@ namespace WebAPI
                 }
             }
 
-            var status = await _mainService.AHPMethod(criterium.values);
-            return Ok(status);
+
+            //Assign ICriterium
+            criteriumAlternative.criterium = await _criteriumService.GetCriteriumAsync(criteriumId);
+            criteriumAlternative.CriteriumId = criteriumId;
+            //Fetch list of alternatives connected to the current goal
+            List<IAlternative> alternativesList = await _alternativeService.GetAllAlternativesAsync(criteriumAlternative.criterium.GoalId);
+            //Calculate priorities using AHP
+            float[] priorities = await _mainService.AHPMethod(values, alternativesList.Count);
+
+            int index = 0;
+            foreach (IAlternative alternative in alternativesList)
+            {
+                criteriumAlternative.alternative = alternative; //Assign alternative from list
+                criteriumAlternative.AlternativeId = alternative.Id;
+                criteriumAlternative.LocalPriority = priorities[index]; //Assign i-th priority from priorities
+                var scaledPriority = priorities[index] * criteriumAlternative.criterium.GlobalCriteriumPriority;
+                await _alternativeService.UpdateAlternativeAsync(alternative, scaledPriority);
+                index++;
+                ICriteriumAlternative _criteriumAlternative =_mapper.Map<CriteriumAlternativeDTO, ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
+                await _criteriumAlternativeService.AddCriteriumAlternativeAsync(_criteriumAlternative); //Add to database
+            }
+            return Ok();
+        }
+
+        private async Task<string> AreValidComparisonValues(int[] comparisons, Guid goalId)
+        {
+            if (comparisons == null || comparisons.Length == 0)
+            {
+                return "No comparison values.";
+            }
+            foreach (int comparison in comparisons)
+            {
+                if (Math.Abs(comparison) > 4)
+                {
+                    return "Comparison value out of range: " + comparison.ToString();
+                }
+            }
+
+            int requiredNumOfValues = await CalculateNumOfValues(goalId);
+            if (comparisons.Length > requiredNumOfValues)
+            {
+                return String.Format("Too many values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            if (comparisons.Length < requiredNumOfValues)
+            {
+                return String.Format("Not enough values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            return "";
+        }
+
+        private async Task<int> CalculateNumOfValues(Guid goalId)
+        {
+            var alternatives = await _alternativeService.GetAllAlternativesAsync(goalId);
+            int numOfComparisons = (alternatives.Count * (alternatives.Count - 1)) / 2;
+            return numOfComparisons;
         }
     }
 
     public class CriteriumAlternativeDTO
-    {
-        public int[] values;
-        public string criteriumName;
+    {   //Sent in the POST request
+        public Guid CriteriumId;
+        //Calculated in controller methods
+        public float LocalPriority;
+        //Fetched in controller methods
+        public Guid AlternativeId;
+        public ICriterium criterium;
+        public IAlternative alternative;
     }
 }

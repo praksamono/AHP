@@ -8,6 +8,8 @@ namespace Model.Common
     {
         Guid Id { get; set; }
 
+        Guid CriteriumId { get; set; }
+
         ICriterium Criterium { get; set; }
 
         Guid AlternativeId { get; set; }

@@ -12,7 +12,7 @@ namespace DAL
         [Required]
         public string AlternativeName { get; set; }
 
-        [Range(minimum: -9.0, maximum: 9.0)]
+        [Range(minimum: 0.0, maximum: 1.0)]
         public float GlobalPriority { get; set; }
 
         public List<CriteriumAlternativeEntity> CriteriumAlternatives { get; set; }

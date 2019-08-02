@@ -8,6 +8,8 @@ namespace Repository.Common
 {
     public interface ICriteriumAlternativeRepository
     {
+        Task<ICriteriumAlternative> AddCriteriumAlternativeAsync(ICriteriumAlternative criteriumAlternative);
+
         Task<ICriteriumAlternative> GetCriteriumAlternativeAsync(Guid criteriumAlternativeId);
 
         Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync();

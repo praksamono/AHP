@@ -44,9 +44,9 @@ namespace AHP.Service
             return await criteriumRepository.GetCriteriumAsync(criteriumID);
         }
 
-        public async Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium, Guid goalId)
+        public async Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium)
         {
-           return await criteriumRepository.UpdateCriteriumAsync(updatedCriterium, goalId);
+           return await criteriumRepository.UpdateCriteriumAsync(updatedCriterium);
         }
     }
 }
