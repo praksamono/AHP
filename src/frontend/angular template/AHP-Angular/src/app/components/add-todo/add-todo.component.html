@@ -2,7 +2,10 @@
     <h2>Adding Criteria : </h2>
 </div>
 <form [formGroup]="rForm" class="form" (ngSubmit)="onSubmit()">
-    <input type="text" name="title" formControlName="title" placeholder="Add Criteria">
-    <input type="submit" value="Add" class="btn">
+  <div class="one">
+    <input type="text" id="criteria" name="title" formControlName="title" placeholder="Add Criteria">
+    <input type="text" id="criteria" name="title" formControlName="title" placeholder="Add Criteria">
+    <button type="submit" class="btn">+</button>
+  </div>
 </form>
 

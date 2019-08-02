@@ -4,8 +4,8 @@
 <form [formGroup]="rForm" (ngSubmit)="submitForm()" class="form">
   <div class="one">
     <input type="text" id="Goal" formControlName="goalname" placeholder="Goal name"/>
-    <br>
-    <span class="warning" *ngIf="getGoal().errors">
+    <br><!--zakomentirani validatori-->
+   <!-- <span class="warning" *ngIf="getGoal().errors">
       <br>
       <span class="warning" *ngIf="getIfErrorIsTriggered('required')">Goal specification is required!</span>
       <br>
@@ -14,7 +14,8 @@
       <br>
       <span class="warning" *ngIf="getIfErrorIsTriggered('maxlength')">Maximum Length is 25 letters!</span>
     </span>
-  <button type="submit" [disabled]="getIfErrorIsTriggered('invalidInput')">Add Goal</button>
+  <button type="submit" [disabled]="getIfErrorIsTriggered('invalidInput')">Add Goal</button>-->
+  <button type="submit">Add Goal</button>
   </div>
 </form>
 
