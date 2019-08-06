@@ -2,7 +2,7 @@ button {
   border: none;
   border-radius: 3em;
   outline: none;
-  margin: 1vh;
+  margin: 0.5vh;
   height: 8vh;
   background-color: #CC324E;
   color: rgb(255, 255, 255);
@@ -11,9 +11,9 @@ button {
   margin-left:12%;
 
 }
-button:disabled{
-  color:#4F4F4F;
-  background-color: rgb(247, 246, 250);
+button:hover{
+  color:rgb(255, 255, 255);
+  background-color: #4F4F4F;
 }
 
 button.long {

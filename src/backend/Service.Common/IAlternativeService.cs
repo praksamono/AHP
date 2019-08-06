@@ -17,7 +17,7 @@ namespace AHP.Service.Common
 
         Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives, Guid goalId);
 
-        Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, Guid goalId);
+        Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, float valueInCriterium);
 
         Task<bool> DeleteAlternativeAsync(Guid alternativeID);
     }

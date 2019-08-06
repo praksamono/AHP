@@ -19,6 +19,6 @@ namespace AHP.Service.Common
 
         Task<ICriterium> GetCriteriumAsync(Guid criteriumID);
 
-        Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium, Guid goalId);
+        Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium);
     }
 }

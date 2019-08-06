@@ -103,11 +103,7 @@ namespace Repository
 
             var criteriums = await Context.Criteriums.Where(criterium => criterium != null
                 && criterium.GoalId == goalId).ToListAsync();
-            // // DEBUG
-            // foreach (var crit in criteriums) {
-            //     Console.WriteLine(crit.GlobalCriteriumPriority);
-            // }
-            // // End DEBUG
+
             return Mapper.Map<List<ICriterium>>(criteriums);
 
             //var unitOfWork = uowFactory.CreateUnitOfWork();
@@ -125,7 +121,7 @@ namespace Repository
             //return Mapper.Map<ICriterium>(getCriterium);
         }
 
-        public async Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate, Guid goalId)
+        public async Task<bool> UpdateCriteriumAsync(ICriterium criteriumUpdate)
         {
             Guid id = criteriumUpdate.Id;
             float value = criteriumUpdate.GlobalCriteriumPriority;

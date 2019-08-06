@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
@@ -48,12 +49,18 @@ namespace WebAPI
             {
                 return BadRequest(new { message = "Goal id is not set." });
             }
+            string criteriaCheck = await AreValidCriteria(Criteria);
+            if (!string.IsNullOrEmpty(criteriaCheck))
+            {
+                return BadRequest(new { message = criteriaCheck });
+            }
 
             foreach (var criterium in Criteria)
             {
-                if (string.IsNullOrEmpty(criterium.CriteriumName))
+                string errorMessage = await IsValidCriterionName(criterium.CriteriumName);
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    return BadRequest(new { message = "Criterium name can't be empty." });
+                    return BadRequest(new { message = errorMessage });
                 }
             }
 
@@ -67,27 +74,94 @@ namespace WebAPI
         public async Task<ActionResult<List<ICriterium>>> PutAsync([FromBody]int[] comparisons, Guid goalId){
             if (goalId == null)
             {
-                return BadRequest(new { message = "GoalId is not set." });
+                return BadRequest(new { message = "Goal id is not set." });
+            }
+
+            string errorMessage = await AreValidComparisonValues(comparisons, goalId);
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                return BadRequest(new { message = errorMessage });
             }
 
             var allCriteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
-            float[] priorities = await _mainService.AHPMethod(comparisons);
+            float[] priorities = await _mainService.AHPMethod(comparisons, allCriteria.Count);
 
             int index = 0;
 
-            foreach (var criterium in mappedCriteria) {
+            foreach (var criterium in mappedCriteria)
+            {
                 criterium.GlobalCriteriumPriority = priorities[index++];
             }
 
             var reMappedCriteria = _mapper.Map<List<ICriterium>>(mappedCriteria);
 
-            foreach (var criterion in reMappedCriteria) {
-                await _criteriumService.UpdateCriteriumAsync(criterion, goalId);
+            foreach (var criterion in reMappedCriteria)
+            {
+                await _criteriumService.UpdateCriteriumAsync(criterion);
             }
 
             return Ok();
+        }
+
+        private async Task<string> AreValidCriteria(List<CriteriumDTO> Criteria)
+        {
+            if (Criteria.Count == 0)
+            {
+                return "No criteria sent.";
+            }
+            if (Criteria.Count < 2)
+            {
+                return "Not enough criteria sent (1 sent, at least 2 needed.)";
+            }
+            return "";
+        }
+
+        private async Task<string> IsValidCriterionName(string criterionName)
+        {
+            if (string.IsNullOrEmpty(criterionName))
+            {
+                return "Criterion name is not set.";
+            }
+            if (!Regex.IsMatch(criterionName, @"^[a-zA-Z0-9 ]+$"))
+            {
+                return "Criterion name contains invalid characters: " + criterionName;
+            }
+            return "";
+        }
+
+        private async Task<string> AreValidComparisonValues(int[] comparisons, Guid goalId)
+        {
+            if (comparisons == null || comparisons.Length == 0)
+            {
+                return "No comparison values.";
+            }
+            foreach (int comparison in comparisons)
+            {
+                if (Math.Abs(comparison) > 4)
+                {
+                    return "Comparison value out of range: " + comparison.ToString();
+                }
+            }
+
+            int requiredNumOfValues = await CalculateNumOfValues(goalId);
+            if (comparisons.Length > requiredNumOfValues)
+            {
+                return String.Format("Too many values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            if (comparisons.Length < requiredNumOfValues)
+            {
+                return String.Format("Not enough values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            return "";
+        }
+
+        private async Task<int> CalculateNumOfValues(Guid goalId)
+        {
+            var criteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
+            int numOfComparisons = (criteria.Count * (criteria.Count - 1)) / 2;
+            return numOfComparisons;
         }
       }
 

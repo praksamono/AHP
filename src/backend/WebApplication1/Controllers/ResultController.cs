@@ -14,7 +14,7 @@ namespace WebAPI
     [ApiController]
     public class ResultController : ControllerBase
     {
-        private readonly ICriteriumService _criteriumService;
+        // private readonly ICriteriumService _criteriumService;
         private readonly IAlternativeService _alternativeService;
         private readonly IMapper _mapper;
 
@@ -25,7 +25,6 @@ namespace WebAPI
             _mapper = mapper;
         }
 
-        // TODO all
         [HttpGet("{goalId}")]
         public async Task<ActionResult<AlternativeDTO>> GetResultsAsync(Guid goalId)
         {

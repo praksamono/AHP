@@ -34,6 +34,7 @@ namespace Repository
             newAlternative.DateCreated = DateTime.UtcNow;
             newAlternative.DateUpdated = DateTime.UtcNow;
             newAlternative.GoalId = goalId;
+            newAlternative.GlobalPriority = 0;
 
             Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(newAlternative));
             await Context.SaveChangesAsync();
@@ -59,6 +60,7 @@ namespace Repository
                 alternative.DateCreated = DateTime.UtcNow;
                 alternative.DateUpdated = DateTime.UtcNow;
                 alternative.GoalId = goalId;
+                alternative.GlobalPriority = 0;
 
                 Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(alternative));
                 await Context.SaveChangesAsync();
@@ -109,7 +111,7 @@ namespace Repository
             //var getAlternative = await unitOfWork.GetAllAsync<AlternativeEntity>();
             //return Mapper.Map<List<IAlternative>>(getAlternative);
         }
-        
+
         public async Task<IAlternative> GetAlternativeAsync(Guid alternativeId)
         {
             var getAlternative = await Context.Alternatives.SingleOrDefaultAsync(x => x.Id == alternativeId);
@@ -121,13 +123,34 @@ namespace Repository
             //return Mapper.Map<IAlternative>(getAlternative);
         }
 
-        public async Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate, Guid goalId)
+        // public async Task<bool> UpdateAlternativeAsync(IAlternative alternativeUpdate, Guid goalId)
+        // {
+        //     alternativeUpdate.DateUpdated = DateTime.UtcNow;
+        //     // var unitOfWork = uowFactory.CreateUnitOfWork();
+        //     var entity = Mapper.Map<AlternativeEntity>(alternativeUpdate);
+        //     await unitOfWork.UpdateAsync(entity);
+        //     await unitOfWork.CommitAsync();
+        //     return true;
+        // }
+
+        public async Task<bool> UpdateAlternativeAsync(IAlternative alternativeUpdate, float valueInCriterium)
         {
-            alternativeUpdate.DateUpdated = DateTime.UtcNow;
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var entity = Mapper.Map<AlternativeEntity>(alternativeUpdate);
-            await unitOfWork.UpdateAsync(entity);
-            await unitOfWork.CommitAsync();
+            Guid id = alternativeUpdate.Id;
+
+            // Retrieve entity by id
+            var entity = await Context.Alternatives.SingleOrDefaultAsync(item => item.Id == id);
+
+            // Validate entity is not null and update
+            if (entity != null)
+            {
+                entity.DateUpdated = DateTime.UtcNow;
+                float currentValue = entity.GlobalPriority;
+                currentValue += valueInCriterium;
+                entity.GlobalPriority = currentValue;
+
+                Context.Alternatives.Update(entity);
+                await Context.SaveChangesAsync();
+            }
             return true;
         }
     }

@@ -30,35 +30,74 @@ namespace WebAPI
         [HttpPost("{criteriumId}")]
         public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync([FromBody]int[] values, Guid criteriumId)
         {
-            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
-            //Exceptions
-            foreach (var value in values)
+            if (criteriumId == null)
             {
-                if (Math.Abs(value) > 4)
-                {
-                    return BadRequest(new { message = "Invalid comparison value." });
-                }
+                return BadRequest(new { message = "Criterion id is not set." });
             }
 
+            Guid goalId = (await _criteriumService.GetCriteriumAsync(criteriumId)).GoalId;
+            string errorMessage = await AreValidComparisonValues(values, goalId);
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                return BadRequest(new { message = errorMessage });
+            }
 
-            //Calculate priorities using AHP
-            float[] priorities = await _mainService.AHPMethod(values);
+            CriteriumAlternativeDTO criteriumAlternative = new CriteriumAlternativeDTO();
+
             //Assign ICriterium
             criteriumAlternative.criterium = await _criteriumService.GetCriteriumAsync(criteriumId);
             criteriumAlternative.CriteriumId = criteriumId;
             //Fetch list of alternatives connected to the current goal
             List<IAlternative> alternativesList = await _alternativeService.GetAllAlternativesAsync(criteriumAlternative.criterium.GoalId);
+            //Calculate priorities using AHP
+            float[] priorities = await _mainService.AHPMethod(values, alternativesList.Count);
 
             int index = 0;
-            foreach(IAlternative alternative in alternativesList)
+            foreach (IAlternative alternative in alternativesList)
             {
                 criteriumAlternative.alternative = alternative; //Assign alternative from list
                 criteriumAlternative.AlternativeId = alternative.Id;
-                criteriumAlternative.LocalPriority = priorities[index++]; //Assign i-th priority from priorities
+                criteriumAlternative.LocalPriority = priorities[index]; //Assign i-th priority from priorities
+                var scaledPriority = priorities[index] * criteriumAlternative.criterium.GlobalCriteriumPriority;
+                await _alternativeService.UpdateAlternativeAsync(alternative, scaledPriority);
+                index++;
                 ICriteriumAlternative _criteriumAlternative =_mapper.Map<CriteriumAlternativeDTO, ICriteriumAlternative>(criteriumAlternative); //Map DTO object to I object
                 await _criteriumAlternativeService.AddCriteriumAlternativeAsync(_criteriumAlternative); //Add to database
             }
             return Ok();
+        }
+
+        private async Task<string> AreValidComparisonValues(int[] comparisons, Guid goalId)
+        {
+            if (comparisons == null || comparisons.Length == 0)
+            {
+                return "No comparison values.";
+            }
+            foreach (int comparison in comparisons)
+            {
+                if (Math.Abs(comparison) > 4)
+                {
+                    return "Comparison value out of range: " + comparison.ToString();
+                }
+            }
+
+            int requiredNumOfValues = await CalculateNumOfValues(goalId);
+            if (comparisons.Length > requiredNumOfValues)
+            {
+                return String.Format("Too many values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            if (comparisons.Length < requiredNumOfValues)
+            {
+                return String.Format("Not enough values ({0} passed, {1} needed)", comparisons.Length, requiredNumOfValues);
+            }
+            return "";
+        }
+
+        private async Task<int> CalculateNumOfValues(Guid goalId)
+        {
+            var alternatives = await _alternativeService.GetAllAlternativesAsync(goalId);
+            int numOfComparisons = (alternatives.Count * (alternatives.Count - 1)) / 2;
+            return numOfComparisons;
         }
     }
 
