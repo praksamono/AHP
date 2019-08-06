@@ -1,0 +1,10 @@
+<h3>Enter your criteria</h3>
+<div class="unit" *ngFor="let criterion of criteria">
+    <input placeholder="criterion" class="text-input" formControlName="criterionInput{{criterion}}"/>
+</div>
+<button class="short" id="plus" (click)="addInput()">+</button>
+<div class="navigation">
+    <button class="short"
+        routerLink="/alternatives">&gt;
+    </button>
+</div>
