@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Criteria} from '../../common/models/Criteria';
 import {Observable,throwError} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import {AddGoalComponent} from '../../components/add-goal/add-goal.component';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,9 +19,12 @@ export class CriteriaService {
   CriteriaUrl:string='http://localhost:7867/api/criteria';
   CriteriasLimit='?_limit=0';
   byid='c52eeff9-9ce4-49a8-b40d-5f897b7fd382';
+  goalid:number;
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, public goalcomponent: AddGoalComponent ) {
+   this.goalid = goalcomponent.GoalIdAfterPost;
+   }
   //get criteria
     getCriteria() : Observable<Criteria[]>{
       return this.http.get<Criteria[]>(`${this.CriteriaUrl}/${this.byid}`);
@@ -39,8 +43,8 @@ export class CriteriaService {
   }
   //POST
 
-  addCriteria(Criteria:Criteria):Observable<Criteria>{
-    return this.http.post<Criteria>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions)
+  addCriteria(Criteria:Criteria[]):Observable<Criteria>{
+    return this.http.post<Criteria>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions);
   }
 
 
