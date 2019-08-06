@@ -28,9 +28,9 @@ namespace AHP.Service
             return await criteriumAlternativeRepository.GetCriteriumAlternativeAsync(criteriumAlternativeId);
         }
 
-        public async Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync()
+        public async Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync(Guid criteriumId)
         {
-            return await criteriumAlternativeRepository.GetAllCriteriumAlternativeAsync();
+            return await criteriumAlternativeRepository.GetAllCriteriumAlternativeAsync(criteriumId);
         }
 
         public async Task<bool> DeleteCriteriumAlternativeAsync(Guid criteriumAlternativeID)

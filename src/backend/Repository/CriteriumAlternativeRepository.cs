@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -52,10 +53,12 @@ namespace Repository
             //return true;
         }
 
-        public async Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync()
+        public async Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync(Guid criteriumId)
         {
-            var allCriteriumAlternatives = await Context.CriteriumAlternatives.ToListAsync();
-            return Mapper.Map<List<ICriteriumAlternative>>(allCriteriumAlternatives);
+            var criteriumAlternatives = await Context.CriteriumAlternatives.Where(criteriumAlternative => criteriumAlternative != null
+                && criteriumAlternative.CriteriumId == criteriumId).ToListAsync(); //Return all alternative ranks in regards to this criteriumId
+
+            return Mapper.Map<List<ICriteriumAlternative>>(criteriumAlternatives);
 
             //var unitOfWork = uowFactory.CreateUnitOfWork();
             //var getCriteriumAlternative = await unitOfWork.GetAllAsync<CriteriumAlternativeEntity>();
