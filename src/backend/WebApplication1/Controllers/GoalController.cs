@@ -69,6 +69,7 @@ namespace WebAPI
         public async Task<ActionResult<IGoal>> CreateGoalAsync(GoalDTO goal)
 
         {
+
             string errorMessage = await IsValidGoalName(goal.GoalName);
             if (!string.IsNullOrEmpty(errorMessage))
             {

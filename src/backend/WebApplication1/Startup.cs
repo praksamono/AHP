@@ -46,6 +46,8 @@ namespace WebApplication1
             services.AddCors();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			
+			services.AddCors();//za server
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -79,6 +81,9 @@ namespace WebApplication1
             {
                 app.UseDeveloperExceptionPage();
             }
+			app.UseCors(builder =>
+               builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+           );
 
             app.UseCors(builder =>
                 builder.AllowAnyOrigin()

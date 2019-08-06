@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import{AlternativeService} from '../../common/services/alternative.service';
+import {AlternativeService} from '../../common/services/alternative.service';
 import {Alternative} from '../../common/models/alternative';
 import {Observable} from 'rxjs';
 

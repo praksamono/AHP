@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Todo} from '../../common/models/Todo';
-import {Observable} from 'rxjs';
+import {Observable,throwError} from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
-const httpOptions={
-  headers:new HttpHeaders({
+const httpOptions = {
+  headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
 }
@@ -14,31 +15,32 @@ const httpOptions={
 })
 export class TodoService {
 
-  todosUrl:string='https://jsonplaceholder.typicode.com/todos';
+  CriteriaUrl:string='http://localhost:7867/api/criteria';
   todosLimit='?_limit=0';
+  byid='c52eeff9-9ce4-49a8-b40d-5f897b7fd382';
 
 
   constructor(private http:HttpClient) { }
-  //get todos
-    getTodos() : Observable<Todo[]>{
-      return this.http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`);
+  //get criteria
+    getCriteria() : Observable<Todo[]>{
+      return this.http.get<Todo[]>(`${this.CriteriaUrl}/${this.byid}`);
     }
   //toggle completed
   toggleCompleted(todo:Todo):Observable<any>{
 
-    const url=`${this.todosUrl}/${todo.id}`;
+    const url=`${this.CriteriaUrl}/${todo.id}`;
     return this.http.put(url,todo,httpOptions);
   }
-  //delete todo
-  deleteTodo(todo:Todo):Observable<Todo>{
+  //DELETE
+  deleteCriteria(todo:Todo):Observable<Todo>{
 
-    const url=`${this.todosUrl}/${todo.id}`;
+    const url=`${this.CriteriaUrl}/${todo.id}`;
     return this.http.delete<Todo>(url,httpOptions);
   }
-  //Add Todo
+  //POST
 
-  addTodo(todo:Todo):Observable<Todo>{
-    return this.http.post<Todo>(this.todosUrl,todo,httpOptions)
+  addCriteria(todo:Todo):Observable<Todo>{
+    return this.http.post<Todo>(`${this.CriteriaUrl}/${this.byid}`,todo,httpOptions)
   }
 
 

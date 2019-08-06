@@ -1,0 +1,21 @@
+.forward{
+  border: none;
+  border-radius: 3em;
+  outline: none;
+  margin: 0vh;
+  height: 8vh;
+  background-color: #CC324E;
+  color: rgb(255, 255, 255);
+  width: 15vh;
+  font-size: 6.5vh;
+  margin-left:0%;
+  font-size: 8vh;
+  width: 16vh;
+}
+.forward:hover{
+  color:rgb(247, 246, 250);
+  background-color:#4F4F4F;
+}
+.navigation button {
+  margin: 10vh 7.5vw;
+}

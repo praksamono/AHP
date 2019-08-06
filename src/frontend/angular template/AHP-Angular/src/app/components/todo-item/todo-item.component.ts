@@ -20,7 +20,7 @@ export class TodoItemComponent implements OnInit {
   setClasses(){
     let classes={
       todo:true,
-      'is-complete':this.todo.completed
+      'is-complete': this.todo.completed
     }
     return classes;
   }

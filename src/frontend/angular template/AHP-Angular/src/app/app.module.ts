@@ -21,9 +21,13 @@ import { SliderComponent } from './components/slider/slider.component';
 import { ResultsComponent } from './components/results/results.component';
 import { SlideralternativeComponent } from './components/slideralternative/slideralternative.component';
 import { AddGoalComponent } from './components/add-goal/add-goal.component';
-
-
-
+import {GoalService} from './common/services/goal.service';
+import {TodoService} from './common/services/todo.service';
+import {AlternativeService} from './common/services/alternative.service';
+import { CriteriaComponent } from './route-components/criteria/criteria.component';
+import { ComparisonsComponent } from './route-components/comparisons/comparisons.component';
+import { AlternativesInterfaceComponent } from './route-components/alternatives-interface/alternatives-interface.component';
+import { ResultsInterfaceComponent } from './route-components/results-interface/results-interface.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { AddGoalComponent } from './components/add-goal/add-goal.component';
     ResultsComponent,
     SlideralternativeComponent,
     AddGoalComponent,
+    CriteriaComponent,
+    ComparisonsComponent,
+    AlternativesInterfaceComponent,
+    ResultsInterfaceComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +59,7 @@ import { AddGoalComponent } from './components/add-goal/add-goal.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [GoalService, TodoService, AlternativeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
