@@ -48,15 +48,24 @@ namespace AHP.Service
         {
             return await alternativeRepository.DeleteAlternativeAsync(alternativeID);
         }
-
+        /// <summary>
+        /// Sorts a list of alternatives, the comparison value is their global priority.
+        /// </summary>
+        /// <param name="alternatives">List of IAlternative objects</param>
+        /// <returns></returns>
         public async Task<List<IAlternative>> SortAlternativesByPriorityAsync(List<IAlternative> alternatives)
         {
             alternatives.Sort(CompareAlternativesByGlobalPriorityDescending);
 
             return alternatives;
         }
-
-        private int CompareAlternativesByGlobalPriorityDescending(IAlternative x, IAlternative y)
+        /// <summary>
+        /// Custom comparison method comparing the global priorities of alternatives and sorting in descending order.
+        /// </summary>
+        /// <param name="x">IAlternative object</param>
+        /// <param name="y">IAlternative object</param>
+        /// <returns></returns>
+        private int CompareAlternativesByGlobalPriorityDescending(IAlternative x, IAlternative y) 
         {   
             if(x == null)
             {
