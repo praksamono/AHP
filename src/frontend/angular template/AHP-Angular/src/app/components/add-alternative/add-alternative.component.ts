@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
-import {AlternativeService} from '../../common/services/alternative.service';//todos are criteria
+import {AlternativeService} from '../../common/services/alternative.service';//Criterias are criteria
 import {Router} from '@angular/router';
 import {Alternative} from '../../common/models/alternative';
 

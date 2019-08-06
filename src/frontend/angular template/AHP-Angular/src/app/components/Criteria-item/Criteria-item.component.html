@@ -1,0 +1,8 @@
+<div [ngClass]="setClasses()">
+
+<p>
+    <input (change)="onToggle(Criteria)"type="checkbox">
+    {{Criteria.criteriumName}}
+    <button (click)="onDelete(Criteria)" class="del">X</button>
+</p>
+</div>

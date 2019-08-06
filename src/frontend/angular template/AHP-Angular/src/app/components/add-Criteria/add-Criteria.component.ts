@@ -1,23 +1,23 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
-import {TodoService} from '../../common/services/todo.service';//todos are criteria
+import {CriteriaService} from '../../common/services/Criteria.service';//Criterias are criteria
 import {Router} from '@angular/router';
-import {Todo} from '../../common/models/Todo';
+import {Criteria} from '../../common/models/Criteria';
 
 @Component({
-  selector: 'app-add-todo',
-  templateUrl: './add-todo.component.html',
-  styleUrls: ['./add-todo.component.css']
+  selector: 'app-add-Criteria',
+  templateUrl: './add-Criteria.component.html',
+  styleUrls: ['./add-Criteria.component.css']
 })
-export class AddTodoComponent implements OnInit {
-  @Output() addTodo:EventEmitter<any> = new EventEmitter();
+export class AddCriteriaComponent implements OnInit {
+  @Output() dodajCriteria:EventEmitter<Criteria> = new EventEmitter();
 
   rForm:FormGroup;
-  lstCriteria:Todo[];
+  lstCriteria:Criteria[];
 
 
 
-  constructor(private fb: FormBuilder, public criteriaservice: TodoService) {}
+  constructor(private fb: FormBuilder, public criteriaservice: CriteriaService) {}
 
   ngOnInit() {
     this.addCriteria();
@@ -40,11 +40,11 @@ export class AddTodoComponent implements OnInit {
       console.log('Criteria Added!');
     })
   }
-    /*const todo={
+    /*const Criteria={
       title:this.title,
       completed:false
     }
-    this.addTodo.emit(todo);
+    this.addCriteria.emit(Criteria);
   }*/
 
 }
