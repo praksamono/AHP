@@ -48,6 +48,33 @@ namespace AHP.Service
         {
             return await alternativeRepository.DeleteAlternativeAsync(alternativeID);
         }
+
+        public async Task<List<IAlternative>> SortAlternativesByPriorityAsync(List<IAlternative> alternatives)
+        {
+            alternatives.Sort(CompareAlternativesByGlobalPriorityDescending);
+
+            return alternatives;
+        }
+
+        private int CompareAlternativesByGlobalPriorityDescending(IAlternative x, IAlternative y)
+        {   
+            if(x == null)
+            {
+                if (y == null)
+                    return 0; //If x is null and y is null they are equal
+                else
+                    return 1; //If x is null and y is not null, y is larger, return 1 instead of -1 because of descending order;
+            }
+            else //x is not null
+            {
+                if (x.GlobalPriority > y.GlobalPriority)
+                    return -1; //x is larger than y, return -1 instead of 1 because of descending order
+                else if (x.GlobalPriority == y.GlobalPriority)
+                    return 0; //x is equal to y, return 0;
+                else
+                    return 1; //y is larger than x, return 1 instead because of descending order
+            }
+        }
     }
 
 }
