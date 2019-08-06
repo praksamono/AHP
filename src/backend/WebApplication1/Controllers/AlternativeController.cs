@@ -49,7 +49,13 @@ namespace WebAPI
             {
                 return BadRequest(new { message = "Goal id is not set." });
             }
-                
+
+            string alternativesCheck = await AreValidAlternatives(alternatives);
+            if (!string.IsNullOrEmpty(alternativesCheck))
+            {
+                return BadRequest(new { message = alternativesCheck });
+            }
+
             foreach (var alternative in alternatives)
             {
                 string errorMessage = await IsValidAlternativeName(alternative.AlternativeName);
@@ -91,6 +97,19 @@ namespace WebAPI
         //
         //     return Ok();
         // }
+
+        private async Task<string> AreValidAlternatives(List<AlternativeDTO> Alternatives)
+        {
+            if (Alternatives.Count == 0)
+            {
+                return "No alternatives sent.";
+            }
+            if (Alternatives.Count < 2)
+            {
+                return "Not enough alternatives sent (1 sent, at least 2 needed.)";
+            }
+            return "";
+        }
 
         private async Task<string> IsValidAlternativeName(string alternativeName)
         {
