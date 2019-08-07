@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DAL;
@@ -16,13 +15,10 @@ namespace Repository
 
         private readonly IMapper Mapper;
 
-        private readonly IUnitOfWorkFactory uowFactory;
-
-        public AlternativeRepository(AHPContext context, IMapper mapper, IUnitOfWorkFactory uowFactory)
+        public AlternativeRepository(AHPContext context, IMapper mapper)
         {
             this.Context = context;
             this.Mapper = mapper;
-            this.uowFactory = uowFactory;
         }
 
         protected AHPContext Context { get; private set; }
@@ -39,17 +35,6 @@ namespace Repository
             Context.Alternatives.Add(Mapper.Map<IAlternative, AlternativeEntity>(newAlternative));
             await Context.SaveChangesAsync();
             return newAlternative;
-
-
-            //newAlternative.Id = Guid.NewGuid();
-            //newAlternative.DateCreated = DateTime.UtcNow;
-            //newAlternative.DateUpdated = DateTime.UtcNow;
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //var entity = Mapper.Map<AlternativeEntity>(newAlternative);
-            //await unitOfWork.AddAsync(entity);
-            //await unitOfWork.CommitAsync();
-            //return newAlternative;
         }
 
         public async Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternativesList, Guid goalId)
@@ -67,21 +52,6 @@ namespace Repository
             }
 
             return alternativesList;
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-
-            //foreach (IAlternative alternative in alternativesList)
-            //{
-            //    alternative.Id = Guid.NewGuid();
-            //    alternative.DateCreated = DateTime.UtcNow;
-            //    alternative.DateUpdated = DateTime.UtcNow;
-
-            //    var entity = Mapper.Map<IAlternative, AlternativeEntity>(alternative);
-            //    await unitOfWork.AddAsync(entity);
-            //    await unitOfWork.CommitAsync();
-            //}
-
-            //return alternativesList;
         }
 
         public async Task<bool> DeleteAlternativeAsync(Guid alternativeId)
@@ -93,12 +63,6 @@ namespace Repository
                 await Context.SaveChangesAsync();
             }
             return true;
-
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //await unitOfWork.DeleteAsync<AlternativeEntity>(alternativeId);
-            //await unitOfWork.CommitAsync();
-            //return true;
         }
 
         public async Task<List<IAlternative>> GetAllAlternativesAsync(Guid goalId)
@@ -106,32 +70,13 @@ namespace Repository
             var allAlternatives = await Context.Alternatives.Where(alternative => alternative != null
                 && alternative.GoalId == goalId).ToListAsync();
             return Mapper.Map<List<IAlternative>>(allAlternatives);
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //var getAlternative = await unitOfWork.GetAllAsync<AlternativeEntity>();
-            //return Mapper.Map<List<IAlternative>>(getAlternative);
         }
 
         public async Task<IAlternative> GetAlternativeAsync(Guid alternativeId)
         {
             var getAlternative = await Context.Alternatives.SingleOrDefaultAsync(x => x.Id == alternativeId);
             return Mapper.Map<IAlternative>(getAlternative);
-
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //var getAlternative = await unitOfWork.GetAsync<AlternativeEntity>(alternativeId);
-            //return Mapper.Map<IAlternative>(getAlternative);
         }
-
-        // public async Task<bool> UpdateAlternativeAsync(IAlternative alternativeUpdate, Guid goalId)
-        // {
-        //     alternativeUpdate.DateUpdated = DateTime.UtcNow;
-        //     // var unitOfWork = uowFactory.CreateUnitOfWork();
-        //     var entity = Mapper.Map<AlternativeEntity>(alternativeUpdate);
-        //     await unitOfWork.UpdateAsync(entity);
-        //     await unitOfWork.CommitAsync();
-        //     return true;
-        // }
 
         public async Task<bool> UpdateAlternativeAsync(IAlternative alternativeUpdate, float valueInCriterium)
         {

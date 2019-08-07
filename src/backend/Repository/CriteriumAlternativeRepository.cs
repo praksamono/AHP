@@ -16,11 +16,8 @@ namespace Repository
 
         private readonly IMapper Mapper;
 
-        IUnitOfWorkFactory uowFactory;
-
-        public CriteriumAlternativeRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
+        public CriteriumAlternativeRepository(IMapper mapper, AHPContext context)
         {
-            this.uowFactory = uowFactory;
             this.Mapper = mapper;
             this.Context = context;
         }
@@ -45,12 +42,6 @@ namespace Repository
                 await Context.SaveChangesAsync();
             }
             return true;
-
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //await unitOfWork.DeleteAsync<CriteriumAlternativeEntity>(criteriumAlternativeId);
-            //await unitOfWork.CommitAsync();
-            //return true;
         }
 
         public async Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync(Guid criteriumId)
@@ -59,20 +50,12 @@ namespace Repository
                 && criteriumAlternative.CriteriumId == criteriumId).ToListAsync(); //Return all alternative ranks in regards to this criteriumId
 
             return Mapper.Map<List<ICriteriumAlternative>>(criteriumAlternatives);
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //var getCriteriumAlternative = await unitOfWork.GetAllAsync<CriteriumAlternativeEntity>();
-            //return Mapper.Map<List<ICriteriumAlternative>>(getCriteriumAlternative);
         }
 
         public async Task<ICriteriumAlternative> GetCriteriumAlternativeAsync(Guid criteriumAlternativeId)
         {
             var getCriteriumAlternative = await Context.CriteriumAlternatives.SingleOrDefaultAsync(x => x.Id == criteriumAlternativeId);
             return Mapper.Map<ICriteriumAlternative>(getCriteriumAlternative);
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //var getCriteriumAlternative = await unitOfWork.GetAsync<CriteriumAlternativeEntity>(criteriumAlternativeId);
-            //return Mapper.Map<ICriteriumAlternative>(getCriteriumAlternative);
         }
     }
 }

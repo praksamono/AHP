@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Repository.Common;
 using DAL;
 using Model.Common;
@@ -15,11 +14,8 @@ namespace Repository
     {
         private readonly IMapper Mapper;
 
-        IUnitOfWorkFactory uowFactory;
-
-        public GoalRepository(IUnitOfWorkFactory uowFactory, IMapper mapper, AHPContext context)
+        public GoalRepository(IMapper mapper, AHPContext context)
         {
-            this.uowFactory = uowFactory;
             this.Mapper = mapper;
             this.Context = context;
         }
@@ -30,22 +26,12 @@ namespace Repository
         {
             var getGoal = await Context.Goals.SingleOrDefaultAsync(x => x.Id == goalId);
             return Mapper.Map<IGoal>(getGoal);
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //var getGoal = await unitOfWork.GetAsync<GoalEntity>(goalId);
-            //return Mapper.Map<IGoal>(getGoal);
         }
 
         public async Task<List<IGoal>> GetAllGoalsAsync(int page, int pageSize)
         {
             var allGoals = await Context.Goals.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
             return Mapper.Map<List<IGoal>>(allGoals);
-
-
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //var getGoal = await unitOfWork.GetAllAsync<GoalEntity>();
-            //return Mapper.Map<List<IGoal>>(getGoal.Skip((page - 1) * pageSize).Take(pageSize));
         }
 
         public async Task<IGoal> AddGoalAsync(IGoal goal)
@@ -57,25 +43,29 @@ namespace Repository
             Context.Goals.Add(Mapper.Map<IGoal, GoalEntity>(goal));
             await Context.SaveChangesAsync();
             return goal;
-
-            //goal.Id = Guid.NewGuid();
-            //goal.DateCreated = DateTime.UtcNow;
-            //goal.DateUpdated = DateTime.UtcNow;
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //var entity = Mapper.Map<GoalEntity>(goal);
-            //await unitOfWork.AddAsync(entity);
-            //await unitOfWork.CommitAsync();
-            //return goal;
         }
-
+        /// <summary>
+        /// Updates a goal name.
+        /// </summary>
+        /// <param name="goalUpdate">Updated IGoal object with the new name.</param>
+        /// <returns></returns>
         public async Task<bool> UpdateGoalAsync(IGoal goalUpdate)
         {
-            goalUpdate.DateUpdated = DateTime.UtcNow;
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var entity = Mapper.Map<GoalEntity>(goalUpdate);
-            await unitOfWork.UpdateAsync(entity);
-            await unitOfWork.CommitAsync();
+            Guid id = goalUpdate.Id;
+            string newName = goalUpdate.GoalName;
+
+            // Retrieve entity by id
+            var entity = await Context.Goals.SingleOrDefaultAsync(item => item.Id == id);
+
+            // Validate entity is not null and update
+            if (entity != null)
+            {
+                entity.DateUpdated = DateTime.UtcNow;
+                entity.GoalName = newName;
+
+                Context.Goals.Update(entity);
+                Context.SaveChanges();
+            }
             return true;
         }
 
@@ -88,11 +78,6 @@ namespace Repository
                 await Context.SaveChangesAsync();
             }
             return true;
-
-            //var unitOfWork = uowFactory.CreateUnitOfWork();
-            //await unitOfWork.DeleteAsync<GoalEntity>(goalId);
-            //await unitOfWork.CommitAsync();
-            //return true;
         }
     }
 }

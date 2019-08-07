@@ -17,6 +17,7 @@ namespace Repository.Common
         Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternativesList, Guid goalId);
 
         Task<bool> UpdateAlternativeAsync(IAlternative alternativeUpdate, float valueInCriterium);
+
         Task<bool> DeleteAlternativeAsync(Guid alternativeId);
     }
 }
