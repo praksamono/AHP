@@ -21,8 +21,8 @@ export class AddGoalComponent implements OnInit {
     GoalIdAfterPost:number;
 
     ngOnInit() {
-        //this.addGoal()
-
+        // this.addGoal()
+        this.goal = new Goal();
     }
 
     constructor(
