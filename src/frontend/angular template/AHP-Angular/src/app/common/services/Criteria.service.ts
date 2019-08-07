@@ -46,7 +46,7 @@ export class CriteriaService {
         return this.http.post<Criteria[]>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions)
     }
   //toggle completed
-  toggleCompleted(Criteria:Criteria):Observable<any>{
+  /*toggleCompleted(Criteria:Criteria):Observable<any>{
 
     const url=`${this.CriteriaUrl}/${Criteria.id}`;
     return this.http.put(url,Criteria,httpOptions);
@@ -62,7 +62,7 @@ export class CriteriaService {
   addCriteria(Criteria:Criteria[]):Observable<Criteria[]>{
     return this.http.post<Criteria[]>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions);
   }
-
+*/
 
 
 }
