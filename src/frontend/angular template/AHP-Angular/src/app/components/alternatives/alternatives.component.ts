@@ -11,15 +11,17 @@ import {Observable} from 'rxjs';
 })
 export class AlternativesComponent implements OnInit {
 
-  alternatives:Alternative[];
+  alternatives: Alternative[];
 
-  constructor(private alternativeService:AlternativeService) { }
+  constructor(private alternativeService: AlternativeService) {
+      this.alternatives = [];
+  }
 
   ngOnInit() {
-    this.alternativeService.getAlternatives().subscribe(alternatives=>
-      {
-        this.alternatives=alternatives;
-      });
+    // this.alternativeService.getAlternatives().subscribe(alternatives=>
+    //   {
+    //     this.alternatives=alternatives;
+    //   });
   }
   /*deleteAlternative(alternative:Alternative[]){
     this.alternatives=this.alternatives.filter(a=>a.AlternativeId !== alternative.AlternativeId);

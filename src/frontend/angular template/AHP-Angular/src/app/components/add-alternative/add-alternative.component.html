@@ -4,12 +4,12 @@
 <!-- <form action="" class="form" (ngSubmit)="onSubmit()"> -->
 <div class="one" *ngFor="let alternative of alternatives">
     <input type="text" id="alternative" name="AlternativeName" [(ngModel)]="alternative.alternativeName" placeholder="Add Alternative">
-    <button type="submit" value="Add" class="btn" (click)="addInput()">+</button>
-    <div class="navigation">
-        <button class="forward"
-        routerLink="/comparisons/criteria"
-        (click)="saveInputs()">&gt;
-        </button>
-    </div>
+</div>
+<button type="submit" value="Add" class="btn" (click)="addInput()">+</button>
+<div class="navigation">
+    <button class="forward"
+    routerLink="/comparisons/criteria"
+    (click)="saveInputs()">&gt;
+</button>
 </div>
 <!-- </form> -->

@@ -11,7 +11,9 @@ export class SliderComponent implements OnInit {
     index: number;
     nextRoute: string;
     criteria: string[];
+    criteriaId: number[];
     alternatives: string[];
+    values: number[];
     pairs: string[][];
     message: string = "Set criteria priority";
 
@@ -21,7 +23,9 @@ export class SliderComponent implements OnInit {
         this.index = 0;
         this.nextRoute = '';
         this.criteria = [];
+        this.criteriaId = [];
         this.alternatives = [];
+        this.values = [];
         this.pairs = [];
     }
 
@@ -30,6 +34,7 @@ export class SliderComponent implements OnInit {
             res => {
             for (let criterion of res) {
                 this.criteria.push(criterion.CriteriumName);
+                this.criteriaId.push(criterion.id);
             }
         });
 
@@ -56,6 +61,7 @@ export class SliderComponent implements OnInit {
     next() {
         this.setMessage();
         this.makePairs(this.alternatives);
+        this.post();
         this.index += 1;
         this.nextCriterion();
     }
@@ -72,6 +78,16 @@ export class SliderComponent implements OnInit {
 
     setMessage() {
         this.message = this.criteria[this.index];
+    }
+
+    post() {
+        // DEBUG: 
+        console.log(this.values);
+        if (this.index === 0) {
+            // this.criteriaService.updateCriteria(this.values).subscribe();
+        } else {
+            // this.comparisonsService.addComparison(this.values).subscribe();
+        }
     }
 
 }

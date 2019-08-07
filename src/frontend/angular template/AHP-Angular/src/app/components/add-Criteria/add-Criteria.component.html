@@ -3,11 +3,11 @@
 </div>
 <div class="one" *ngFor="let criterion of Criterias">
     <input id="criteria" placeholder="Add Criteria" [(ngModel)]="criterion.CriteriumName" />
-    <button type="submit" class="btn" (click)="addInput()">+</button>
-    <div class="navigation">
-        <button class="forward"
-            routerLink="/alternatives"
-            (click)="saveInputs()">&gt;
-        </button>
-    </div>
+</div>
+<button type="submit" class="btn" (click)="addInput()">+</button>
+<div class="navigation">
+    <button class="forward"
+    routerLink="/alternatives"
+    (click)="saveInputs()">&gt;
+</button>
 </div>

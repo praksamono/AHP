@@ -8,16 +8,17 @@ import {ComparisonsComponent} from './route-components/comparisons/comparisons.c
 import {ResultsInterfaceComponent} from './route-components/results-interface/results-interface.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'criteria', component : CriteriaComponent},
-  {path: 'alternatives', component : AlternativesInterfaceComponent},
-  {path: 'comparisons/:criterion-name', component: ComparisonsComponent},
-  {path: 'results', component: ResultsInterfaceComponent},
-  {path: 'about', component: AboutComponent}
+    {path: '', component: HomeComponent},
+    {path: 'criteria', component : CriteriaComponent},
+    {path: 'alternatives', component : AlternativesInterfaceComponent},
+    {path: 'comparisons/:criterion-name', component: ComparisonsComponent},
+    {path: 'results', component: ResultsInterfaceComponent},
+    {path: 'about', component: AboutComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    // scrolls to top of the page
+    imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
