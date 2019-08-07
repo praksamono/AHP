@@ -19,7 +19,9 @@ export class AddAlternativeComponent implements OnInit {
     alternatives: Alternative[];
     constructor(
         // private fb: FormBuilder,
-        public alternativeService: AlternativeService) { }
+        public alternativeService: AlternativeService) {
+            this.alternatives = [];
+        }
 
         ngOnInit() {
             //   this.alternativeService.getAlternatives()

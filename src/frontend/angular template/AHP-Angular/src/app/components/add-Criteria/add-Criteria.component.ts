@@ -11,10 +11,10 @@ import {Criteria} from '../../common/models/Criteria';
 })
 export class AddCriteriaComponent implements OnInit {
 
-    Criterias: Criteria[] = [];
+    Criterias: Criteria[];
 
     constructor(private criteriaService: CriteriaService) {
-        
+        this.Criterias = [];
     }
     ngOnInit() {
         // this.criteriaService.getCriteria().subscribe(Criterias =>
