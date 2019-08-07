@@ -12,7 +12,7 @@ export class SliderComponent implements OnInit {
     index: number;
     nextRoute: string;
     criteria: string[];
-    criteriaId: number[];
+    criteriaIds: number[];
     alternatives: string[];
     values: number[];
     pairs: string[][];
@@ -26,7 +26,7 @@ export class SliderComponent implements OnInit {
         this.index = 0;
         this.nextRoute = '';
         this.criteria = [];
-        this.criteriaId = [];
+        this.criteriaIds = [];
         this.alternatives = [];
         this.values = [];
         this.pairs = [];
@@ -38,7 +38,7 @@ export class SliderComponent implements OnInit {
             res => {
             for (let criterion of res) {
                 this.criteria.push(criterion.CriteriumName);
-                this.criteriaId.push(criterion.id);
+                this.criteriaIds.push(criterion.id);
             }
         });
 
@@ -74,7 +74,6 @@ export class SliderComponent implements OnInit {
         if (this.index !== this.criteria.length) {
             let currentCriterion = this.criteria[this.index];
             this.nextRoute = `/comparisons/${currentCriterion}`;
-            this.index += 1;
         } else {
             this.nextRoute = '/results'
         }
@@ -86,11 +85,13 @@ export class SliderComponent implements OnInit {
 
     post() {
         // DEBUG:
-        console.log(this.values);
+        // console.log(this.values);
+
+        // TODO: switch to having goalId in url
         if (this.index === 0) {
             // this.criteriaService.updateCriteria(this.values).subscribe();
         } else {
-            this.comparisonService.AddPriotity(this.this.values).subscribe();
+            // this.comparisonsService.addComparison(this.criteriaIds[this.index - 1], this.values).subscribe();
         }
     }
 
