@@ -22,6 +22,7 @@ export class AddGoalComponent implements OnInit {
 
     ngOnInit() {
         // this.addGoal()
+        this.goal = new Goal();
     }
 
     constructor(

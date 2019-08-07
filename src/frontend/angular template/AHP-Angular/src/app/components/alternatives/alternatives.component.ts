@@ -21,14 +21,14 @@ export class AlternativesComponent implements OnInit {
         this.alternatives=alternatives;
       });
   }
-  deleteAlternative(alternative:Alternative){
-    this.alternatives=this.alternatives.filter(a=>a.AlternativeId !== alternative.AlternativeId);
-    this.alternativeService.deleteAlternative(alternative).subscribe();//deleteam sa servera
-  }
-  addAlternative(alternative:Alternative){
-    this.alternativeService.addAlternative(alternative).subscribe(alternative => {
-      this.alternatives.push(alternative);
-      console.log(this.alternatives);
-    });
-  }
+  // deleteAlternative(alternative:Alternative){
+  //   this.alternatives=this.alternatives.filter(a=>a.AlternativeId !== alternative.AlternativeId);
+  //   this.alternativeService.deleteAlternative(alternative).subscribe();//deleteam sa servera
+  // }
+  // addAlternative(alternative:Alternative){
+  //   this.alternativeService.addAlternative(alternative).subscribe(alternative => {
+  //     this.alternatives.push(alternative);
+  //     console.log(this.alternatives);
+  //   });
+  // }
 }

@@ -14,8 +14,8 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class CriteriaService {
-
-    CriteriaUrl:string='http://localhost:7867/api/criteria';
+    // change if needed
+    CriteriaUrl:string='http://localhost:5000/api/criteria';
     CriteriasLimit='?_limit=0';
     byid='c52eeff9-9ce4-49a8-b40d-5f897b7fd382';
 

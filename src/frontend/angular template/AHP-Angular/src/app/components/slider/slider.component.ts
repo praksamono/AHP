@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CriteriaService } from '../../common/services/Criteria.service';
+import { AlternativeService } from '../../common/services/alternative.service';
 
 @Component({
     selector: 'app-slider',
@@ -14,7 +15,9 @@ export class SliderComponent implements OnInit {
     pairs: string[][];
     message: string = "Set criteria priority";
 
-    constructor(private criteriaService: CriteriaService) {
+    constructor(
+        private criteriaService: CriteriaService,
+        private alternativeService: AlternativeService) {
         this.index = 0;
         this.nextRoute = '';
         this.criteria = [];
@@ -23,21 +26,38 @@ export class SliderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.criteriaService.getCriteria().subscribe(res => {
+        this.criteriaService.getCriteria().subscribe(
+            res => {
             for (let criterion of res) {
                 this.criteria.push(criterion.CriteriumName);
             }
         });
-        this.makePairs();
-        // this.nextCriterion();
+
+        this.alternativeService.getAlternatives().subscribe(
+            res => {
+                for (let alternative of res) {
+                    this.alternatives.push(alternative.alternativeName);
+                }
+            });
+
+        this.makePairs(this.criteria);
+        this.nextCriterion();
     }
 
-    makePairs() {
-        for (let i = 0; i < this.criteria.length; i++) {
-            for (let j = i+1; j < this.criteria.length; j++) {
-                this.pairs.push([this.criteria[i], this.criteria[j]]);
+    makePairs(elems: string[]) {
+        this.pairs = [];
+        for (let i = 0; i < elems.length; i++) {
+            for (let j = i+1; j < elems.length; j++) {
+                this.pairs.push([elems[i], elems[j]]);
             }
         }
+    }
+
+    next() {
+        this.setMessage();
+        this.makePairs(this.alternatives);
+        this.index += 1;
+        this.nextCriterion();
     }
 
     nextCriterion() {
@@ -51,7 +71,7 @@ export class SliderComponent implements OnInit {
     }
 
     setMessage() {
-        this.message = this.criteria[this.index - 1];
+        this.message = this.criteria[this.index];
     }
 
 }
