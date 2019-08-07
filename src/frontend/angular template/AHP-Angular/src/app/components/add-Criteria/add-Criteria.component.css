@@ -6,7 +6,7 @@ button {
   height: 8vh;
   background-color: #CC324E;
   color: rgb(255, 255, 255);
-  width: 15vh;
+  width: 13vh;
   font-size: 6.5vh;
   margin-left:0%;
 
@@ -17,7 +17,7 @@ button:disabled{
 }
 button.short {
   font-size: 10vh;
-  width: 16vh;
+  width: 13vh;
 }
 button.long {
   width: 40vh;
