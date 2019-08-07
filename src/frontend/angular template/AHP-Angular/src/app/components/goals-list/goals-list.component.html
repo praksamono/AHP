@@ -1,4 +1,4 @@
-<table class="table table-dark">
+<!-- <table class="table table-dark">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -25,4 +25,14 @@
       <td>@twitter</td>
     </tr>
   </tbody>
-</table>
+</table> -->
+
+<h3>Goals</h3>
+<tbody>
+  <tr *ngFor="let goal of goals$"> <!-- adding of to retrive data -->
+      <td>{{ goal.name}}</td>
+  </tr>
+</tbody>
+
+<button type="submit" 
+(click)="getAllGoals()">Add Goal</button>

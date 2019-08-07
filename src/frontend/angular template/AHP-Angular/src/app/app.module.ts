@@ -47,14 +47,11 @@ import { ResultsInterfaceComponent } from './route-components/results-interface/
     ResultsComponent,
     SlideralternativeComponent,
     AddGoalComponent,
-<<<<<<< HEAD
     GoalsListComponent,
-=======
     CriteriaComponent,
     ComparisonsComponent,
     AlternativesInterfaceComponent,
     ResultsInterfaceComponent,
->>>>>>> 91a97d9a6b7b8733b1c757ddae8b1a6dffe30139
   ],
   imports: [
     BrowserModule,

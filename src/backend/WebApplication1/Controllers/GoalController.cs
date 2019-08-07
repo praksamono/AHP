@@ -24,21 +24,21 @@ namespace WebAPI
             _mapper = mapper;
         }
 
-        // [HttpGet]
-        // public async Task<ActionResult<GoalDTO>> GetAllGoalsAsync(int page, int pageSize)
-        // {
-        //     page =  2;
-        //     pageSize =  10;
-        //
-        //     var allGoals = await _service.GetAllGoalsAsync(page, pageSize);
-        //
-        //     if(allGoals == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     return Ok(_mapper.Map<List<IGoal>, List<GoalDTO>>(allGoals)); ;
-        // }
+        [HttpGet]
+        public async Task<ActionResult<List<GoalDTO>>> GetAllGoalsAsync(int page, int pageSize)
+        {
+            page = 1;
+            pageSize = 10;
+
+            var allGoals = await _service.GetAllGoalsAsync(page, pageSize);
+
+            if (allGoals == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<List<IGoal>, List<GoalDTO>>(allGoals)); ;
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<GoalDTO>> GetByIdAsync(Guid id)

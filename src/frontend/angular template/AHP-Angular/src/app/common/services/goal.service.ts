@@ -17,7 +17,7 @@ const httpOptions = {
 
 export class GoalService {
     // change if needed
-    baseurl: string = 'http://localhost:5000/api' ;
+    baseurl: string = 'http://localhost:49773/api' ;
     goals= '/goals'
     constructor(private http: HttpClient) {}
 
@@ -50,4 +50,11 @@ export class GoalService {
                 catchError(this.errorHandle));
             }
 
+
+            GetAllGoals(): Observable<Goal[]> {
+                return this.http.get<Goal[]>(`${this.baseurl}${this.goals}`)
+                .pipe(
+                    retry(1),
+                    catchError(this.errorHandle));
+                }
         }
