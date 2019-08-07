@@ -1,44 +1,43 @@
-  <body>
+<h3>Optimal decision: </h3>
 
+<!-- Display alternative with highest priority -->
+<h4>{{results[0].name}}</h4>
 
-  <h3>Optimal decision: </h3>
-		<!-- Display alternative with highest priority -->
-		<h4>best alternative</h4><!--Catching the best alternative from backend-->
-		<h3>Here are your results: </h3>
-    <!-- Table should display results from db -->
+<h3>Here are your results: </h3>
 
-		<table>
-			<thead>
-				<tr>
-					<td>Alts</td>
-					<td>Criterion 1</td>
-					<td>Criterion 2</td>
-					<td>Goal</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Alt 1</td>
-					<td>0.119</td>
-					<td>0.119</td>
-					<td>0.119</td>
-				</tr>
-				<tr>
-					<td>Alt 2</td>
-					<td>0.119</td>
-					<td>0.119</td>
-					<td>0.119</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td>Total</td>
-					<td>0.256</td>
-					<td>0.256</td>
-					<td>1.000</td>
-				</tr>
-			</tfoot>
-    </table>
+<!-- Table should display results from db -->
+<table>
+    <thead>
+        <tr>
+            <td>Alts</td>
+            <td>Score</td>
+        </tr>
+    </thead>
+    <tbody *ngFor="let result of results">
+        <tr>
+            <td>{{result.name}}</td>
+            <td>{{result.priority}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Total</td>
+            <td>1.0</td>
+        </tr>
+    </tfoot>
+</table>
+
+<!-- Links and restars -->
+<footer>
     <button class="long" id="restart"
-        routerLink="">Start over?</button>
-</body>
+        routerLink="/goal">Start over?</button>
+    <div class="links">
+        <div class="imgs">
+            <a href="https://github.com/praksamono/AHP" target="_blank"><img src="../../../assets/gh.png" alt=""></a>
+            <a href="" target="_blank"><img src="../../../assets/fb.png" alt=""></a>
+            <a href="" target="_blank"><img src="../../../assets/tw.png" alt=""></a>
+            <a href="" target="_blank"><img src="../../../assets/ig.png" alt=""></a>
+        </div>
+        <span id="copyright">&copy; Wilsonova, 2019.</span>
+    </div>
+</footer>
