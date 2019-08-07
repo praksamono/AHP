@@ -10,7 +10,7 @@ export class ResultsComponent implements OnInit {
     results: Alternative[];
 
     constructor() {
-    // this.resultService.getResults().subscribe(res => this.results = res);
+    // this.resultService.getAlternatives().subscribe(res => this.results = res);
     }
 
     ngOnInit() {
