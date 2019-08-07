@@ -37,18 +37,18 @@ export class CriteriaService {
 }
   //get criteria
     getCriteria() : Observable<Criteria[]>{
-        return this.http.get<Criteria[]>(`${this.CriteriaUrl}/${this.byid}`);
+        return this.http.get<Criteria[]>(`${this.baseurl}/${this.byid}`);
     }
     //toggle completed
     toggleCompleted(Criteria:Criteria):Observable<any>{
 
-        const url=`${this.CriteriaUrl}/${Criteria.id}`;
+        const url=`${this.baseurl}/${Criteria.id}`;
         return this.http.put(url,Criteria,httpOptions);
     }
     //DELETE
     deleteCriteria(Criteria:Criteria):Observable<Criteria>{
 
-        const url=`${this.CriteriaUrl}/${Criteria.id}`;
+        const url=`${this.baseurl}/${Criteria.id}`;
         return this.http.delete<Criteria>(url,httpOptions);
     }
     //POST
