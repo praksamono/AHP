@@ -14,7 +14,7 @@ import { Goal } from '../../common/models/goal';
 export class AddGoalComponent implements OnInit {
 
     // change if needed
-    url = `http://localhost:5000/`;
+    url = `http://localhost:7867/`;
     // rForm: FormGroup;
     // GoalArr : any=[];
     goal: Goal;
@@ -39,7 +39,9 @@ export class AddGoalComponent implements OnInit {
         //     goalname :['']
         // })
         console.log(this.goal.goalname);
+
         this.goalService.CreateGoal(this.goal).subscribe(res => this.GoalIdAfterPost = res.id);
+        console.log(this.GoalIdAfterPost);
 
 
 
