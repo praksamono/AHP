@@ -69,3 +69,24 @@ tfoot td {
 tfoot td:first-child {
   font-size: 4vh;
 }
+button {
+  border: none;
+  border-radius: 3em;
+  outline: none;
+  margin: 2vh;
+  height: 16vh;
+  background-color: #CC324E;
+  color: #FFFFFF;
+}
+#restart {
+  position: relative;
+  margin-right: 4vw;
+}
+button.long {
+  width: 40vh;
+  font-size: 6.5vh;
+}
+button:hover{
+  color:rgb(247, 246, 250);
+  background-color:#4F4F4F;
+}

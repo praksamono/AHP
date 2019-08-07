@@ -5,50 +5,49 @@ import {Observable, throwError} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
 
-@Injectable({
-  providedIn: 'root'
-})
-export class GoalService {
-
-  baseurl = 'http://localhost:7867' ;
-  constructor(private http: HttpClient) {}
-
-  httpOptions = {
+const httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     })
-  };
-  errorHandle(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+
+export class GoalService {
+    // change if needed
+    baseurl: string = 'http://localhost:5000/api' ;
+    goals= '/goals'
+    constructor(private http: HttpClient) {}
+
+
+    errorHandle(error) {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+            // Get client-side error
+            errorMessage = error.error.message;
+        } else {
+            // Get server-side error
+            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
+        console.log(errorMessage);
+        return throwError(errorMessage);
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
- }
- //POST
- CreateGoal(data): Observable<Goal> {
-  return this.http.post<Goal>(this.baseurl + '/api/goals', JSON.stringify(data), this.httpOptions)
-  .pipe(
-    retry(1),
-    catchError(this.errorHandle));
-}
-//GET id
+    //POST
+    CreateGoal(goal: Goal): Observable<Goal> {
+        return this.http.post<Goal>(`${this.baseurl}${this.goals}`, goal, httpOptions)
+        .pipe(
+            retry(1),
+            catchError(this.errorHandle));
+        }
+        //GET id
 
-GetGoal(id): Observable<Goal> {
-  return this.http.get<Goal>(this.baseurl + 'api/goals/' + id)
-  .pipe(
-    retry(1),
-    catchError(this.errorHandle));
-}
+        GetGoal(id): Observable<Goal> {
+            return this.http.get<Goal>(`${this.baseurl}${this.goals}`)
+            .pipe(
+                retry(1),
+                catchError(this.errorHandle));
+            }
 
-}
-
-
-
-
-
+        }

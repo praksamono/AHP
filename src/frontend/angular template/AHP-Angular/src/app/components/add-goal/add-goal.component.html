@@ -1,22 +1,20 @@
-<form [formGroup]="rForm" (ngSubmit)="submitForm()" class="form">
-  <div class="one">
-    <input type="text" id="Goal" formControlName="goal" placeholder="Goal name"/>
-
+<div>
+    <h2>Specify your Goal :</h2>
+</div>
+<div class="one">
+    <input type="text" id="Goal"
+    [(ngModel)]="goal.goalname" placeholder="Goal name"/>
+    <br><!--zakomentirani validatori-->
+    <!-- <span class="warning" *ngIf="getGoal().errors">
     <br>
-    <span class="warning" *ngIf="getGoal().errors">
-      <br>
-      <span class="warning" *ngIf="getIfErrorIsTriggered('required')">Goal specification is required!</span>
-      <br>
-      <span class="warning" *ngIf="getIfErrorIsTriggered('invalidInput')">Goal must contain only letters!</span>
-      <span class="warning" *ngIf="getIfErrorIsTriggered('minlength')">Minimum Length is two letters!</span>
-      <br>
-      <span class="warning" *ngIf="getIfErrorIsTriggered('maxlength')">Maximum Length is 25 letters!</span>
-    </span>
-  </div>
-  <button type="submit" [disabled]="getIfErrorIsTriggered('invalidInput')">Add Goal</button>
-</form>
-
-
-<input type="button" value="Show all goals" [routerLink]="['../goals']" routerLinkActive="active" class="btn btnLetter btn-outline-light ml-2" />
-
-
+    <span class="warning" *ngIf="getIfErrorIsTriggered('required')">Goal specification is required!</span>
+    <br>
+    <span class="warning" *ngIf="getIfErrorIsTriggered('invalidInput')">Goal contains only letters!</span>
+    <span class="warning" *ngIf="getIfErrorIsTriggered('minlength')">Minimum Length is two letters!</span>
+    <br>
+    <span class="warning" *ngIf="getIfErrorIsTriggered('maxlength')">Maximum Length is 25 letters!</span>
+</span>
+<button type="submit" [disabled]="getIfErrorIsTriggered('invalidInput')">Add Goal</button>-->
+<button type="submit"  routerLink="criteria"
+(click)="addGoal()">Add Goal</button>
+</div>

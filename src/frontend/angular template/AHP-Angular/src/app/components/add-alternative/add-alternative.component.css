@@ -1,4 +1,104 @@
-.form {
+button {
+  border: none;
+  border-radius: 3em;
+  outline: none;
+  margin: 1vh;
+  height: 8vh;
+  background-color: #CC324E;
+  color: rgb(255, 255, 255);
+  width: 15vh;
+  font-size: 6.5vh;
+  margin-left:0%;
+
+}
+button:disabled{
+  color:#4F4F4F;
+  background-color: rgb(247, 246, 250);
+}
+
+button.long {
+  width: 40vh;
+  font-size: 6.5vh;
+}
+
+button.short {
+  font-size: 10vh;
+  width: 16vh;
+}
+
+button.short#plus {
+  width: 13vh;
+  height: 13vh;
+  position: relative;
+  margin-bottom: 10vh;
+}
+.forward{
+  border: none;
+  border-radius: 3em;
+  outline: none;
+  margin: 0vh;
+  height: 8vh;
+  background-color: #CC324E;
+  color: rgb(255, 255, 255);
+  width: 15vh;
+  font-size: 6.5vh;
+  margin-left:0%;
+  font-size: 8vh;
+  width: 16vh;
+}
+.forward:hover{
+  color:rgb(247, 246, 250);
+  background-color:#4F4F4F;
+}
+.btn{
+  width: 13vh;
+  height: 13vh;
+  position: relative;
+  margin-bottom: 10vh;
+}
+.btn:hover{
+  color:rgb(247, 246, 250);
+  background-color:#4F4F4F;
+}
+.navigation button {
+  margin: 10vh 7.5vw;
+}
+#alternative {
+  position: relative;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  background-color: #FFFFFF;
+  color: #4F4F4F;
+  text-align: center;
+  font-size: 5vh;
+  border: 0.5vh solid #CC324E;
+  border-radius: 7vh;
+  outline: none;
+  margin: 5vw;
+  width: 55vh;
+  height: 13vh;
+}
+label{
+  color: #CC324E;
+  font-weight: bold;
+  width: 150px;
+  font-size: 20px;
+  float:center;
+}
+.form{
+  justify-content: center;
+  position : relative;
+  margin-left:32%;
+}
+h2{
+  text-align: center;
+  color:#CC324E;
+}
+.one{
+  justify-content: center;
+}
+/*.form {
     display: flex;
   }
 
@@ -29,7 +129,7 @@
 
 .button {
     margin-top: 3rem;
-}
+}*/
 
 @keyframes alertAnim {
     from {

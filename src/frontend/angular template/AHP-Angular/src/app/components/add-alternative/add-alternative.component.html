@@ -1,8 +1,15 @@
 <div>
     <h2>Adding Alternative :</h2>
 </div>
-    <form action="" class="form" (ngSubmit)="onSubmit()">
-        <input type="text" name="AlternativeName" [(ngModel)]="AlternativeName" placeholder="Add Alternative">
-        <input type="submit" value="Add" class="btn">
-    </form>
-    
+<!-- <form action="" class="form" (ngSubmit)="onSubmit()"> -->
+<div class="one" *ngFor="let alternative of alternatives">
+    <input type="text" id="alternative" name="AlternativeName" [(ngModel)]="alternative.alternativeName" placeholder="Add Alternative">
+</div>
+<button type="submit" value="Add" class="btn" (click)="addInput()">+</button>
+<div class="navigation">
+    <button class="forward"
+    routerLink="/comparisons/criteria"
+    (click)="saveInputs()">&gt;
+</button>
+</div>
+<!-- </form> -->

@@ -1,0 +1,41 @@
+<h3>{{message}}</h3>
+<!-- Floating legend -->
+<legend>
+    <p>1 - equal importance</p>
+    <p>3 - moderate importance</p>
+    <p>5 - strong importance</p>
+    <p>7 - very strong importance</p>
+    <p>9 - extreme importance</p>
+</legend>
+<!-- End legend -->
+
+<!-- Slider block -->
+<!-- Repeat this part for every criteria pair -->
+<div class="priority" *ngFor="let pair of pairs">
+    <!-- Criterion 1 is a placeholder, should display data from db -->
+    <label for="range" class="alternative left">{{ pair[0] }}</label>
+    <div class="slider">
+        <div class="nums">
+            <span class="num">9</span>
+            <span class="num">7</span>
+            <span class="num">5</span>
+            <span class="num">3</span>
+            <span class="num">1</span>
+            <span class="num">3</span>
+            <span class="num">5</span>
+            <span class="num">7</span>
+            <span class="num">9</span>
+        </div>
+        <input type="range" value="0" min="-4" max="4" step="1" class="range" />
+    </div>
+    <!-- Another placeholder -->
+    <label for="range" class="alternative right">{{ pair[1] }}</label>
+</div>
+
+<div class="navigation">
+    <button type="button" class="short"
+    (click)="setMessage(); nextCriterion()"
+    routerLink="{{nextRoute}}">
+    <!-- routerLink="/results"> -->
+    &gt;</button>
+</div>

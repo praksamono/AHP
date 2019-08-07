@@ -7,10 +7,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TodosComponent } from './components/todos/todos.component';
-import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { CriteriasComponent } from './components/Criterias/Criterias.component';
+import { CriteriaItemComponent } from './components/Criteria-item/Criteria-item.component';
 import { HeaderComponent } from './components/layout/header/header.component';
-import { AddTodoComponent } from './components/add-todo/add-todo.component';
+import { AddCriteriaComponent } from './components/add-Criteria/add-Criteria.component';
 import { AboutComponent } from './route-components/about/about.component';
 import { AddAlternativeComponent } from './components/add-alternative/add-alternative.component';
 import { AlternativeItemComponent } from './components/alternative-item/alternative-item.component';
@@ -23,17 +23,20 @@ import { SlideralternativeComponent } from './components/slideralternative/slide
 import { AddGoalComponent } from './components/add-goal/add-goal.component';
 import { GoalsListComponent } from './components/goals-list/goals-list.component';
 import {GoalService} from './common/services/goal.service';
-
-
-
+import {CriteriaService} from './common/services/Criteria.service';
+import {AlternativeService} from './common/services/alternative.service';
+import { CriteriaComponent } from './route-components/criteria/criteria.component';
+import { ComparisonsComponent } from './route-components/comparisons/comparisons.component';
+import { AlternativesInterfaceComponent } from './route-components/alternatives-interface/alternatives-interface.component';
+import { ResultsInterfaceComponent } from './route-components/results-interface/results-interface.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodosComponent,
-    TodoItemComponent,
+    CriteriasComponent,
+    CriteriaItemComponent,
     HeaderComponent,
-    AddTodoComponent,
+    AddCriteriaComponent,
     AboutComponent,
     AddAlternativeComponent,
     AlternativeItemComponent,
@@ -44,7 +47,14 @@ import {GoalService} from './common/services/goal.service';
     ResultsComponent,
     SlideralternativeComponent,
     AddGoalComponent,
+<<<<<<< HEAD
     GoalsListComponent,
+=======
+    CriteriaComponent,
+    ComparisonsComponent,
+    AlternativesInterfaceComponent,
+    ResultsInterfaceComponent,
+>>>>>>> 91a97d9a6b7b8733b1c757ddae8b1a6dffe30139
   ],
   imports: [
     BrowserModule,
@@ -54,7 +64,7 @@ import {GoalService} from './common/services/goal.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [GoalService],
+  providers: [GoalService, CriteriaService, AlternativeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
