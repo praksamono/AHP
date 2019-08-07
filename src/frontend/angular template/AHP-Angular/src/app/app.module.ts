@@ -21,6 +21,7 @@ import { SliderComponent } from './components/slider/slider.component';
 import { ResultsComponent } from './components/results/results.component';
 import { SlideralternativeComponent } from './components/slideralternative/slideralternative.component';
 import { AddGoalComponent } from './components/add-goal/add-goal.component';
+import { GoalsListComponent } from './components/goals-list/goals-list.component';
 
 
 
@@ -42,6 +43,7 @@ import { AddGoalComponent } from './components/add-goal/add-goal.component';
     ResultsComponent,
     SlideralternativeComponent,
     AddGoalComponent,
+    GoalsListComponent,
   ],
   imports: [
     BrowserModule,
