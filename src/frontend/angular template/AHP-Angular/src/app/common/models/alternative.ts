@@ -6,4 +6,8 @@ export class Alternative{
     alternativeName:string;
     completed:boolean;
     GlobalPriority:Priority;
+
+    constructor(name?: string) {
+        this.alternativeName = name;
+    }
 }

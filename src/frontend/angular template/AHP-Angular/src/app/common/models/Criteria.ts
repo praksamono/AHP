@@ -7,4 +7,8 @@ export class Criteria{
     goalId:number;
     CriteriumName:string;
     completed:boolean;
+
+    constructor(name?: string) {
+        this.CriteriumName = name;
+    }
 }
