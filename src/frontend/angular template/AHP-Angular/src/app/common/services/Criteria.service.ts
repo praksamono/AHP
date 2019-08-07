@@ -16,26 +16,26 @@ const httpOptions = {
 })
 export class CriteriaService {
 
-  baseurl:string='http://localhost:7867/api/criteria';
-  byid='c52eeff9-9ce4-49a8-b40d-5f897b7fd382';
-  goalid:number;
+    baseurl:string='http://localhost:7867/api/criteria';
+    byid='c52eeff9-9ce4-49a8-b40d-5f897b7fd382';
+    goalid:number;
 
 
-  constructor(private http:HttpClient) {
-   }
-   errorHandle(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-        // Get client-side error
-        errorMessage = error.error.message;
-    } else {
-        // Get server-side error
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    constructor(private http:HttpClient) {
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-}
-  //get criteria
+    errorHandle(error) {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+            // Get client-side error
+            errorMessage = error.error.message;
+        } else {
+            // Get server-side error
+            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
+        console.log(errorMessage);
+        return throwError(errorMessage);
+    }
+    //get criteria
     getCriteria() : Observable<Criteria[]>{
         return this.http.get<Criteria[]>(`${this.baseurl}/${this.byid}`);
     }
@@ -58,29 +58,29 @@ export class CriteriaService {
     }
 
     updateCriteria(/*goalid:Number,*/values:Number[]):Observable<any>
-      {
-      return this.http.put<any>(`${this.baseurl}/${this.byid}`, values, httpOptions)
-      .pipe(
-          retry(1),
-          catchError(this.errorHandle));
-      }
-  //toggle completed
-  /*toggleCompleted(Criteria:Criteria):Observable<any>{
+    {
+        return this.http.put<any>(`${this.baseurl}/${this.byid}`, values, httpOptions)
+        .pipe(
+            retry(1),
+            catchError(this.errorHandle));
+        }
+        //toggle completed
+        /*toggleCompleted(Criteria:Criteria):Observable<any>{
 
-    const url=`${this.CriteriaUrl}/${Criteria.id}`;
-    return this.http.put(url,Criteria,httpOptions);
-  }
-  //DELETE
-  deleteCriteria(Criteria:Criteria):Observable<Criteria>{
+        const url=`${this.CriteriaUrl}/${Criteria.id}`;
+        return this.http.put(url,Criteria,httpOptions);
+    }
+    //DELETE
+    deleteCriteria(Criteria:Criteria):Observable<Criteria>{
 
     const url=`${this.CriteriaUrl}/${Criteria.id}`;
     return this.http.delete<Criteria>(url,httpOptions);
-  }
-  //POST
+}
+//POST
 
-  addCriteria(Criteria:Criteria[]):Observable<Criteria[]>{
-    return this.http.post<Criteria[]>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions);
-  }
+addCriteria(Criteria:Criteria[]):Observable<Criteria[]>{
+return this.http.post<Criteria[]>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions);
+}
 */
 
 
