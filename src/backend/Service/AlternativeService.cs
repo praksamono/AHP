@@ -18,46 +18,45 @@ namespace AHP.Service
             this.alternativeRepository = alternativeRepository;
         }
 
-        public async Task<IAlternative> GetAlternativeAsync(Guid alternativeID)
+        public Task<IAlternative> GetAlternativeAsync(Guid alternativeID)
         {
-            return await alternativeRepository.GetAlternativeAsync(alternativeID);
+            return alternativeRepository.GetAlternativeAsync(alternativeID);
         }
 
-        public async Task<List<IAlternative>> GetAllAlternativesAsync(Guid goalId)
+        public Task<List<IAlternative>> GetAllAlternativesAsync(Guid goalId)
         {
-            return await alternativeRepository.GetAllAlternativesAsync(goalId);
+            return alternativeRepository.GetAllAlternativesAsync(goalId);
         }
 
-        public async Task<IAlternative> AddAlternativeAsync(IAlternative alternative, Guid goalId)
+        public Task<IAlternative> AddAlternativeAsync(IAlternative alternative, Guid goalId)
         {
-            return await alternativeRepository.AddAlternativeAsync(alternative, goalId);
+            return alternativeRepository.AddAlternativeAsync(alternative, goalId);
         }
 
-        public async Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives, Guid goalId)
+        public Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives, Guid goalId)
         {
-            return await alternativeRepository.AddAlternativeListAsync(alternatives, goalId);
+            return alternativeRepository.AddAlternativeListAsync(alternatives, goalId);
         }
 
-        public async Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, float valueInCriterium)
+        public Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, float valueInCriterium)
         {
-            await alternativeRepository.UpdateAlternativeAsync(updatedAlternative, valueInCriterium);
-            return true;
+            return alternativeRepository.UpdateAlternativeAsync(updatedAlternative, valueInCriterium);
         }
 
-        public async Task<bool> DeleteAlternativeAsync(Guid alternativeID)
+        public Task<bool> DeleteAlternativeAsync(Guid alternativeID)
         {
-            return await alternativeRepository.DeleteAlternativeAsync(alternativeID);
+            return alternativeRepository.DeleteAlternativeAsync(alternativeID);
         }
         /// <summary>
         /// Sorts a list of alternatives, the comparison value is their global priority.
         /// </summary>
         /// <param name="alternatives">List of IAlternative objects</param>
         /// <returns></returns>
-        public async Task<List<IAlternative>> SortAlternativesByPriorityAsync(List<IAlternative> alternatives)
+        public Task<List<IAlternative>> SortAlternativesByPriorityAsync(List<IAlternative> alternatives)
         {
             alternatives.Sort(CompareAlternativesByGlobalPriorityDescending);
 
-            return alternatives;
+            return Task.FromResult(alternatives);
         }
         /// <summary>
         /// Custom comparison method comparing the global priorities of alternatives and sorting in descending order.
