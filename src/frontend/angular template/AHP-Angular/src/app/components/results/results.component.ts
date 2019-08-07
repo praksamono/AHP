@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Alternative } from '../../common/models/alternative';
+import { ResultsService } from '../../common/services/results.service';
 
 @Component({
     selector: 'app-results',
@@ -9,8 +10,10 @@ import { Alternative } from '../../common/models/alternative';
 export class ResultsComponent implements OnInit {
     results: Alternative[];
 
-    constructor() {
-    // this.resultService.getAlternatives().subscribe(res => this.results = res);
+    constructor(
+        private resultsService: ResultsService
+    ) {
+    this.resultsService.getAlternatives().subscribe(res => this.results = res);
     }
 
     ngOnInit() {
