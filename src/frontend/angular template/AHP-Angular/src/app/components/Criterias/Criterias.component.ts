@@ -23,13 +23,13 @@ export class CriteriasComponent implements OnInit {
           this.Criterias=Criterias;
         });
   }
-  deleteCriteria(Criteria:Criteria){
+  deleteCriteria(Criteria:Criteria[]){
     this.Criterias=this.Criterias.filter(t=>t.id !== Criteria.id);//deletam taj objekt koji ima taj id sa UI-a
     this.CriteriaService.deleteCriteria(Criteria).subscribe();//deleteam sa servera
   }
-  addCriteria(Criteria:Criteria) {
+  addCriteria(Criteria:Criteria[]) {
     this.CriteriaService.addCriteria(Criteria).subscribe(Criteria => {
-      this.Criterias.push(Criteria);
+      this.Criterias.push(this.Criterias);
       console.log(this.Criterias);
     });
   }

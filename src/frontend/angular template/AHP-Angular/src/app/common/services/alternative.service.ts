@@ -37,7 +37,7 @@ export class AlternativeService {
   }
   //Add
 
-  addAlternative(alternative: Alternative): Observable<Alternative> {
-    return this.http.post<Alternative>(this.AlternativeUrl, alternative, httpOptions);
+  addAlternative(alternative: Alternative[]): Observable<Alternative[]> {
+    return this.http.post<Alternative[]>(this.AlternativeUrl, alternative, httpOptions);
   }
 }

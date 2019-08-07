@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {goalinputValidator} from '../../validators/goalvalidator';
 import {GoalService} from '../../common/services/goal.service';
 import {Router} from '@angular/router';
+import {Goal} from '../../common/models/goal';
 
 
 @Component({
@@ -36,9 +37,9 @@ export class AddGoalComponent implements OnInit {
     });
   }
   submitForm(){
-    this.goalservice.CreateGoal(this.rForm.value).subscribe(res => {
+    this.goalservice.CreateGoal(this.rForm.value).subscribe((goal: Goal) => {
       console.log('Goal Added');
-      this.GoalIdAfterPost=res.id;
+      this.GoalIdAfterPost = goal.id;
       console.log(this.GoalIdAfterPost);
     })
   }

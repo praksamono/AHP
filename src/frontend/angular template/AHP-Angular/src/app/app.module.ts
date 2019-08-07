@@ -57,7 +57,7 @@ import { ResultsInterfaceComponent } from './route-components/results-interface/
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [GoalService, CriteriaService, AlternativeService],
   bootstrap: [AppComponent]

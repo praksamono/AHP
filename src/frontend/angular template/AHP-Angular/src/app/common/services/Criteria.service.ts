@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Criteria} from '../../common/models/Criteria';
+import {Criteria} from '../models/Criteria';
 import {Observable,throwError} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {AddGoalComponent} from '../../components/add-goal/add-goal.component';
@@ -22,8 +22,7 @@ export class CriteriaService {
   goalid:number;
 
 
-  constructor(private http:HttpClient, public goalcomponent: AddGoalComponent ) {
-   this.goalid = goalcomponent.GoalIdAfterPost;
+  constructor(private http:HttpClient) {
    }
   //get criteria
     getCriteria() : Observable<Criteria[]>{
@@ -43,8 +42,8 @@ export class CriteriaService {
   }
   //POST
 
-  addCriteria(Criteria:Criteria[]):Observable<Criteria>{
-    return this.http.post<Criteria>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions);
+  addCriteria(Criteria:Criteria[]):Observable<Criteria[]>{
+    return this.http.post<Criteria[]>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions);
   }
 
 

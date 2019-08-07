@@ -15,8 +15,6 @@ export class AddCriteriaComponent implements OnInit {
   rForm:FormGroup;
   lstCriteria:Criteria[];
 
-
-
   constructor(private fb: FormBuilder, public criteriaservice: CriteriaService) {}
 
   ngOnInit() {
@@ -36,7 +34,7 @@ export class AddCriteriaComponent implements OnInit {
    }
 
   onSubmit(){
-    this.criteriaservice.addCriteria(this.rForm.value).subscribe(res =>{
+    this.criteriaservice.addCriteria(this.rForm.value,).subscribe(res =>{
       console.log('Criteria Added!');
     })
   }
