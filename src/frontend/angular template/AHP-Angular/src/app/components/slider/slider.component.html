@@ -1,3 +1,4 @@
+<h3>{{message}} </h3>
 <div class="priority" *ngFor="let pair of pairs">
     <!-- Criterion 1 is a placeholder, should display data from db -->
     <label for="range" class="alternative left">{{ pair[0] }}</label>
@@ -13,7 +14,7 @@
             <span class="num">7</span>
             <span class="num">9</span>
         </div>
-        <input type="range" value="0" min="-4" max="4" step="1" class="range" />
+        <input type="range" value="0" min="-4" max="4" step="1" class="range" [(ngModel)]="values"/>
     </div>
     <!-- Another placeholder -->
     <label for="range" class="alternative right">{{ pair[1] }}</label>

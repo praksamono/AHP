@@ -1,13 +1,12 @@
 <div>
-<h3>{{message}} </h3>
 <app-legend></app-legend>
 <app-slider></app-slider>
 <!-- <h3>Current Criterion :</h3> -->
 <!-- <app-slideralternative></app-slideralternative> -->
+</div>
 <div class="navigation">
     <button class="forward"
-    (click)="setMessage(); nextCriterion()"
-    routerLink="{{nextRoute}}">>&gt;
-    </button>
-</div>
+    (click)="next()"
+    routerLink="{{nextRoute}}">&gt;
+</button>
 </div>
