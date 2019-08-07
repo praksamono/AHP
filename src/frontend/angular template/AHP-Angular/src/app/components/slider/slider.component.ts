@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CriteriaService } from '../../common/services/Criteria.service';
 import { AlternativeService } from '../../common/services/alternative.service';
+import {ComparisonsService} from '../../common/services/comparisons.service';
 
 @Component({
     selector: 'app-slider',
@@ -19,7 +20,9 @@ export class SliderComponent implements OnInit {
 
     constructor(
         private criteriaService: CriteriaService,
-        private alternativeService: AlternativeService) {
+        private alternativeService: AlternativeService,
+        private comparisonService: ComparisonsService
+        ) {
         this.index = 0;
         this.nextRoute = '';
         this.criteria = [];
@@ -27,6 +30,7 @@ export class SliderComponent implements OnInit {
         this.alternatives = [];
         this.values = [];
         this.pairs = [];
+
     }
 
     ngOnInit() {
