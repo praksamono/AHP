@@ -5,46 +5,43 @@ import {Router} from '@angular/router';
 import {Criteria} from '../../common/models/Criteria';
 
 @Component({
-  selector: 'app-add-Criteria',
-  templateUrl: './add-Criteria.component.html',
-  styleUrls: ['./add-Criteria.component.css']
+    selector: 'app-add-Criteria',
+    templateUrl: './add-Criteria.component.html',
+    styleUrls: ['./add-Criteria.component.css']
 })
 export class AddCriteriaComponent implements OnInit {
-  @Output() dodajCriteria:EventEmitter<Criteria> = new EventEmitter();
 
-  rForm:FormGroup;
-  lstCriteria:Criteria[];
+    Criterias: Criteria[] = [];
 
-
-
-  constructor(private fb: FormBuilder, public criteriaservice: CriteriaService) {}
-
-  ngOnInit() {
-    this.addCriteria();
-    this.criteriaservice.getCriteria()
-    .subscribe(
-      data=>{
-        this.lstCriteria=data;
-      }
-    );
-  }
-
-   addCriteria(){
-     this.rForm=this.fb.group({
-       CriteriumName:['']
-     })
-   }
-
-  onSubmit(){
-    this.criteriaservice.addCriteria(this.rForm.value).subscribe(res =>{
-      console.log('Criteria Added!');
-    })
-  }
-    /*const Criteria={
-      title:this.title,
-      completed:false
+    constructor(private criteriaService: CriteriaService) {
+        
     }
-    this.addCriteria.emit(Criteria);
-  }*/
+    ngOnInit() {
+        // this.criteriaService.getCriteria().subscribe(Criterias =>
+        //   {
+        //     this.Criterias=Criterias;
+        //   });
+        this.addInput();
+        this.addInput();
+    }
+
+    addInput(): void {
+        this.Criterias.push(new Criteria);
+    }
+
+    deleteCriteria(Criteria:Criteria){
+        this.Criterias=this.Criterias.filter(t=>t.id !== Criteria.id);//deletam taj objekt koji ima taj id sa UI-a
+        this.criteriaService.deleteCriteria(Criteria).subscribe();//deleteam sa servera
+    }
+
+    saveInputs() {
+        let inputCriteria: Criteria[] = [];
+        for (let criterion of this.Criterias) {
+            inputCriteria.push(new Criteria(criterion.CriteriumName));
+        }
+        this.criteriaService.addCriteria(inputCriteria).subscribe(res => this.Criterias = res);
+        // DEBUG:
+        // console.log(this.Criterias);
+    }
 
 }

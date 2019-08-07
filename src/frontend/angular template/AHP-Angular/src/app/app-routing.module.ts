@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'criteria', component : CriteriaComponent},
   {path: 'alternatives', component : AlternativesInterfaceComponent},
-  {path: 'comparisons', component: ComparisonsComponent},
+  {path: 'comparisons/:criterion-name', component: ComparisonsComponent},
   {path: 'results', component: ResultsInterfaceComponent},
   {path: 'about', component: AboutComponent}
 ];

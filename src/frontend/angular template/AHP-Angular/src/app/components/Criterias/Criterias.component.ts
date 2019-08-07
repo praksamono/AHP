@@ -5,33 +5,44 @@ import { Observable } from 'rxjs';
 
 
 @Component({
-  selector: 'app-Criterias',
-  templateUrl: './Criterias.component.html',
-  styleUrls: ['./Criterias.component.css']
+    selector: 'app-Criterias',
+    templateUrl: './Criterias.component.html',
+    styleUrls: ['./Criterias.component.css']
 })
 export class CriteriasComponent implements OnInit {
 
-  Criterias:Criteria[];
+    Criterias: Criteria[] = [];
 
-  constructor(private CriteriaService:CriteriaService) {
+    constructor(private criteriaService: CriteriaService) {
 
-   }
+    }
 
-  ngOnInit() {
-      this.CriteriaService.getCriteria().subscribe(Criterias =>
-        {
-          this.Criterias=Criterias;
-        });
-  }
-  deleteCriteria(Criteria:Criteria){
-    this.Criterias=this.Criterias.filter(t=>t.id !== Criteria.id);//deletam taj objekt koji ima taj id sa UI-a
-    this.CriteriaService.deleteCriteria(Criteria).subscribe();//deleteam sa servera
-  }
-  addCriteria(Criteria:Criteria) {
-    this.CriteriaService.addCriteria(Criteria).subscribe(Criteria => {
-      this.Criterias.push(Criteria);
-      console.log(this.Criterias);
-    });
-  }
+    ngOnInit() {
+        // this.criteriaService.getCriteria().subscribe(Criterias =>
+        //   {
+        //     this.Criterias=Criterias;
+        //   });
+        this.addInput();
+        this.addInput();
+    }
+
+    addInput(): void {
+        this.Criterias.push(new Criteria);
+    }
+
+    deleteCriteria(Criteria:Criteria){
+        this.Criterias=this.Criterias.filter(t=>t.id !== Criteria.id);//deletam taj objekt koji ima taj id sa UI-a
+        this.criteriaService.deleteCriteria(Criteria).subscribe();//deleteam sa servera
+    }
+
+    saveInputs() {
+        let inputCriteria: Criteria[] = [];
+        for (let criterion of this.Criterias) {
+            inputCriteria.push(new Criteria(criterion.CriteriumName));
+        }
+        this.criteriaService.addCriteria(inputCriteria).subscribe(res => this.Criterias = res);
+        // DEBUG:
+        // console.log(this.Criterias);
+    }
 
 }
