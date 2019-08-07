@@ -111,7 +111,7 @@ namespace Repository
             //var getAlternative = await unitOfWork.GetAllAsync<AlternativeEntity>();
             //return Mapper.Map<List<IAlternative>>(getAlternative);
         }
-        
+
         public async Task<IAlternative> GetAlternativeAsync(Guid alternativeId)
         {
             var getAlternative = await Context.Alternatives.SingleOrDefaultAsync(x => x.Id == alternativeId);
@@ -123,17 +123,17 @@ namespace Repository
             //return Mapper.Map<IAlternative>(getAlternative);
         }
 
-        public async Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate, Guid goalId)
-        {
-            alternativeUpdate.DateUpdated = DateTime.UtcNow;
-            var unitOfWork = uowFactory.CreateUnitOfWork();
-            var entity = Mapper.Map<AlternativeEntity>(alternativeUpdate);
-            await unitOfWork.UpdateAsync(entity);
-            await unitOfWork.CommitAsync();
-            return true;
-        }
+        // public async Task<bool> UpdateAlternativeAsync(IAlternative alternativeUpdate, Guid goalId)
+        // {
+        //     alternativeUpdate.DateUpdated = DateTime.UtcNow;
+        //     // var unitOfWork = uowFactory.CreateUnitOfWork();
+        //     var entity = Mapper.Map<AlternativeEntity>(alternativeUpdate);
+        //     await unitOfWork.UpdateAsync(entity);
+        //     await unitOfWork.CommitAsync();
+        //     return true;
+        // }
 
-        public async Task<bool> UpdateAlternativeAsnyc(IAlternative alternativeUpdate, float valueInCriterium)
+        public async Task<bool> UpdateAlternativeAsync(IAlternative alternativeUpdate, float valueInCriterium)
         {
             Guid id = alternativeUpdate.Id;
 
@@ -142,14 +142,14 @@ namespace Repository
 
             // Validate entity is not null and update
             if (entity != null)
-            {  
+            {
                 entity.DateUpdated = DateTime.UtcNow;
                 float currentValue = entity.GlobalPriority;
                 currentValue += valueInCriterium;
                 entity.GlobalPriority = currentValue;
 
                 Context.Alternatives.Update(entity);
-                Context.SaveChanges();
+                await Context.SaveChangesAsync();
             }
             return true;
         }

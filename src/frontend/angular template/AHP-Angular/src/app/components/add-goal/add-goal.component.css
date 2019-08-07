@@ -5,11 +5,15 @@ button {
   margin: 1vh;
   height: 8vh;
   background-color: #CC324E;
-  color: #FFFFFF;
+  color: rgb(255, 255, 255);
   width: 40vh;
   font-size: 6.5vh;
-  margin-left:16%;
+  margin-left:11%;
 
+}
+button:disabled{
+  color:#4F4F4F;
+  background-color: rgb(247, 246, 250);
 }
 
 button.long {

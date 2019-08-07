@@ -40,7 +40,7 @@ namespace AHP.Service
 
         public async Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, float valueInCriterium)
         {
-            await alternativeRepository.UpdateAlternativeAsnyc(updatedAlternative, valueInCriterium);
+            await alternativeRepository.UpdateAlternativeAsync(updatedAlternative, valueInCriterium);
             return true;
         }
 
