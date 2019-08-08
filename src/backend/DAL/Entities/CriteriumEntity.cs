@@ -20,5 +20,7 @@ namespace DAL
         public GoalEntity GoalEntity{ get; set;}
 
         public Guid GoalId { get; set; }
+
+        public int Order { get; set; }
     }
 }

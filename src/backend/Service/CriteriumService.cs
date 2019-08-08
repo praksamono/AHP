@@ -25,6 +25,11 @@ namespace AHP.Service
 
         public Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList, Guid goalId)
         {
+            int orderIndex = 0; 
+            foreach(ICriterium criterium in criteriumList) //Add order numbers to a finite list of criteria
+            {
+                criterium.Order = orderIndex;
+            }
             return criteriumRepository.AddCriteriumListAsync(criteriumList, goalId);
         }
 

@@ -23,5 +23,7 @@ namespace Model
         public Guid GoalId { get; set; }
 
         public IGoal Goal { get; set; }
+
+        public int Order { get; set; }
     }
 }
