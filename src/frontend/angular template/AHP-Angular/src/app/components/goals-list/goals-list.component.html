@@ -27,12 +27,17 @@
   </tbody>
 </table> -->
 
-<h3>Goals</h3>
-<tbody>
-  <tr *ngFor="let goal of goals$"> <!-- adding of to retrive data -->
-      <td>{{ goal.name}}</td>
-  </tr>
-</tbody>
 
-<button type="submit" 
-(click)="getAllGoals()">Add Goal</button>
+<table>
+  <thead>
+      <tr>
+          <td>Name</td>
+      </tr>
+  </thead>
+  <tbody *ngFor="let goal of goals">
+      <tr>
+          <td>{{goal.name}}</td>
+      </tr>
+  </tbody>
+
+</table>
