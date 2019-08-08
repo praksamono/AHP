@@ -15,7 +15,7 @@ const httpOptions= {
 export class AlternativeService {
     // change if needed
     AlternativeUrl: string='http://ahpsimulator.azurewebsites.net/api/alternatives';
-    byid="c52eeff9-9ce4-49a8-b40d-5f897b7fd382";
+    goalId:number;
 
 
     constructor(private http: HttpClient) { }
@@ -37,7 +37,7 @@ export class AlternativeService {
     }
     //Add
 
-    addAlternative(alternative: Alternative[]): Observable<Alternative[]> {
-        return this.http.post<Alternative[]>(this.AlternativeUrl, alternative, httpOptions);
+    addAlternative(alternative: Alternative[],goalId: number): Observable<Alternative[]> {
+        return this.http.post<Alternative[]>(`${this.AlternativeUrl}/${goalId}`, alternative, httpOptions);
     }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {AlternativeService} from '../../common/services/alternative.service';
-// import {Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {Alternative} from '../../common/models/alternative';
 
 @Component({
@@ -11,15 +10,13 @@ import {Alternative} from '../../common/models/alternative';
 })
 export class AddAlternativeComponent implements OnInit {
 
-    // @Output() addAlternative:EventEmitter<any>=new EventEmitter();
-    //
-    // rForm:FormGroup;
-    // lstAlternatives:Alternative[];
-    // AlternativeName:string;
+
     alternatives: Alternative[];
+    goalId:number;
+
     constructor(
-        // private fb: FormBuilder,
-        public alternativeService: AlternativeService) {
+      private router: Router,
+      public alternativeService: AlternativeService) {
             this.alternatives = [];
         }
 
@@ -30,6 +27,7 @@ export class AddAlternativeComponent implements OnInit {
             //     this.lstAlternatives=data;
             //   }
             // );
+            this.getState();
             this.addInput();
             this.addInput();
         }
@@ -52,9 +50,20 @@ export class AddAlternativeComponent implements OnInit {
             for (let alternative of nonEmptyAlternatives) {
                 inputAlternative.push(new Alternative(alternative.alternativeName));
             }
-            this.alternativeService.addAlternative(inputAlternative).subscribe(res => this.alternatives = res);
+            this.alternativeService.addAlternative(inputAlternative,this.goalId).subscribe(res =>
+              {
+
+                console.log(res);
+                this.router.navigateByUrl('/comparisons/criteria', {state: { goalId: this.goalId}});
+              }
+
+              );
             // DEBUG:
             // console.log(this.alternatives);
+        }
+        getState(){
+          let state = window.history.state;
+          this.goalId = state.goalId;
         }
 
     }
