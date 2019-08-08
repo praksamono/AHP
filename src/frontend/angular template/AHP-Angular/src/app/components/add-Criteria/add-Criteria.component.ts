@@ -12,8 +12,11 @@ import {Criteria} from '../../common/models/Criteria';
 export class AddCriteriaComponent implements OnInit {
 
     Criterias: Criteria[];
-    goalId:number;
-    constructor(private criteriaService: CriteriaService) {
+    goalId: number;
+
+    constructor(
+      private router: Router,
+      private criteriaService: CriteriaService) {
         this.Criterias = [];
     }
     ngOnInit() {
@@ -42,7 +45,14 @@ export class AddCriteriaComponent implements OnInit {
         for (let criterion of nonEmptyCriteria) {
             inputCriteria.push(new Criteria(criterion.CriteriumName));
         }
-        this.criteriaService.addCriteria(inputCriteria).subscribe(res => this.Criterias = res);
+        this.criteriaService.addCriteria(inputCriteria,this.goalId).subscribe(res =>
+          {
+
+            console.log(res);
+            this.router.navigateByUrl('/alternatives', {state: { goalId: this.goalId}});
+          }
+
+          );
         // DEBUG:
         // console.log(this.Criterias);
     }
