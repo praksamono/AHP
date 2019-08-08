@@ -21,6 +21,9 @@ export class GoalService {
     baseurl: string = 'http://ahpsimulator.azurewebsites.net/api' ;
 
     goals= '/goals'
+    goalsPaging = '/goals/goals?page=1&pageSize=10'
+    page=1;
+    pageSize=10;
     constructor(private http: HttpClient) {}
 
 
@@ -54,7 +57,7 @@ export class GoalService {
 
 
             GetAllGoals(): Observable<Goal[]> {
-                return this.http.get<Goal[]>(`${this.baseurl}${this.goals}`)
+                return this.http.get<Goal[]>(`${this.baseurl}${this.goalsPaging}`)
                 .pipe(
                     retry(1),
                     catchError(this.errorHandle));

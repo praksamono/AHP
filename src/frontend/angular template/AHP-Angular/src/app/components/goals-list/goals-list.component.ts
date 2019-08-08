@@ -9,7 +9,10 @@ import { Goal } from '../../common/models/goal'
 })
 export class GoalsListComponent implements OnInit {
   goals : Goal[];
-  constructor(public goalService: GoalService) { }
+  constructor(public goalService: GoalService) { 
+    this.goalService.GetAllGoals().subscribe( Response => this.goals = Response);
+    console.log(this.goals);
+  }
 
   ngOnInit() {
   }

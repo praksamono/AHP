@@ -24,11 +24,9 @@ namespace WebAPI
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("{goals}")]
         public async Task<ActionResult<List<GoalDTO>>> GetAllGoalsAsync(int page, int pageSize)
         {
-            page = 1;
-            pageSize = 10;
 
             var allGoals = await _service.GetAllGoalsAsync(page, pageSize);
 
@@ -116,6 +114,7 @@ namespace WebAPI
     {
         public string GoalName { get; set; }
         public Guid Id { get; set; }
+
     }
 
 }
