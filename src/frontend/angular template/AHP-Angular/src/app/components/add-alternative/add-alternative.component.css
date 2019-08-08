@@ -8,7 +8,7 @@ button {
   color: rgb(255, 255, 255);
   width: 13vh;
   font-size: 6.5vh;
-  margin-left:0%;
+  margin-left:47.5%;
 }
 button:disabled{
   color:#4F4F4F;
@@ -44,7 +44,8 @@ button.short#plus {
   color: rgb(255, 255, 255);
   width: 13vh;
   font-size: 6.5vh;
-  margin-left:0%;
+  margin-left:47.5%;
+  margin-bottom: 5%;
   font-size: 7vh;
 }
 .forward:hover{
