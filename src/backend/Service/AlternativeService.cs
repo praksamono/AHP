@@ -88,6 +88,30 @@ namespace AHP.Service
                     return 1; //y is larger than x, return 1 instead because of descending order
             }
         }
+
+        public Task<List<IAlternative>> SortAlternativesByOrder(List<IAlternative> alternativesList)
+        {
+            alternativesList.Sort(CompareAlternativesByOrderAscending);
+            return Task.FromResult(alternativesList);
+        }
+
+        private int CompareAlternativesByOrderAscending(IAlternative x, IAlternative y)
+        {
+            if (x == null)
+            {
+                if (y == null)
+                    return 0; //If x is null and y is null they are equal
+                else
+                    return -1; //If x is null and y is not null, y is larger
+            }
+            else //x is not null
+            {
+                if (x.Order > y.Order)
+                    return 1; //x is larger than y
+                else
+                    return -1; //y is larger than x
+            }
+        }
     }
 
 }

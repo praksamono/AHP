@@ -52,5 +52,29 @@ namespace AHP.Service
         {
            return criteriumRepository.UpdateCriteriumAsync(updatedCriterium);
         }
+
+        public Task<List<ICriterium>> SortCriteriaByOrder(List<ICriterium> criteriaList)
+        {
+            criteriaList.Sort(CompareCriteriaByOrderAscending);
+            return Task.FromResult(criteriaList);
+        }
+
+        private int CompareCriteriaByOrderAscending(ICriterium x, ICriterium y)
+        {
+            if (x == null)
+            {
+                if (y == null)
+                    return 0; //If x is null and y is null they are equal
+                else
+                    return -1; //If x is null and y is not null, y is larger
+            }
+            else //x is not null
+            {
+                if (x.Order > y.Order)
+                    return 1; //x is larger than y
+                else
+                    return -1; //y is larger than x
+            }
+        }
     }
 }
