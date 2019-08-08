@@ -39,6 +39,7 @@ namespace AHP.Service
             foreach (IAlternative alternative in alternatives) //Add order numbers to a finite list of criteria
             {
                 alternative.Order = orderIndex;
+                orderIndex++;
             }
             return alternativeRepository.AddAlternativeListAsync(alternatives, goalId);
         }

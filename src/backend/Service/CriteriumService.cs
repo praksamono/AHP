@@ -29,6 +29,7 @@ namespace AHP.Service
             foreach(ICriterium criterium in criteriumList) //Add order numbers to a finite list of criteria
             {
                 criterium.Order = orderIndex;
+                orderIndex++;
             }
             return criteriumRepository.AddCriteriumListAsync(criteriumList, goalId);
         }
