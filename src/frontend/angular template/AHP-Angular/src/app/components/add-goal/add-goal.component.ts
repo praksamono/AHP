@@ -42,6 +42,8 @@ export class AddGoalComponent implements OnInit {
 
         this.goalService.CreateGoal(this.goal).subscribe(res =>
         {
+
+          console.log(res);
           this.router.navigateByUrl('/criteria', {state: { goalId: res.id}});
         }
 

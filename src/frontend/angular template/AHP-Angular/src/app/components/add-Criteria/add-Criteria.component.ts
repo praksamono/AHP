@@ -50,7 +50,7 @@ export class AddCriteriaComponent implements OnInit {
     getState(){
       let state = window.history.state;
       this.goalId = state.goalId;
-      console.log(this.goalId);
+      console.log(state);
     }
 
 }
