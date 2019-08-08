@@ -21,5 +21,6 @@ namespace Model.Common
 
         IGoal Goal { get; set; }
 
+        int Order { get; set; }
     }
 }

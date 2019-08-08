@@ -21,5 +21,7 @@ namespace DAL
 
         public Guid GoalId { get; set; }
 
+        public int Order { get; set; }
+
     }
 }

@@ -130,6 +130,7 @@ namespace WebAPI
 		public string AlternativeName { get; set; }
         public float GlobalPriority { get; set; }
 		public Guid Id { get; set; }
+        public int Order { get; set; }
 	}
 
 }
