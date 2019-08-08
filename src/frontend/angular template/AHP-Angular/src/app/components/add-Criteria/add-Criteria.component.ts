@@ -12,7 +12,7 @@ import {Criteria} from '../../common/models/Criteria';
 export class AddCriteriaComponent implements OnInit {
 
     Criterias: Criteria[];
-
+    goalId:number;
     constructor(private criteriaService: CriteriaService) {
         this.Criterias = [];
     }
@@ -21,8 +21,10 @@ export class AddCriteriaComponent implements OnInit {
         //   {
         //     this.Criterias=Criterias;
         //   });
+        this.getState();
         this.addInput();
         this.addInput();
+
     }
 
     addInput(): void {
@@ -43,6 +45,12 @@ export class AddCriteriaComponent implements OnInit {
         this.criteriaService.addCriteria(inputCriteria).subscribe(res => this.Criterias = res);
         // DEBUG:
         // console.log(this.Criterias);
+    }
+
+    getState(){
+      let state = window.history.state;
+      this.goalId = state.goalId;
+      console.log(this.goalId);
     }
 
 }
