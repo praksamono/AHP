@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class ComparisonsService {
 
-    baseurl: string = 'http://localhost:7867/api' ;
+    baseurl: string = 'http://ahpsimulator.azurewebsites.net/api' ;
     path= '/criteriumalternatives';
 
     constructor(private http: HttpClient) {}

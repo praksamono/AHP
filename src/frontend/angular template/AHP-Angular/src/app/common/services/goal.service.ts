@@ -17,7 +17,7 @@ const httpOptions = {
 
 export class GoalService {
     // change if needed
-    baseurl: string = 'http://localhost:7867/api' ;
+    baseurl: string = 'http://ahpsimulator.azurewebsites.net/api' ;
     goals= '/goals'
     constructor(private http: HttpClient) {}
 

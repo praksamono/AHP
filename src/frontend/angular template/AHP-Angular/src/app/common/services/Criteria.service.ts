@@ -16,7 +16,7 @@ const httpOptions = {
 })
 export class CriteriaService {
 
-    baseurl:string='http://localhost:7867/api/criteria';
+    baseurl:string='http://ahpsimulator.azurewebsites.net/api/criteria';
     byid='c52eeff9-9ce4-49a8-b40d-5f897b7fd382';
     goalid:number;
 

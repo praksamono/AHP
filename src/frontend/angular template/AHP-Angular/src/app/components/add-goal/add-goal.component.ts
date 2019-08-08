@@ -14,7 +14,7 @@ import { Goal } from '../../common/models/goal';
 export class AddGoalComponent implements OnInit {
 
     // change if needed
-    url = `http://localhost:7867/`;
+    url = `http://ahpsimulator.azurewebsites.net/`;
     // rForm: FormGroup;
     // GoalArr : any=[];
     goal: Goal;
