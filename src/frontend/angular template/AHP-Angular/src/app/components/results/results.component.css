@@ -90,3 +90,32 @@ button:hover{
   color:rgb(247, 246, 250);
   background-color:#4F4F4F;
 }
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+}
+.links {
+  position: relative;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-left: 3vw;
+  margin-top: 5vh;
+}
+img {
+  width: 7vh;
+  height: 7vh;
+  margin: 1.75vh;
+}
