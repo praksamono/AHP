@@ -21,7 +21,7 @@ export class AlternativeService {
     constructor(private http: HttpClient) { }
     //get
     getAlternatives() : Observable<Alternative[]> {
-        return this.http.get<Alternative[]>(`${this.AlternativeUrl}/${this.byid}`);
+        return this.http.get<Alternative[]>(`${this.AlternativeUrl}/${this.goalId}`);
     }
     //toggle completed
     toggleCompleted(alternative: Alternative): Observable<any>{

@@ -63,24 +63,5 @@ export class CriteriaService {
             retry(1),
             catchError(this.errorHandle));
         }
-        //toggle completed
-        /*toggleCompleted(Criteria:Criteria):Observable<any>{
-
-        const url=`${this.CriteriaUrl}/${Criteria.id}`;
-        return this.http.put(url,Criteria,httpOptions);
-    }
-    //DELETE
-    deleteCriteria(Criteria:Criteria):Observable<Criteria>{
-
-    const url=`${this.CriteriaUrl}/${Criteria.id}`;
-    return this.http.delete<Criteria>(url,httpOptions);
-}
-//POST
-
-addCriteria(Criteria:Criteria[]):Observable<Criteria[]>{
-return this.http.post<Criteria[]>(`${this.CriteriaUrl}/${this.byid}`,Criteria,httpOptions);
-}
-*/
-
 
 }

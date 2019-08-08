@@ -30,6 +30,7 @@ import { CriteriaComponent } from './route-components/criteria/criteria.componen
 import { ComparisonsComponent } from './route-components/comparisons/comparisons.component';
 import { AlternativesInterfaceComponent } from './route-components/alternatives-interface/alternatives-interface.component';
 import { ResultsInterfaceComponent } from './route-components/results-interface/results-interface.component';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ResultsInterfaceComponent } from './route-components/results-interface/
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [GoalService, CriteriaService, AlternativeService,ComparisonsService,ResultsService],
   bootstrap: [AppComponent]

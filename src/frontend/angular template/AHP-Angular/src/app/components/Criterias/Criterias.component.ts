@@ -22,11 +22,9 @@ export class CriteriasComponent implements OnInit {
         //   {
         //     this.Criterias=Criterias;
         //   });
-        this.addInput();
-        this.addInput();
     }
 
-    addInput(): void {
+    /*addInput(): void {
         this.Criterias.push(new Criteria);
     }
 
@@ -44,5 +42,5 @@ export class CriteriasComponent implements OnInit {
         // DEBUG:
         // console.log(this.Criterias);
     }
-
+*/
 }

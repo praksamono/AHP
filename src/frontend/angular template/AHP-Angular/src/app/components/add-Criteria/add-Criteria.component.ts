@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {CriteriaService} from '../../common/services/Criteria.service';//Criterias are criteria
 import {Router} from '@angular/router';
 import {Criteria} from '../../common/models/Criteria';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
     selector: 'app-add-Criteria',
@@ -15,19 +16,15 @@ export class AddCriteriaComponent implements OnInit {
     goalId: number;
 
     constructor(
+      private spinnerService: Ng4LoadingSpinnerService,
       private router: Router,
       private criteriaService: CriteriaService) {
         this.Criterias = [];
     }
     ngOnInit() {
-        // this.criteriaService.getCriteria().subscribe(Criterias =>
-        //   {
-        //     this.Criterias=Criterias;
-        //   });
         this.getState();
         this.addInput();
         this.addInput();
-
     }
 
     addInput(): void {
@@ -45,16 +42,17 @@ export class AddCriteriaComponent implements OnInit {
         for (let criterion of nonEmptyCriteria) {
             inputCriteria.push(new Criteria(criterion.CriteriumName));
         }
+        this.spinnerService.show();
         this.criteriaService.addCriteria(inputCriteria,this.goalId).subscribe(res =>
           {
 
             console.log(res);
+            this.spinnerService.hide();
             this.router.navigateByUrl('/alternatives', {state: { goalId: this.goalId}});
           }
 
           );
-        // DEBUG:
-        // console.log(this.Criterias);
+
     }
 
     getState(){

@@ -4,6 +4,7 @@ import {goalinputValidator} from '../../validators/goalvalidator';
 import {GoalService} from '../../common/services/goal.service';
 import {Router} from '@angular/router';
 import { Goal } from '../../common/models/goal';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 @Component({
@@ -15,35 +16,30 @@ export class AddGoalComponent implements OnInit {
 
     // change if needed
     url = `http://ahpsimulator.azurewebsites.net/`;
-    // rForm: FormGroup;
-    // GoalArr : any=[];
     goal: Goal;
 
 
     ngOnInit() {
-        // this.addGoal()
         this.goal = new Goal();
     }
 
     constructor(
-        // private fb: FormBuilder,
-        // private ngZone: NgZone,
+        private spinnerService: Ng4LoadingSpinnerService,
         private router: Router,
         public goalService: GoalService) {
           this.goal=new Goal;
-        // this.rForm = this.createFormGroup();
+
     }
 
     addGoal(){
-        // this.rForm=this.fb.group({
-        //     goalname :['']
-        // })
-        console.log(this.goal.goalname);
 
+        console.log(this.goal.goalname);
+        this.spinnerService.show();
         this.goalService.CreateGoal(this.goal).subscribe(res =>
         {
 
           console.log(res);
+          this.spinnerService.hide();
           this.router.navigateByUrl('/criteria', {state: { goalId: res.id}});
         }
 
