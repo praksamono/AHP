@@ -3,7 +3,7 @@
 </div>
 
 <div class="form" *ngFor="let criterion of Criterias">
-    <input id="criteria" placeholder="Add Criteria" [(ngModel)]="criterion.CriteriumName" />
+    <input id="criteria" placeholder="Add Criteria" [(ngModel)]="criterion.criteriumName" />
 </div>
 
 <div>
@@ -15,6 +15,3 @@
         (click)="saveInputs()">&gt;
     </button>
 </div>
-
-
-

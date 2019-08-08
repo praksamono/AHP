@@ -5,10 +5,11 @@ type Priority={
 export class Criteria{
     id:number;
     goalId:number;
-    CriteriumName:string;
+    criteriumName:string;
     completed:boolean;
+    order: number;
 
     constructor(name?: string) {
-        this.CriteriumName = name;
+        this.criteriumName = name;
     }
 }

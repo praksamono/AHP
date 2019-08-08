@@ -41,14 +41,16 @@ export class AddCriteriaComponent implements OnInit {
 
     saveInputs() {
         let inputCriteria: Criteria[] = [];
-        let nonEmptyCriteria = this.Criterias.filter(criterion => criterion.CriteriumName.length);
+        let nonEmptyCriteria = this.Criterias.filter(criterion => criterion.criteriumName.length);
         for (let criterion of nonEmptyCriteria) {
-            inputCriteria.push(new Criteria(criterion.CriteriumName));
+            inputCriteria.push(new Criteria(criterion.criteriumName));
         }
-        this.criteriaService.addCriteria(inputCriteria,this.goalId).subscribe(res =>
+        // console.log(inputCriteria);
+        this.criteriaService.addCriteria(inputCriteria, this.goalId).subscribe(res =>
           {
 
-            console.log(res);
+            // console.log("Response after post: ");
+            // console.log(res);
             this.router.navigateByUrl('/alternatives', {state: { goalId: this.goalId}});
           }
 

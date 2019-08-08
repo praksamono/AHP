@@ -50,10 +50,8 @@ export class AddAlternativeComponent implements OnInit {
             for (let alternative of nonEmptyAlternatives) {
                 inputAlternative.push(new Alternative(alternative.alternativeName));
             }
-            this.alternativeService.addAlternative(inputAlternative,this.goalId).subscribe(res =>
+            this.alternativeService.addAlternative(inputAlternative,this.goalId).subscribe(() =>
               {
-
-                console.log(res);
                 this.router.navigateByUrl('/comparisons/criteria', {state: { goalId: this.goalId}});
               }
 

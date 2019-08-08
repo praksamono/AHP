@@ -38,64 +38,74 @@ export class SliderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.criteriaService.getCriteria().subscribe(
+        this.getState();
+        this.criteriaService.getCriteria(this.goalId).subscribe(
             res => {
+                // console.log(res);
+                res.sort((a, b) => (a.order > b.order) ? 1 : -1);
                 for (let criterion of res) {
-                    this.criteria.push(criterion.CriteriumName);
+                    // console.log(criterion);
+                    this.criteria.push(criterion.criteriumName);
                     this.criteriaIds.push(criterion.id);
                 }
-            });
 
-        this.alternativeService.getAlternatives().subscribe(
-            res => {
-                for (let alternative of res) {
-                    this.alternatives.push(alternative.alternativeName);
-                }
-            });
+                this.alternativeService.getAlternatives(this.goalId).subscribe(
+                    res => {
+                        res.sort((a, b) => (a.order > b.order) ? 1 : -1);
+                        for (let alternative of res) {
+                            this.alternatives.push(alternative.alternativeName);
+                        }
+                        this.makePairs(this.criteria);
+                        this.values = Array(this.pairs.length).fill(0);
+                    });
+                });
 
-        this.getState();
-        this.makePairs(this.criteria);
-        this.nextCriterion();
-    }
-
-    makePairs(elems: string[]) {
-        this.pairs = [];
-        for (let i = 0; i < elems.length; i++) {
-            for (let j = i+1; j < elems.length; j++) {
-                this.pairs.push([elems[i], elems[j]]);
+                this.nextCriterion();
+                // console.log(this.criteriaIds);
             }
-        }
-    }
 
-    next() {
-        this.setMessage();
-        this.makePairs(this.alternatives);
-        this.post();
-        this.index += 1;
-        this.nextCriterion();
-    }
+            makePairs(elems: string[]) {
+                // console.log(elems);
+                // console.log(elems.length);
+                this.pairs = [];
+                for (let i = 0; i < elems.length; i++) {
+                    for (let j = i+1; j < elems.length; j++) {
+                        this.pairs.push([elems[i], elems[j]]);
+                    }
+                }
+            }
 
-    nextCriterion() {
-        if (this.index !== this.criteria.length) {
-            let currentCriterion = this.criteria[this.index];
-            this.nextRoute = `/comparisons/${currentCriterion}`;
-        } else {
-            this.nextRoute = '/results'
-        }
-    }
+            next() {
+                this.setMessage();
+                this.makePairs(this.alternatives);
+                this.post();
+                this.index++;
+                this.nextCriterion();
+                this.values = Array(this.pairs.length).fill(0);
+            }
 
-    setMessage() {
-        this.message = this.criteria[this.index];
-    }
+            nextCriterion() {
+                if (this.index !== this.criteria.length + 1) {
+                    let currentCriterion = this.criteria[this.index - 1];
+                    this.nextRoute = `/comparisons/${currentCriterion}`;
+                } else {
+                    this.nextRoute = '/results'
+                }
+            }
 
-    post() {
-        if (this.index === 0) {
-            this.criteriaService.updateCriteria(this.values, this.goalId)
-            .subscribe(() => this.router.navigateByUrl(`${this.nextRoute}`, {state: { goalId: this.goalId}})
-            );
-        } else {
-            this.comparisonsService.AddPriority(this.criteriaIds[this.index - 1], this.values)
-            .subscribe(() => this.router.navigateByUrl(`${this.nextRoute}`, {state: { goalId: this.goalId}})
+            setMessage() {
+                this.message = this.criteria[this.index];
+            }
+
+            post() {
+                if (this.index === 0) {
+                    console.log(this.values);
+                    this.criteriaService.updateCriteria(this.values, this.goalId)
+                    .subscribe(() => this.router.navigateByUrl(`${this.nextRoute}`, {state: { goalId: this.goalId}})
+                );
+            } else {
+                this.comparisonsService.AddPriority(this.criteriaIds[this.index - 1], this.values)
+                .subscribe(() => this.router.navigateByUrl(`${this.nextRoute}`, {state: { goalId: this.goalId}})
             );
         }
     }

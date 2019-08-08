@@ -14,7 +14,7 @@ import { Goal } from '../../common/models/goal';
 export class AddGoalComponent implements OnInit {
 
     // change if needed
-    url = `http://ahpsimulator.azurewebsites.net/`;
+    url = `http://localhost:5000/`;
     // rForm: FormGroup;
     // GoalArr : any=[];
     goal: Goal;
@@ -38,7 +38,7 @@ export class AddGoalComponent implements OnInit {
         // this.rForm=this.fb.group({
         //     goalname :['']
         // })
-        console.log(this.goal.goalname);
+        // console.log(this.goal.goalname);
 
         this.goalService.CreateGoal(this.goal).subscribe(res =>
         {

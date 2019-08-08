@@ -6,6 +6,7 @@ export class Alternative{
     alternativeName:string;
     completed:boolean;
     GlobalPriority:Priority;
+    order: number;
 
     constructor(name?: string) {
         this.alternativeName = name;

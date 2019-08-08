@@ -15,7 +15,7 @@ const httpOptions = {
 })
 export class CriteriaService {
 
-    baseurl:string='http://ahpsimulator.azurewebsites.net/api/criteria';
+    baseurl:string='http://localhost:5000/api/criteria';
     goalid:number;
 
 
@@ -34,8 +34,8 @@ export class CriteriaService {
         return throwError(errorMessage);
     }
     //get criteria
-    getCriteria() : Observable<Criteria[]>{
-        return this.http.get<Criteria[]>(`${this.baseurl}/${this.goalid}`);
+    getCriteria(goalId) : Observable<Criteria[]>{
+        return this.http.get<Criteria[]>(`${this.baseurl}/${goalId}`);
     }
     //toggle completed
     toggleCompleted(Criteria:Criteria):Observable<any>{

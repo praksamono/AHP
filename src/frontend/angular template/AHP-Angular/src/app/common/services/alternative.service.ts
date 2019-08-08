@@ -14,14 +14,14 @@ const httpOptions= {
 })
 export class AlternativeService {
     // change if needed
-    AlternativeUrl: string='http://ahpsimulator.azurewebsites.net/api/alternatives';
+    AlternativeUrl: string='http://localhost:5000/api/alternatives';
     goalId:number;
 
 
     constructor(private http: HttpClient) { }
     //get
-    getAlternatives() : Observable<Alternative[]> {
-        return this.http.get<Alternative[]>(`${this.AlternativeUrl}/${this.byid}`);
+    getAlternatives(goalId) : Observable<Alternative[]> {
+        return this.http.get<Alternative[]>(`${this.AlternativeUrl}/${goalId}`);
     }
     //toggle completed
     toggleCompleted(alternative: Alternative): Observable<any>{
