@@ -14,7 +14,7 @@ const httpOptions= {
 })
 export class AlternativeService {
     // change if needed
-    AlternativeUrl: string='http://localhost:5000/api/alternatives';
+    AlternativeUrl: string='http://ahpsimulator.azurewebsites.net/api/alternatives';
     byid="c52eeff9-9ce4-49a8-b40d-5f897b7fd382";
 
 

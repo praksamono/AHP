@@ -36,7 +36,8 @@ export class AddCriteriaComponent implements OnInit {
 
     saveInputs() {
         let inputCriteria: Criteria[] = [];
-        for (let criterion of this.Criterias) {
+        let nonEmptyCriteria = this.Criterias.filter(criterion => criterion.CriteriumName.length);
+        for (let criterion of nonEmptyCriteria) {
             inputCriteria.push(new Criteria(criterion.CriteriumName));
         }
         this.criteriaService.addCriteria(inputCriteria).subscribe(res => this.Criterias = res);

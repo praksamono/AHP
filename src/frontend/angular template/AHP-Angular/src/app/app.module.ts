@@ -25,6 +25,8 @@ import { GoalsListComponent } from './components/goals-list/goals-list.component
 import {GoalService} from './common/services/goal.service';
 import {CriteriaService} from './common/services/Criteria.service';
 import {AlternativeService} from './common/services/alternative.service';
+import {ComparisonsService} from './common/services/comparisons.service';
+import {ResultsService} from './common/services/results.service';
 import { CriteriaComponent } from './route-components/criteria/criteria.component';
 import { ComparisonsComponent } from './route-components/comparisons/comparisons.component';
 import { AlternativesInterfaceComponent } from './route-components/alternatives-interface/alternatives-interface.component';
@@ -59,9 +61,9 @@ import { ResultsInterfaceComponent } from './route-components/results-interface/
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
-  providers: [GoalService, CriteriaService, AlternativeService],
+  providers: [GoalService, CriteriaService, AlternativeService,ComparisonsService,ResultsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

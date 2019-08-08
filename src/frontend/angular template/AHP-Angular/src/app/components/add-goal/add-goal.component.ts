@@ -14,7 +14,7 @@ import { Goal } from '../../common/models/goal';
 export class AddGoalComponent implements OnInit {
 
     // change if needed
-    url = `http://localhost:5000/`;
+    url = `http://ahpsimulator.azurewebsites.net/`;
     // rForm: FormGroup;
     // GoalArr : any=[];
     goal: Goal;
@@ -30,6 +30,7 @@ export class AddGoalComponent implements OnInit {
         // private ngZone: NgZone,
         // private router: Router,
         public goalService: GoalService) {
+          this.goal=new Goal;
         // this.rForm = this.createFormGroup();
     }
 
@@ -37,7 +38,10 @@ export class AddGoalComponent implements OnInit {
         // this.rForm=this.fb.group({
         //     goalname :['']
         // })
-        console.log(this.goal.goalname); this.goalService.CreateGoal(this.goal).subscribe(res => this.GoalIdAfterPost = res.id);
+        console.log(this.goal.goalname);
+
+        this.goalService.CreateGoal(this.goal).subscribe(res => this.GoalIdAfterPost = res.id);
+        console.log(this.GoalIdAfterPost);
 
 
 

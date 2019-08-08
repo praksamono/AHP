@@ -1,15 +1,20 @@
 <div>
-    <h2>Adding Alternative :</h2>
+    <h2 style="padding-top:2%">Add Alternatives:</h2>
 </div>
 <!-- <form action="" class="form" (ngSubmit)="onSubmit()"> -->
-<div class="one" *ngFor="let alternative of alternatives">
+<div class="form" *ngFor="let alternative of alternatives">
     <input type="text" id="alternative" name="AlternativeName" [(ngModel)]="alternative.alternativeName" placeholder="Add Alternative">
 </div>
-<button type="submit" value="Add" class="btn" (click)="addInput()">+</button>
-<div class="navigation">
-    <button class="forward"
-    routerLink="/comparisons/criteria"
-    (click)="saveInputs()">&gt;
-</button>
+
+<div>
+    <button type="submit" value="Add" class="btn" (click)="addInput()">+</button>
 </div>
+
+<div>
+    <button class="forward"
+        routerLink="/comparisons/criteria"
+        (click)="saveInputs()">&gt;
+    </button>
+</div>
+
 <!-- </form> -->

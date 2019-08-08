@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Goal} from '../models/goal';
 import {Observable, throwError} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -14,15 +12,12 @@ const httpOptions = {
 @Injectable({
     providedIn: 'root'
 })
-
-export class GoalService {
-    // change if needed
+export class ComparisonsService {
 
     baseurl: string = 'http://ahpsimulator.azurewebsites.net/api' ;
+    path= '/criteriumalternatives';
 
-    goals= '/goals'
     constructor(private http: HttpClient) {}
-
 
     errorHandle(error) {
         let errorMessage = '';
@@ -37,26 +32,11 @@ export class GoalService {
         return throwError(errorMessage);
     }
     //POST
-    CreateGoal(goal: Goal): Observable<Goal> {
-        return this.http.post<Goal>(`${this.baseurl}${this.goals}`, goal, httpOptions)
+
+    AddPriority(criteriumId: Number,values: Number[]): Observable<any> {
+        return this.http.post<any>(`${this.baseurl}${this.path}/${criteriumId}`, values, httpOptions)
         .pipe(
             retry(1),
             catchError(this.errorHandle));
         }
-        //GET id
-
-        GetGoal(id): Observable<Goal> {
-            return this.http.get<Goal>(`${this.baseurl}${this.goals}`)
-            .pipe(
-                retry(1),
-                catchError(this.errorHandle));
-            }
-
-
-            GetAllGoals(): Observable<Goal[]> {
-                return this.http.get<Goal[]>(`${this.baseurl}${this.goals}`)
-                .pipe(
-                    retry(1),
-                    catchError(this.errorHandle));
-                }
-        }
+    }

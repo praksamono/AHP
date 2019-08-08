@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
-import {AlternativeService} from '../../common/services/alternative.service';//Alternatives are criteria
+import {AlternativeService} from '../../common/services/alternative.service';
 // import {Router} from '@angular/router';
 import {Alternative} from '../../common/models/alternative';
 
@@ -48,7 +48,8 @@ export class AddAlternativeComponent implements OnInit {
 
         saveInputs() {
             let inputAlternative: Alternative[] = [];
-            for (let alternative of this.alternatives) {
+            let nonEmptyAlternatives = this.alternatives.filter(alternative => alternative.alternativeName.length);
+            for (let alternative of nonEmptyAlternatives) {
                 inputAlternative.push(new Alternative(alternative.alternativeName));
             }
             this.alternativeService.addAlternative(inputAlternative).subscribe(res => this.alternatives = res);
