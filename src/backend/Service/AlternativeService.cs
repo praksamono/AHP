@@ -35,6 +35,11 @@ namespace AHP.Service
 
         public Task<List<IAlternative>> AddAlternativeListAsync(List<IAlternative> alternatives, Guid goalId)
         {
+            int orderIndex = 0;
+            foreach (IAlternative alternative in alternatives) //Add order numbers to a finite list of criteria
+            {
+                alternative.Order = orderIndex;
+            }
             return alternativeRepository.AddAlternativeListAsync(alternatives, goalId);
         }
 

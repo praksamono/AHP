@@ -19,8 +19,13 @@ namespace Model
         public DateTime DateUpdated { get; set; }
 
         public List<ICriteriumAlternative> CriteriumAlternatives { get; set; }
+
         public Guid Id { get; set; }
+
         public Guid GoalId { get; set; }
+
         public IGoal Goal { get; set; }
+
+        public int Order { get; set; }
     }
 }
