@@ -15,7 +15,7 @@
     <span class="warning" *ngIf="getIfErrorIsTriggered('maxlength')">Maximum Length is 25 letters!</span>
 </span>
 <button type="submit" [disabled]="getIfErrorIsTriggered('invalidInput')">Add Goal</button>-->
-<button type="submit"  routerLink="criteria"
+<button type="submit"
 (click)="addGoal()">Add Goal</button>
 </div>
 

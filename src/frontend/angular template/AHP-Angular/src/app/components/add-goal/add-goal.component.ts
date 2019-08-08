@@ -18,7 +18,7 @@ export class AddGoalComponent implements OnInit {
     // rForm: FormGroup;
     // GoalArr : any=[];
     goal: Goal;
-    GoalIdAfterPost:number;
+
 
     ngOnInit() {
         // this.addGoal()
@@ -28,7 +28,7 @@ export class AddGoalComponent implements OnInit {
     constructor(
         // private fb: FormBuilder,
         // private ngZone: NgZone,
-        // private router: Router,
+        private router: Router,
         public goalService: GoalService) {
           this.goal=new Goal;
         // this.rForm = this.createFormGroup();
@@ -40,11 +40,14 @@ export class AddGoalComponent implements OnInit {
         // })
         console.log(this.goal.goalname);
 
-        this.goalService.CreateGoal(this.goal).subscribe(res => this.GoalIdAfterPost = res.id);
-        console.log(this.GoalIdAfterPost);
+        this.goalService.CreateGoal(this.goal).subscribe(res =>
+        {
 
+          console.log(res);
+          this.router.navigateByUrl('/criteria', {state: { goalId: res.id}});
+        }
 
-
+        );
 
     }
     // createFormGroup(){
