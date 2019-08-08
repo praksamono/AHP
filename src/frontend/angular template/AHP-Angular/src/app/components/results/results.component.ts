@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Alternative } from '../../common/models/alternative';
 import { ResultsService } from '../../common/services/results.service';
 
@@ -8,15 +10,23 @@ import { ResultsService } from '../../common/services/results.service';
     styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
+    goalId: number;
     results: Alternative[];
 
-    constructor(
-        private resultsService: ResultsService
-    ) {
-    this.resultsService.getAlternatives().subscribe(res => this.results = res);
-    }
+    constructor(private resultsService: ResultsService) { }
 
     ngOnInit() {
+        this.getState();
+        this.getResults();
+    }
+
+    getState() {
+        let state = window.history.state;
+        this.goalId = state.goalId;
+    }
+
+    getResults() {
+        this.resultsService.getAlternatives(this.goalId).subscribe(res => this.results = res);
     }
 
 
