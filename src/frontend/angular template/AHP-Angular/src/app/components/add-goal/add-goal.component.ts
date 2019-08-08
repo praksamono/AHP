@@ -14,11 +14,10 @@ import { Goal } from '../../common/models/goal';
 export class AddGoalComponent implements OnInit {
 
     // change if needed
-    url = `http://localhost:5000/`;
+    url = `http://localhost:5001/`;
     // rForm: FormGroup;
     // GoalArr : any=[];
     goal: Goal;
-    GoalIdAfterPost:number;
 
     ngOnInit() {
         // this.addGoal()
@@ -38,8 +37,7 @@ export class AddGoalComponent implements OnInit {
         //     goalname :['']
         // })
         console.log(this.goal.goalname); 
-        this.goalService.CreateGoal(this.goal).subscribe(res => this.GoalIdAfterPost = res.id);
-        this.router.navigateByUrl('/criteria', {state: { goalId: this.GoalIdAfterPost }});
+        this.goalService.CreateGoal(this.goal).subscribe(res => this.router.navigateByUrl('/criteria', {state: { goalId: res.id }}));
 
     }
     // createFormGroup(){
