@@ -12,7 +12,7 @@ namespace Repository.Common
 
         Task<ICriteriumAlternative> GetCriteriumAlternativeAsync(Guid criteriumAlternativeId);
 
-        Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync();
+        Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync(Guid criteriumId);
 
         Task<bool> DeleteCriteriumAlternativeAsync(Guid criteriumAlternativeId);
     }

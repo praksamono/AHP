@@ -20,5 +20,7 @@ namespace AHP.Service.Common
         Task<bool> UpdateAlternativeAsync(IAlternative updatedAlternative, float valueInCriterium);
 
         Task<bool> DeleteAlternativeAsync(Guid alternativeID);
+
+        Task<List<IAlternative>> SortAlternativesByPriorityAsync(List<IAlternative> alternatives);
     }
 }

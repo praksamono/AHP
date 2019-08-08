@@ -171,5 +171,6 @@ namespace WebAPI
         public float GlobalCriteriumPriority { get; set; }
         public Guid GoalId { get; set; }
         public Guid Id { get; set; }
+        public int Order { get; set; }
     }
 }

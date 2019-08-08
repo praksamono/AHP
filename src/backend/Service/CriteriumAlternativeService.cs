@@ -18,24 +18,24 @@ namespace AHP.Service
             this.criteriumAlternativeRepository = criteriumAlternativeRepository;
         }
 
-        public async Task<ICriteriumAlternative> AddCriteriumAlternativeAsync(ICriteriumAlternative criteriumAlternative)
+        public Task<ICriteriumAlternative> AddCriteriumAlternativeAsync(ICriteriumAlternative criteriumAlternative)
         {
-            return await criteriumAlternativeRepository.AddCriteriumAlternativeAsync(criteriumAlternative);
+            return criteriumAlternativeRepository.AddCriteriumAlternativeAsync(criteriumAlternative);
         }
 
-        public async Task<ICriteriumAlternative> GetCriteriumAlternativeAsync(Guid criteriumAlternativeId)
+        public Task<ICriteriumAlternative> GetCriteriumAlternativeAsync(Guid criteriumAlternativeId)
         {
-            return await criteriumAlternativeRepository.GetCriteriumAlternativeAsync(criteriumAlternativeId);
+            return criteriumAlternativeRepository.GetCriteriumAlternativeAsync(criteriumAlternativeId);
         }
 
-        public async Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync()
+        public Task<List<ICriteriumAlternative>> GetAllCriteriumAlternativeAsync(Guid criteriumId)
         {
-            return await criteriumAlternativeRepository.GetAllCriteriumAlternativeAsync();
+            return criteriumAlternativeRepository.GetAllCriteriumAlternativeAsync(criteriumId);
         }
 
-        public async Task<bool> DeleteCriteriumAlternativeAsync(Guid criteriumAlternativeID)
+        public Task<bool> DeleteCriteriumAlternativeAsync(Guid criteriumAlternativeID)
         {
-            return await criteriumAlternativeRepository.DeleteCriteriumAlternativeAsync(criteriumAlternativeID);
+            return criteriumAlternativeRepository.DeleteCriteriumAlternativeAsync(criteriumAlternativeID);
         }
     }
 }

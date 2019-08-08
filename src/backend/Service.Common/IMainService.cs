@@ -11,10 +11,10 @@ namespace AHP.Service.Common
     {
         Task<float[]> AHPMethod(int[] ComparisonValues, int NumOfElements);
         Task<float[]> CalculatePriorities(float[,] Matrix);
-        Task<float[,]> MatrixInit(int[] ComparisonValues, int NumOfElements);
-        Task<float> MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber);
-        Task<float> MatrixSum(float[,] Matrix, int MatrixSize);
-        Task<float[,]> MatrixSquare(float[,] Matrix, int MatrixSize);
+        Task<float[,]> MatrixInitAsync(int[] ComparisonValues, int NumOfElements);
+        Task<float> MatrixRowSumAsync(float[,] Matrix, int MatrixSize, int RowNumber);
+        Task<float> MatrixSumAsync(float[,] Matrix, int MatrixSize);
+        Task<float[,]> MatrixSquareAsync(float[,] Matrix, int MatrixSize);
 
     }
 }

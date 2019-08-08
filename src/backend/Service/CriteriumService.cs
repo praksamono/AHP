@@ -18,35 +18,39 @@ namespace AHP.Service
             this.criteriumRepository = criteriumRepository;
         }
 
-        public async Task<ICriterium> AddCriteriumAsync(ICriterium criterium, Guid goalId)
+        public Task<ICriterium> AddCriteriumAsync(ICriterium criterium, Guid goalId)
         {
-            return await criteriumRepository.AddCriteriumAsync(criterium, goalId);
+            return criteriumRepository.AddCriteriumAsync(criterium, goalId);
         }
 
-        public async Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList, Guid goalId)
+        public Task<List<ICriterium>> AddCriteriumListAsync(List<ICriterium> criteriumList, Guid goalId)
         {
-            return await criteriumRepository.AddCriteriumListAsync(criteriumList, goalId);
+            int orderIndex = 0; 
+            foreach(ICriterium criterium in criteriumList) //Add order numbers to a finite list of criteria
+            {
+                criterium.Order = orderIndex;
+            }
+            return criteriumRepository.AddCriteriumListAsync(criteriumList, goalId);
         }
 
-        public async Task<bool> DeleteCriteriumAsync(Guid criteriumID)
+        public Task<bool> DeleteCriteriumAsync(Guid criteriumID)
         {
-            await criteriumRepository.DeleteCriteriumAsync(criteriumID);
-            return true;
+            return criteriumRepository.DeleteCriteriumAsync(criteriumID);
         }
 
-        public async Task<List<ICriterium>> GetAllCriteriumsAsync(Guid goalId)
+        public Task<List<ICriterium>> GetAllCriteriumsAsync(Guid goalId)
         {
-            return await criteriumRepository.GetAllCriteriumsAsync(goalId);
+            return criteriumRepository.GetAllCriteriumsAsync(goalId);
         }
 
-        public async Task<ICriterium> GetCriteriumAsync(Guid criteriumID)
+        public Task<ICriterium> GetCriteriumAsync(Guid criteriumID)
         {
-            return await criteriumRepository.GetCriteriumAsync(criteriumID);
+            return criteriumRepository.GetCriteriumAsync(criteriumID);
         }
 
-        public async Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium)
+        public Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium)
         {
-           return await criteriumRepository.UpdateCriteriumAsync(updatedCriterium);
+           return criteriumRepository.UpdateCriteriumAsync(updatedCriterium);
         }
     }
 }

@@ -13,46 +13,34 @@ namespace AHP.Service
     {
         public readonly IGoalRepository goalRepository;
         
-        //Constructors
         public GoalService(IGoalRepository goalRepository)
         {
             this.goalRepository = goalRepository;
         }
 
-        //Methods
-        public async Task<IGoal> AddGoalAsync(IGoal goal)
+        public Task<IGoal> AddGoalAsync(IGoal goal)
         {
-            //add exception handling
-
-            return await goalRepository.AddGoalAsync(goal);
+            return goalRepository.AddGoalAsync(goal);
         }
 
-        public async Task<IGoal> GetGoalAsync(Guid goalID)
+        public Task<IGoal> GetGoalAsync(Guid goalID)
         {
-            //add exception handling
-
-            return await goalRepository.GetGoalAsync(goalID);
+            return goalRepository.GetGoalAsync(goalID);
         }
 
-        public async Task<List<IGoal>> GetAllGoalsAsync(int page, int pageSize)
+        public Task<List<IGoal>> GetAllGoalsAsync(int page, int pageSize)
         {
-            //add exception handling
-
-            return await goalRepository.GetAllGoalsAsync(page, pageSize);
+            return goalRepository.GetAllGoalsAsync(page, pageSize);
         }
 
-        public async Task<bool> UpdateGoalAsync(IGoal updatedGoal)
+        public Task<bool> UpdateGoalAsync(IGoal updatedGoal)
         {
-            //add exception handling
-            await goalRepository.UpdateGoalAsync(updatedGoal);
-            return true;
+            return goalRepository.UpdateGoalAsync(updatedGoal);
         }
 
-        public async Task<bool> DeleteGoalAsync(Guid goalID)
+        public Task<bool> DeleteGoalAsync(Guid goalID)
         {
-            //add exception handling
-
-            return await goalRepository.DeleteGoalAsync(goalID);
+            return goalRepository.DeleteGoalAsync(goalID);
         }
     }
 }

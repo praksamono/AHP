@@ -29,7 +29,7 @@ namespace WebAPI
         public async Task<ActionResult<AlternativeDTO>> GetResultsAsync(Guid goalId)
         {
             // var criteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
-            var alternatives = await _alternativeService.GetAllAlternativesAsync(goalId);
+            List<IAlternative> alternatives = await _alternativeService.GetAllAlternativesAsync(goalId);
 
             // if (criteria == null)
             // {
@@ -39,6 +39,8 @@ namespace WebAPI
             {
                 return NotFound(new { message = "Alternatives not found." });
             }
+
+            alternatives = await _alternativeService.SortAlternativesByPriorityAsync(alternatives);
 
             return Ok(_mapper.Map<List<IAlternative>, List<AlternativeDTO>>(alternatives));
         }

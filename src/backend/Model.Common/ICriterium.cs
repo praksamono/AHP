@@ -20,5 +20,7 @@ namespace Model.Common
         Guid GoalId { get; set; }
 
         IGoal Goal { get; set; }
+
+        int Order { get; set; }
     }
 }

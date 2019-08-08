@@ -16,7 +16,7 @@ namespace AHP.Service
 
         public async Task<float[]> AHPMethod(int[] ComparisonValues, int NumOfElements)
         {
-            float[,] Matrix = await MatrixInit(ComparisonValues, NumOfElements);
+            float[,] Matrix = await MatrixInitAsync(ComparisonValues, NumOfElements);
             float[] NormalisedVector = await CalculatePriorities(Matrix);
 
             return NormalisedVector;
@@ -28,17 +28,17 @@ namespace AHP.Service
         {
             int MatrixSize = Matrix.GetLength(0); //Gets the length of the first dimension in the matrix, since the matrix is always square it does not matter which dimension's length we take
 
-            await MatrixSquare(Matrix, MatrixSize);
-            await MatrixSquare(Matrix, MatrixSize); //Square the matrix twice for more precision((?) - Expensive operation)
+            await MatrixSquareAsync(Matrix, MatrixSize);
+            await MatrixSquareAsync(Matrix, MatrixSize); //Square the matrix twice for more precision((?) - Expensive operation)
 
-            float matrixSum = await MatrixSum(Matrix, MatrixSize); //Calculate the matrix sum for normalisation
+            float MatrixSum = await MatrixSumAsync(Matrix, MatrixSize); //Calculate the matrix sum for normalisation
 
             //Normalised vector
             float[] NormalisedVector = new float[MatrixSize];
 
             for (int i = 0; i < MatrixSize; i++)
             {
-                NormalisedVector[i] = await MatrixRowSum(Matrix, MatrixSize, i) / matrixSum;
+                NormalisedVector[i] = await MatrixRowSumAsync(Matrix, MatrixSize, i) / MatrixSum;
             }
 
             return NormalisedVector;
@@ -50,7 +50,7 @@ namespace AHP.Service
         ///'left' priority and are mapped as |2n-1|. Positive values are mapped as 2n+1 to get the full range of values [1, 9] used in AHP.</param>
         ///<returns>2D array of floats that is the calculation matrix for future calculations.</returns>
         #region MatrixOperations
-        public async Task<float[,]> MatrixInit(int[] ComparisonValues, int NumOfElements)
+        public Task<float[,]> MatrixInitAsync(int[] ComparisonValues, int NumOfElements)
         {
             int MatrixSize = NumOfElements;
             float[,] Matrix = new float[MatrixSize, MatrixSize];
@@ -82,11 +82,11 @@ namespace AHP.Service
 
             }
 
-            return Matrix;
+            return Task.FromResult(Matrix);
         }
 
         ///<summary>Sums up the elements in the RowNumber row of a Matrix</summary>
-        public async Task<float> MatrixRowSum(float[,] Matrix, int MatrixSize, int RowNumber)
+        public async Task<float> MatrixRowSumAsync(float[,] Matrix, int MatrixSize, int RowNumber)
         {
             float sum = 0;
             for (int i = 0; i < MatrixSize; i++)
@@ -99,7 +99,7 @@ namespace AHP.Service
 
         ///<summary>Sums up all the elements of a matrix. It only traverses the upper triangle of a matrix since we know the matrix has a property of reciprocal values.</summary>
         ///<returns>Float representing the sum of all matrix elements</returns>
-        public async Task<float> MatrixSum(float[,] Matrix, int MatrixSize)
+        public Task<float> MatrixSumAsync(float[,] Matrix, int MatrixSize)
         {
             float sum = 0f;
 
@@ -115,12 +115,12 @@ namespace AHP.Service
                     sum += Matrix[i,j];
                 }
             }
-            return sum;
+            return Task.FromResult(sum);
         }
 
         ///<summary>Squares a quadratic matrix</summary>
         ///<param name="Matrix">2D array of floats passed by reference</param>
-        public async Task<float[,]> MatrixSquare(float[,] Matrix, int MatrixSize)
+        public Task<float[,]> MatrixSquareAsync(float[,] Matrix, int MatrixSize)
         {
             float[,] MatrixCopy = new float[MatrixSize, MatrixSize];
 
@@ -150,7 +150,7 @@ namespace AHP.Service
                 }
             }
 
-            return Matrix;
+            return Task.FromResult(Matrix);
         }
         #endregion
 

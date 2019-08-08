@@ -27,6 +27,13 @@ namespace WebAPI
             _mapper = mapper;
         }
 
+        [HttpGet("{goalId}")]
+        public async Task<ActionResult<CriteriumAlternativeDTO>> GetCriteriumAlternativesAsync(Guid criteriumId)
+        {
+            List<ICriteriumAlternative> criteriumAlternatives = await _criteriumAlternativeService.GetAllCriteriumAlternativeAsync(criteriumId);
+            return Ok(_mapper.Map<List<ICriteriumAlternative>, List<AlternativeDTO>>(criteriumAlternatives));
+        }
+
         [HttpPost("{criteriumId}")]
         public async Task<ActionResult<CriteriumAlternativeDTO>> SendValuesAsync([FromBody]int[] values, Guid criteriumId)
         {
