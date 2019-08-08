@@ -84,6 +84,7 @@ namespace WebAPI
             }
 
             var allCriteria = await _criteriumService.GetAllCriteriumsAsync(goalId);
+            await _criteriumService.SortCriteriaByOrder(allCriteria); //Sort criteria by order
             var mappedCriteria = _mapper.Map<List<CriteriumDTO>>(allCriteria);
 
             float[] priorities = await _mainService.AHPMethod(comparisons, allCriteria.Count);

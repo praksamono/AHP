@@ -20,5 +20,7 @@ namespace AHP.Service.Common
         Task<ICriterium> GetCriteriumAsync(Guid criteriumID);
 
         Task<bool> UpdateCriteriumAsync(ICriterium updatedCriterium);
+
+        Task<List<ICriterium>> SortCriteriaByOrder(List<ICriterium> criteriaList);
     }
 }

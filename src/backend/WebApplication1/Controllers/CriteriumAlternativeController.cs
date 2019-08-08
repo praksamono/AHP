@@ -56,6 +56,7 @@ namespace WebAPI
             criteriumAlternative.CriteriumId = criteriumId;
             //Fetch list of alternatives connected to the current goal
             List<IAlternative> alternativesList = await _alternativeService.GetAllAlternativesAsync(criteriumAlternative.criterium.GoalId);
+            await _alternativeService.SortAlternativesByOrder(alternativesList); //Sort alternatives by order
             //Calculate priorities using AHP
             float[] priorities = await _mainService.AHPMethod(values, alternativesList.Count);
 
