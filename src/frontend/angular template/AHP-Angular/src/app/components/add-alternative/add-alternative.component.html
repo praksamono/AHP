@@ -6,12 +6,15 @@
     <input type="text" id="alternative" name="AlternativeName" [(ngModel)]="alternative.alternativeName" placeholder="Add Alternative">
 </div>
 
-<div><button type="submit" value="Add" class="btn" (click)="addInput()">+</button></div>
-
-<div class="form">
-    <button class="forward"
-    routerLink="/comparisons/criteria"
-    (click)="saveInputs()">&gt;
-</button>
+<div>
+    <button type="submit" value="Add" class="btn" (click)="addInput()">+</button>
 </div>
+
+<div>
+    <button class="forward"
+        routerLink="/comparisons/criteria"
+        (click)="saveInputs()">&gt;
+    </button>
+</div>
+
 <!-- </form> -->

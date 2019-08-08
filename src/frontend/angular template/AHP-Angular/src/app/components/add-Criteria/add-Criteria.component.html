@@ -6,11 +6,16 @@
     <input id="criteria" placeholder="Add Criteria" [(ngModel)]="criterion.CriteriumName" />
 </div>
 
-<div class="form"><button type="submit" class="btn" (click)="addInput()">+</button></div>
-
-<div class="form">
-    <button class="forward"
-    routerLink="/alternatives"
-    (click)="saveInputs()">&gt;
-</button>
+<div>
+    <button type="submit" class="btn" (click)="addInput()">+</button>
 </div>
+
+<div>
+    <button class="forward"
+        routerLink="/alternatives"
+        (click)="saveInputs()">&gt;
+    </button>
+</div>
+
+
+

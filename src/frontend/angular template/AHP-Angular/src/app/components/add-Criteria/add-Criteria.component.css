@@ -33,7 +33,8 @@ button.long {
   color: rgb(255, 255, 255);
   width: 13vh;
   font-size: 6.5vh;
-  margin-left:0%;
+  margin-left: 47.5%; /*Hardcoded*/
+  margin-bottom: 5%;
   font-size: 7vh;
 }
 .forward:hover{
@@ -49,6 +50,7 @@ button.long {
   font-size: 8vh;
   position: relative;
   margin-bottom: 10vh;
+  margin-left: 47.5%; /*Hardcoded*/
 }
 .btn:hover{
   color:rgb(247, 246, 250);
