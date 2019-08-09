@@ -33,11 +33,16 @@ export class ResultsComponent implements OnInit {
     getResults() {
         this.resultsService.getAlternatives(this.goalId).subscribe(
             res => {
-                res.sort((a, b) => (a.GlobalPriority > b.GlobalPriority) ? 1 : -1);
+                res.sort((a, b) => (a.globalPriority < b.globalPriority) ? 1 : -1);
+                for (let alt of res) {
+                    alt.globalPriority = parseFloat(alt.globalPriority.toFixed(3));
+                }
+
                 // TODO: skontaj zasto je this.results undefined nakon ove metode
+                // console.log(res);
                 this.results = res;
                 this.topResult = this.results[0];
-                document.getElementById('top-result').innerHTML = this.topResult.alternativeName;
+                // document.getElementById('top-result').innerHTML = this.topResult.alternativeName;
             });
     }
 

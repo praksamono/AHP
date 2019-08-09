@@ -5,7 +5,7 @@ export class Alternative{
     AlternativeId:number;
     alternativeName:string;
     completed:boolean;
-    GlobalPriority:Priority;
+    globalPriority:number;
     order: number;
 
     constructor(name?: string) {
