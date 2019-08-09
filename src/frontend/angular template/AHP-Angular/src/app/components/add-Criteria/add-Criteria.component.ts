@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {CriteriaService} from '../../common/services/Criteria.service';//Criterias are criteria
 import {Router} from '@angular/router';
 import {Criteria} from '../../common/models/Criteria';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
     selector: 'app-add-Criteria',
@@ -15,6 +16,7 @@ export class AddCriteriaComponent implements OnInit {
     goalId: number;
 
     constructor(
+      private spinnerService: Ng4LoadingSpinnerService,
       private router: Router,
       private criteriaService: CriteriaService) {
         this.Criterias = [];
@@ -46,11 +48,13 @@ export class AddCriteriaComponent implements OnInit {
             inputCriteria.push(new Criteria(criterion.criteriumName));
         }
         // console.log(inputCriteria);
+        this.spinnerService.show();
         this.criteriaService.addCriteria(inputCriteria, this.goalId).subscribe(res =>
           {
 
             // console.log("Response after post: ");
             // console.log(res);
+            this.spinnerService.hide();
             this.router.navigateByUrl('/alternatives', {state: { goalId: this.goalId}});
           }
 

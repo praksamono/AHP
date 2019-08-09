@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AlternativeService} from '../../common/services/alternative.service';
 import {Router} from '@angular/router';
 import {Alternative} from '../../common/models/alternative';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
     selector: 'app-add-alternative',
@@ -15,6 +16,7 @@ export class AddAlternativeComponent implements OnInit {
     goalId:number;
 
     constructor(
+      private spinnerService: Ng4LoadingSpinnerService,
       private router: Router,
       public alternativeService: AlternativeService) {
             this.alternatives = [];
@@ -50,8 +52,10 @@ export class AddAlternativeComponent implements OnInit {
             for (let alternative of nonEmptyAlternatives) {
                 inputAlternative.push(new Alternative(alternative.alternativeName));
             }
+            this.spinnerService.show();
             this.alternativeService.addAlternative(inputAlternative,this.goalId).subscribe(() =>
               {
+                this.spinnerService.hide();
                 this.router.navigateByUrl('/comparisons/criteria', {state: { goalId: this.goalId}});
               }
 

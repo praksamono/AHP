@@ -4,6 +4,7 @@ import {goalinputValidator} from '../../validators/goalvalidator';
 import {GoalService} from '../../common/services/goal.service';
 import {Router} from '@angular/router';
 import { Goal } from '../../common/models/goal';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class AddGoalComponent implements OnInit {
     constructor(
         // private fb: FormBuilder,
         // private ngZone: NgZone,
+        private spinnerService: Ng4LoadingSpinnerService, 
         private router: Router,
         public goalService: GoalService) {
           this.goal=new Goal;
@@ -39,11 +41,12 @@ export class AddGoalComponent implements OnInit {
         //     goalname :['']
         // })
         // console.log(this.goal.goalname);
-
+        this.spinnerService.show();
         this.goalService.CreateGoal(this.goal).subscribe(res =>
         {
 
           console.log(res);
+          this.spinnerService.hide();
           this.router.navigateByUrl('/criteria', {state: { goalId: res.id}});
         }
 
